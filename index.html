@@ -1,329 +1,736 @@
-import React, { useEffect, useMemo, useState } from 'react'; import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card'; import { Button } from '@/components/ui/button'; import { Progress } from '@/components/ui/progress'; import { Badge } from '@/components/ui/badge'; import { Checkbox } from '@/components/ui/checkbox'; import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'; import { Textarea } from '@/components/ui/textarea'; import { Input } from '@/components/ui/input'; import { ScrollArea } from '@/components/ui/scroll-area'; import { Flame, Brain, Mountain, Footprints, ShieldCheck, CheckCircle2, Lock, PlayCircle, Camera, Target, Wind, HeartHandshake, Sunrise, Trophy, Sparkles, ChevronRight, Dumbbell, Waves, MoonStar, CalendarDays, BookOpen, Timer, Swords, Activity, Download, Upload, Home, BarChart3, Compass, Star, Zap } from 'lucide-react';
-
-const STORAGE_KEY = 'shaolin-path-v2';
-
-const dayNames = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
-
-const phases = [ { id: 'phase-1', title: 'Phase 1 — Foundation', weeks: [1, 8], summary: 'Build breathing control, posture, discipline, and daily consistency.', focus: ['Walking meditation', 'Qigong basics', 'Horse stance', 'Bow stance', 'Push-ups', 'Standing meditation'] }, { id: 'phase-2', title: 'Phase 2 — Structure', weeks: [9, 16], summary: 'Deepen the stances, add kick foundations, core work, and balance.', focus: ['Cat stance', 'Front kick', 'Stance transitions', 'Core work', 'Longer holds'] }, { id: 'phase-3', title: 'Phase 3 — Power', weeks: [17, 26], summary: 'Generate controlled power through stepping, striking, and explosive bodyweight drills.', focus: ['Step and strike', 'Explosive push-ups', 'Punch volume', 'Kick combinations', 'Mobility under speed'] }, { id: 'phase-4', title: 'Phase 4 — Warrior Discipline', weeks: [27, 39], summary: 'Train emotional control, fatigue resistance, and calm under pressure.', focus: ['Long stance holds', 'Breath under load', 'Fatigue rounds', 'Discipline challenges'] }, { id: 'phase-5', title: 'Phase 5 — Flow and Integration', weeks: [40, 52], summary: 'Blend movement, discipline, strength, and Qigong into one continuous system.', focus: ['Sequences', 'Flow drills', 'Longer sessions', 'Refined technique', 'Mastery review'] } ];
-
-const affirmations = [ 'Observe. Do not react.', 'Discipline beats mood.', 'Control first, power second.', 'A calm mind is a strong mind.', 'Stay rooted. Stay honest. Stay consistent.' ];
-
-const focusPrompts = [ 'Did I stay calm during discomfort?', 'Did I control my breath under effort?', 'Did my movement stay clean when I got tired?', 'Was I honest when ticking completion?', 'Did I train with intent rather than just going through the motions?' ];
-
-const dailyWalkPrompts = [ 'Inhale for 4 seconds through the nose.', 'Exhale for 6 seconds through the nose.', 'Shift awareness to sounds around you.', 'Shift awareness to your feet touching the ground.', 'Observe thoughts without following them.' ];
-
-function getPhaseByWeek(week) { return phases.find((phase) => week >= phase.weeks[0] && week <= phase.weeks[1]) || phases[0]; }
-
-function getProgression(week) { const horseHold = Math.min(30 + (week - 1) * 5, 300); const bowHold = Math.min(20 + Math.floor((week - 1) * 2.5), 120); const catHold = week >= 9 ? Math.min(15 + (week - 9) * 2, 90) : 0; const pushups = Math.min(8 + Math.floor((week - 1) * 1.3), 45); const punches = Math.min(20 + (week - 1) * 5, 200); const kicks = week >= 9 ? Math.min(6 + Math.floor((week - 9) * 1.2), 30) : 0; const plank = Math.min(20 + (week - 1) * 4, 180); const standingMeditation = Math.min(3 + Math.floor((week - 1) / 3), 10); return { horseHold, bowHold, catHold, pushups, punches, kicks, plank, standingMeditation }; }
-
-function getDayType(index) { const types = ['Foundation', 'Power', 'Structure', 'Recovery', 'Discipline', 'Flow', 'Reflection']; return types[index % types.length]; }
-
-function buildMissionForWeek(week, dayIndex) { const progression = getProgression(week); const phase = getPhaseByWeek(week); const dayType = getDayType(dayIndex); const base = { walk: '20–25 min dog walk + walking meditation', qigong: '5 min Qigong activation', standingMeditation: ${progression.standingMeditation} min standing meditation, };
-
-const dayTemplates = { Foundation: [ Horse stance ${progression.horseHold}s × 3, Bow stance ${progression.bowHold}s each side × 3, Straight punches ${progression.punches} total, Push-ups ${progression.pushups} × 3 sets, Plank ${progression.plank}s × 2 ], Power: [ Horse stance ${Math.max(progression.horseHold - 10, 30)}s × 2, Straight punches ${progression.punches + 10} total, week >= 9 ? Front kicks ${progression.kicks} each leg × 3 : 'Front-kick prep drill 8 each leg × 2', Explosive push-ups ${Math.max(Math.floor(progression.pushups * 0.6), 6)} × 3, Plank ${progression.plank}s × 2 ], Structure: [ Horse stance ${progression.horseHold}s × 3, Bow stance ${progression.bowHold}s each side × 3, week >= 9 ? Cat stance ${progression.catHold}s each side × 3 : 'Balance hold 20s each side × 3', 'Stance transition drill × 10 rounds', 'Slow punch technique drill × 20 reps' ], Recovery: [ 'Extended Qigong 8–10 min', Horse stance ${Math.max(progression.horseHold - 20, 20)}s × 2, 'Mobility flow 5 min', Light push-ups ${Math.max(Math.floor(progression.pushups * 0.5), 5)} × 2, ${Math.max(progression.standingMeditation, 5)} min standing meditation ], Discipline: [ Horse stance ${progression.horseHold + 10}s × 3, Bow stance ${progression.bowHold}s each side × 2, Push-ups ${progression.pushups} × 3, Plank ${progression.plank + 10}s × 2, 'Use “observe, do not react” through all discomfort' ], Flow: [ 'Qigong to stance flow 6 min', 'Step + punch drill × 20 reps × 3', week >= 9 ? Front kicks ${progression.kicks} each leg × 2 : 'Knee lift balance drill × 10 each side', Push-ups ${Math.max(progression.pushups - 2, 6)} × 3, ${progression.standingMeditation} min standing meditation ], Reflection: [ 'Long easy dog walk focus session', 'Qigong 10 min', 'Technique review of 2 key movements', 'Short bodyweight maintenance circuit', 'Longer journal and reflection review' ] };
-
-return { week, dayIndex, dayName: dayNames[dayIndex], phase, dayType, base, tasks: dayTemplates[dayType], progression }; }
-
-function buildYearPlan() { const weeks = []; for (let week = 1; week <= 52; week++) { const phase = getPhaseByWeek(week); const days = []; for (let i = 0; i < 7; i++) days.push(buildMissionForWeek(week, i)); weeks.push({ week, phase, title: Week ${week}, objective: phase.summary, focus: phase.focus, days }); } return weeks; }
-
-const yearPlan = buildYearPlan();
-
-const modules = [ { id: 'mind-walk', title: 'Walking Mind Discipline', area: 'Mindset', icon: Brain, mission: 'Turn the 4:30 AM dog walk into moving meditation and emotional control training.', looks: 'Breath stays steady, shoulders stay relaxed, and attention returns calmly when thoughts drift.', feels: 'Calm, present, less mentally noisy.', mistakes: ['Rushing', 'Mind wandering without reset', 'Mouth breathing without control'], standards: ['Nasal breathing where practical', '4 in / 6 out breath rhythm for at least 10 minutes', 'Attention rotation completed', 'Finish the walk mentally calmer than the start'], cues: ['Calm mind', 'Calm breath', 'Calm body'] }, { id: 'qigong', title: 'Qigong Activation', area: 'Breath & Energy', icon: Wind, mission: 'Wake the body without agitation and prepare for hard training.', looks: 'Smooth movement, low shoulders, controlled breathing, no rush.', feels: 'Warm, open, awake, centered.', mistakes: ['Shrugging', 'Rushing reps', 'Moving without breathing in sync'], standards: ['Raise Hands to the Sky × 10', 'Drawing the Bow × 8 each side', 'Heaven and Earth Stretch × 10', 'No rushed reps'], cues: ['Smooth body', 'Low shoulders', 'Breath follows movement'] }, { id: 'horse-stance', title: 'Horse Stance — Ma Bu', area: 'Structure', icon: Mountain, mission: 'Build the legs, posture, and willpower that underpin the entire system.', looks: 'Knees out, chest lifted, spine tall, weight even, face calm.', feels: 'Leg burn without panic; stable, rooted, and mentally still.', mistakes: ['Knees collapsing in', 'Leaning forward', 'Holding breath', 'Escaping the discomfort'], standards: ['3 rounds completed', 'Depth held honestly', 'Breathing stayed under control', 'Posture did not collapse'], cues: ['Root the feet', 'Lift the chest', 'Observe, do not react'] }, { id: 'bow-punch', title: 'Bow Stance + Straight Punch', area: 'Power', icon: Target, mission: 'Build calm striking power from proper structure.', looks: 'Stable base, clean fist path, hips involved, no wild motion.', feels: 'Whole body works as one chain rather than arm-only effort.', mistakes: ['Arm punching', 'Elbows flaring', 'Wrist collapse', 'Power without control'], standards: ['Bow stance holds done', 'Punch volume completed', 'Exhale on strikes', 'Technique stayed clean'], cues: ['Set the base', 'Turn the hips', 'Strike with calm intent'] }, { id: 'kick-control', title: 'Front Kick Control', area: 'Balance & Power', icon: Footprints, mission: 'Develop balance, hip control, and disciplined kicking mechanics.', looks: 'Tall torso, stable support leg, clean lift and controlled return.', feels: 'Strong and balanced, not wild.', mistakes: ['Throwing the leg', 'Leaning back too much', 'Dropping guard carelessly'], standards: ['Reps completed each side', 'Controlled return', 'No excessive leaning', 'Balance mostly maintained'], cues: ['Lift with control', 'Return with control', 'Stay tall'] }, { id: 'standing-meditation', title: 'Standing Meditation', area: 'Recovery & Control', icon: ShieldCheck, mission: 'Finish with command over mind, breath, and posture.', looks: 'Still body, low breath, relaxed jaw, shoulders down.', feels: 'Grounded and in charge of yourself.', mistakes: ['Fidgeting', 'Chest-only breathing', 'Rushing to finish'], standards: ['Time completed', 'Breath pattern followed', 'Stillness maintained', 'Journal reflection done'], cues: ['Stand tall', 'Breathe low', 'Finish with command'] } ];
-
-function getAllKeysFromWeek(week) { const mission = buildMissionForWeek(week, 0); return [ ${week}-walk, ${week}-qigong, ${week}-stance, ${week}-power, ${week}-strength, ${week}-meditation ]; }
-
-function percent(num, denom) { return denom ? Math.round((num / denom) * 100) : 0; }
-
-function getCurrentWeek(progressWeeks) { for (let i = 1; i <= 52; i++) if (!progressWeeks[week-${i}]) return i; return 52; }
-
-function getMissionCards(week, dayIndex) { const mission = buildMissionForWeek(week, dayIndex); return [ { id: ${week}-${dayIndex}-walk, title: 'Dog Walk Mind Training', detail: mission.base.walk, icon: Sunrise }, { id: ${week}-${dayIndex}-qigong, title: 'Qigong Activation', detail: mission.base.qigong, icon: Wind }, { id: ${week}-${dayIndex}-stance, title: 'Structure Block', detail: mission.tasks[0] + ' • ' + mission.tasks[1], icon: Mountain }, { id: ${week}-${dayIndex}-power, title: 'Martial Block', detail: mission.tasks[2], icon: Target }, { id: ${week}-${dayIndex}-strength, title: 'Strength Block', detail: mission.tasks[3], icon: Dumbbell }, { id: ${week}-${dayIndex}-meditation, title: 'Finish', detail: mission.tasks[4] || mission.base.standingMeditation, icon: MoonStar } ]; }
-
-export default function ShaolinPathSystem() { const [selectedWeek, setSelectedWeek] = useState(1); const [selectedDay, setSelectedDay] = useState(0); const [missionChecks, setMissionChecks] = useState({}); const [weekChecks, setWeekChecks] = useState({}); const [notes, setNotes] = useState({}); const [evidence, setEvidence] = useState({}); const [scores, setScores] = useState({ discipline: 8, calm: 7, effort: 8, control: 7 }); const [streak, setStreak] = useState(0); const [tab, setTab] = useState('today');
-
-useEffect(() => { const saved = localStorage.getItem(STORAGE_KEY); if (saved) { try { const parsed = JSON.parse(saved); setSelectedWeek(parsed.selectedWeek || 1); setSelectedDay(parsed.selectedDay || 0); setMissionChecks(parsed.missionChecks || {}); setWeekChecks(parsed.weekChecks || {}); setNotes(parsed.notes || {}); setEvidence(parsed.evidence || {}); setScores(parsed.scores || { discipline: 8, calm: 7, effort: 8, control: 7 }); setStreak(parsed.streak || 0); setTab(parsed.tab || 'today'); } catch (e) { console.error(e); } } }, []);
-
-useEffect(() => { localStorage.setItem(STORAGE_KEY, JSON.stringify({ selectedWeek, selectedDay, missionChecks, weekChecks, notes, evidence, scores, streak, tab })); }, [selectedWeek, selectedDay, missionChecks, weekChecks, notes, evidence, scores, streak, tab]);
-
-const currentWeek = useMemo(() => getCurrentWeek(weekChecks), [weekChecks]); const weekData = yearPlan[selectedWeek - 1]; const currentDayData = weekData.days[selectedDay]; const currentMissionCards = getMissionCards(selectedWeek, selectedDay); const dayCompletedCount = currentMissionCards.filter((card) => missionChecks[card.id]).length; const dayProgress = percent(dayCompletedCount, currentMissionCards.length); const completedWeeks = Object.values(weekChecks).filter(Boolean).length; const yearProgress = percent(completedWeeks, 52); const phase = getPhaseByWeek(selectedWeek); const currentAffirmation = affirmations[(selectedWeek + selectedDay) % affirmations.length];
-
-const completeWeekIfReady = () => { const allDaysComplete = weekData.days.every((_, dayIndex) => getMissionCards(selectedWeek, dayIndex).every((card) => missionChecks[card.id])); if (allDaysComplete) { setWeekChecks((prev) => ({ ...prev, [week-${selectedWeek}]: true })); setStreak((s) => s + 1); if (selectedWeek < 52) setSelectedWeek(selectedWeek + 1); setSelectedDay(0); } };
-
-const resetAll = () => { setSelectedWeek(1); setSelectedDay(0); setMissionChecks({}); setWeekChecks({}); setNotes({}); setEvidence({}); setScores({ discipline: 8, calm: 7, effort: 8, control: 7 }); setStreak(0); };
-
-const exportBackup = () => { const blob = new Blob([JSON.stringify({ selectedWeek, selectedDay, missionChecks, weekChecks, notes, evidence, scores, streak, tab }, null, 2)], { type: 'application/json' }); const url = URL.createObjectURL(blob); const a = document.createElement('a'); a.href = url; a.download = 'shaolin-path-system-backup.json'; a.click(); URL.revokeObjectURL(url); };
-
-return ( <div className="min-h-screen bg-gradient-to-b from-zinc-100 via-white to-zinc-50 pb-24"> <div className="mx-auto max-w-7xl p-4 md:p-6 space-y-5"> <Card className="rounded-3xl border-none shadow-lg overflow-hidden"> <div className="bg-zinc-950 text-white p-5 md:p-6"> <div className="flex flex-col gap-4 md:flex-row md:items-start md:justify-between"> <div> <div className="flex items-center gap-2 text-sm text-zinc-300"><Sparkles className="h-4 w-4" /> Full-year local-first training system</div> <h1 className="mt-2 text-3xl md:text-4xl font-semibold">Shaolin Path</h1> <p className="mt-2 max-w-2xl text-sm md:text-base text-zinc-300">A phone-first Shaolin training app built for daily use, year-long progression, mindset discipline, fitness, muscle gain, and ongoing mastery.</p> </div> <div className="rounded-2xl border border-zinc-800 bg-zinc-900 px-4 py-3 min-w-52"> <div className="text-xs uppercase tracking-wide text-zinc-400">Current track</div> <div className="mt-1 text-lg font-semibold">Week {selectedWeek} • {currentDayData.dayName}</div> <div className="text-sm text-zinc-300">{phase.title}</div> </div> </div> <div className="grid gap-3 mt-5 sm:grid-cols-2 xl:grid-cols-5"> <Card className="rounded-2xl border-zinc-800 bg-zinc-900 text-white shadow-none"><CardContent className="p-4"><div className="text-xs text-zinc-400 uppercase">Year progress</div><div className="text-2xl font-semibold mt-1">{yearProgress}%</div><Progress className="mt-3" value={yearProgress} /></CardContent></Card> <Card className="rounded-2xl border-zinc-800 bg-zinc-900 text-white shadow-none"><CardContent className="p-4"><div className="text-xs text-zinc-400 uppercase">Day progress</div><div className="text-2xl font-semibold mt-1">{dayProgress}%</div><Progress className="mt-3" value={dayProgress} /></CardContent></Card> <Card className="rounded-2xl border-zinc-800 bg-zinc-900 text-white shadow-none"><CardContent className="p-4"><div className="text-xs text-zinc-400 uppercase">Completed weeks</div><div className="text-2xl font-semibold mt-1">{completedWeeks}/52</div></CardContent></Card> <Card className="rounded-2xl border-zinc-800 bg-zinc-900 text-white shadow-none"><CardContent className="p-4"><div className="text-xs text-zinc-400 uppercase">Streak</div><div className="text-2xl font-semibold mt-1">{streak}</div></CardContent></Card> <Card className="rounded-2xl border-zinc-800 bg-zinc-900 text-white shadow-none"><CardContent className="p-4"><div className="text-xs text-zinc-400 uppercase">Mantra</div><div className="text-sm font-semibold mt-2">{currentAffirmation}</div></CardContent></Card> </div> </div> </Card>
-
-<Tabs value={tab} onValueChange={setTab} className="space-y-4">
-      <TabsList className="grid grid-cols-6 rounded-2xl w-full">
-        <TabsTrigger value="today">Today</TabsTrigger>
-        <TabsTrigger value="year">Year Plan</TabsTrigger>
-        <TabsTrigger value="library">Library</TabsTrigger>
-        <TabsTrigger value="progress">Progress</TabsTrigger>
-        <TabsTrigger value="journal">Journal</TabsTrigger>
-        <TabsTrigger value="howto">How To Use</TabsTrigger>
-      </TabsList>
-
-      <TabsContent value="today" className="space-y-4">
-        <div className="grid gap-4 lg:grid-cols-[1fr_340px]">
-          <div className="space-y-4">
-            <Card className="rounded-3xl shadow-lg">
-              <CardHeader>
-                <div className="flex items-start justify-between gap-3">
-                  <div>
-                    <CardTitle>Today’s Mission</CardTitle>
-                    <CardDescription>{currentDayData.dayName} • {currentDayData.dayType} day • Week {selectedWeek}</CardDescription>
-                  </div>
-                  <Badge variant="outline">{phase.title}</Badge>
-                </div>
-              </CardHeader>
-              <CardContent className="space-y-3">
-                {currentMissionCards.map((card) => {
-                  const Icon = card.icon;
-                  return (
-                    <div key={card.id} className="rounded-2xl border p-4 flex items-start gap-3">
-                      <Checkbox checked={!!missionChecks[card.id]} onCheckedChange={(v) => setMissionChecks((prev) => ({ ...prev, [card.id]: !!v }))} />
-                      <div className="flex-1 min-w-0">
-                        <div className="flex items-center gap-2 font-medium"><Icon className="h-4 w-4" /> {card.title}</div>
-                        <div className="text-sm text-zinc-600 mt-1">{card.detail}</div>
-                      </div>
-                    </div>
-                  );
-                })}
-                <div className="flex flex-wrap gap-2 pt-2">
-                  <Button onClick={completeWeekIfReady}>Check if week is complete</Button>
-                  <Button variant="outline" onClick={() => setSelectedDay((d) => (d < 6 ? d + 1 : 6))}>Next day</Button>
-                  <Button variant="outline" onClick={() => setSelectedDay((d) => (d > 0 ? d - 1 : 0))}>Previous day</Button>
-                </div>
-              </CardContent>
-            </Card>
-
-            <Card className="rounded-3xl shadow-lg">
-              <CardHeader>
-                <CardTitle>Week Objective</CardTitle>
-                <CardDescription>{weekData.objective}</CardDescription>
-              </CardHeader>
-              <CardContent className="grid gap-3 md:grid-cols-2">
-                {weekData.focus.map((item) => (
-                  <div key={item} className="rounded-2xl border p-3 text-sm text-zinc-700">{item}</div>
-                ))}
-              </CardContent>
-            </Card>
-          </div>
-
-          <div className="space-y-4">
-            <Card className="rounded-3xl shadow-lg">
-              <CardHeader>
-                <CardTitle>Dog Walk Mind Script</CardTitle>
-                <CardDescription>Use while walking at 4:30 AM</CardDescription>
-              </CardHeader>
-              <CardContent className="space-y-2 text-sm text-zinc-700">
-                {dailyWalkPrompts.map((prompt) => <div key={prompt}>• {prompt}</div>)}
-              </CardContent>
-            </Card>
-
-            <Card className="rounded-3xl shadow-lg">
-              <CardHeader>
-                <CardTitle>Today’s State Check</CardTitle>
-                <CardDescription>Score yourself honestly</CardDescription>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                {Object.entries(scores).map(([key, value]) => (
-                  <div key={key}>
-                    <div className="mb-2 flex justify-between text-sm"><span className="capitalize">{key}</span><span className="font-semibold">{value}/10</span></div>
-                    <input type="range" min="1" max="10" value={value} onChange={(e) => setScores((prev) => ({ ...prev, [key]: Number(e.target.value) }))} className="w-full" />
-                  </div>
-                ))}
-              </CardContent>
-            </Card>
-
-            <Card className="rounded-3xl shadow-lg">
-              <CardHeader>
-                <CardTitle>Quick Tools</CardTitle>
-              </CardHeader>
-              <CardContent className="flex flex-wrap gap-2">
-                <Button variant="outline" onClick={exportBackup}><Download className="h-4 w-4 mr-2" />Export</Button>
-                <Button variant="outline" onClick={resetAll}>Reset</Button>
-              </CardContent>
-            </Card>
+<!DOCTYPE html><html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Shaolin Path</title>
+  <style>
+    :root {
+      --bg: #f5f7fb;
+      --card: #ffffff;
+      --text: #121826;
+      --muted: #5f6b7a;
+      --line: #d8dee8;
+      --dark: #0f172a;
+      --dark2: #111827;
+      --accent: #1f6feb;
+      --accent2: #16a34a;
+      --warn: #b45309;
+      --radius: 18px;
+      --shadow: 0 10px 30px rgba(15, 23, 42, 0.08);
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      background: linear-gradient(180deg, #eef2f7 0%, #f8fafc 100%);
+      color: var(--text);
+    }
+    .wrap {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 14px;
+    }
+    .hero {
+      background: linear-gradient(135deg, var(--dark) 0%, var(--dark2) 100%);
+      color: white;
+      border-radius: 24px;
+      padding: 18px;
+      box-shadow: var(--shadow);
+    }
+    .hero-grid, .stats-grid, .main-grid, .year-grid, .progress-grid, .how-grid, .library-grid {
+      display: grid;
+      gap: 14px;
+    }
+    .hero-grid { grid-template-columns: 1.3fr 0.7fr; }
+    .stats-grid { grid-template-columns: repeat(5, 1fr); margin-top: 14px; }
+    .main-grid { grid-template-columns: 1fr 320px; margin-top: 14px; }
+    .year-grid { grid-template-columns: 320px 1fr; }
+    .progress-grid { grid-template-columns: 1fr 320px; }
+    .how-grid { grid-template-columns: repeat(3, 1fr); }
+    .library-grid { grid-template-columns: repeat(3, 1fr); }
+    @media (max-width: 900px) {
+      .hero-grid, .stats-grid, .main-grid, .year-grid, .progress-grid, .how-grid, .library-grid { grid-template-columns: 1fr; }
+    }
+    .card {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+    .card.dark {
+      background: rgba(255,255,255,0.05);
+      border-color: rgba(255,255,255,0.12);
+      color: white;
+      box-shadow: none;
+    }
+    .card h2, .card h3, .card h4, .hero h1, .hero h2, .hero h3 { margin: 0; }
+    .card-body, .card-head { padding: 14px; }
+    .muted { color: var(--muted); }
+    .hero .muted { color: #cbd5e1; }
+    .title { font-size: 30px; font-weight: 800; margin-top: 6px; }
+    .pill {
+      display: inline-flex; align-items: center; gap: 8px;
+      border: 1px solid var(--line); border-radius: 999px; padding: 6px 10px; font-size: 12px;
+      background: #fff;
+    }
+    .pill.dark { background: rgba(255,255,255,0.08); color: #fff; border-color: rgba(255,255,255,0.12); }
+    .track {
+      width: 100%; height: 10px; background: #e5e7eb; border-radius: 999px; overflow: hidden;
+    }
+    .track > span {
+      display: block; height: 100%; background: linear-gradient(90deg, var(--accent) 0%, #60a5fa 100%);
+      width: 0%;
+    }
+    .tabs {
+      display: grid; grid-template-columns: repeat(6, 1fr); gap: 8px; margin: 14px 0;
+    }
+    @media (max-width: 900px) {
+      .tabs { grid-template-columns: repeat(3, 1fr); }
+    }
+    .tab-btn, .btn, .week-btn, .day-btn {
+      appearance: none; border: 1px solid var(--line); background: white; color: var(--text);
+      border-radius: 14px; padding: 10px 12px; font-weight: 600; cursor: pointer;
+    }
+    .tab-btn.active, .week-btn.active, .day-btn.active { background: #e8f0fe; border-color: #8ab4f8; }
+    .btn.primary { background: var(--accent); color: white; border-color: var(--accent); }
+    .btn.success { background: var(--accent2); color: white; border-color: var(--accent2); }
+    .btn.warn { background: #fff7ed; color: var(--warn); border-color: #fdba74; }
+    .btn-row { display: flex; flex-wrap: wrap; gap: 8px; }
+    .hidden { display: none !important; }
+    .check-item {
+      display: grid; grid-template-columns: 26px 1fr; gap: 10px; align-items: start;
+      padding: 12px; border: 1px solid var(--line); border-radius: 16px; background: white;
+    }
+    .check-item input { width: 18px; height: 18px; margin-top: 2px; }
+    .list { display: grid; gap: 10px; }
+    .week-list { max-height: 70vh; overflow: auto; }
+    .week-btn { width: 100%; text-align: left; }
+    .mini { font-size: 12px; }
+    .big { font-size: 28px; font-weight: 800; }
+    .split { display: flex; justify-content: space-between; align-items: start; gap: 10px; }
+    .kpi-grid { display: grid; gap: 12px; grid-template-columns: repeat(4, 1fr); }
+    @media (max-width: 900px) { .kpi-grid { grid-template-columns: repeat(2, 1fr); } }
+    textarea, input[type="text"] {
+      width: 100%; border: 1px solid var(--line); border-radius: 14px; padding: 12px; font: inherit; background: white;
+    }
+    textarea { min-height: 220px; resize: vertical; }
+    .slider-row { margin-bottom: 14px; }
+    input[type="range"] { width: 100%; }
+    .note {
+      border: 1px dashed #94a3b8; background: #f8fafc; border-radius: 16px; padding: 12px; color: var(--muted);
+    }
+    .section-title { font-size: 20px; font-weight: 800; }
+    .grid2 { display: grid; gap: 14px; grid-template-columns: 1fr 1fr; }
+    @media (max-width: 900px) { .grid2 { grid-template-columns: 1fr; } }
+    .badge { display: inline-block; padding: 5px 10px; border-radius: 999px; background: #eff6ff; color: #1d4ed8; font-size: 12px; font-weight: 700; }
+    .foot-space { height: 36px; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="hero">
+      <div class="hero-grid">
+        <div>
+          <div class="muted">Full-year local-first training system</div>
+          <div class="title">Shaolin Path</div>
+          <p class="muted">A phone-first Shaolin training app built for daily use, year-long progression, mindset discipline, fitness, muscle gain, and ongoing mastery.</p>
+        </div>
+        <div class="card dark">
+          <div class="card-body">
+            <div class="mini muted">Current track</div>
+            <div id="currentTrack" style="font-size:20px;font-weight:800;margin-top:6px;"></div>
+            <div id="currentPhaseLabel" class="muted" style="margin-top:4px;"></div>
           </div>
         </div>
-      </TabsContent>
-
-      <TabsContent value="year" className="space-y-4">
-        <div className="grid gap-4 lg:grid-cols-[320px_1fr]">
-          <Card className="rounded-3xl shadow-lg">
-            <CardHeader>
-              <CardTitle>52-Week Roadmap</CardTitle>
-              <CardDescription>Phone-friendly full-year system</CardDescription>
-            </CardHeader>
-            <CardContent className="space-y-2 max-h-[70vh] overflow-auto">
-              {yearPlan.map((week) => (
-                <button key={week.week} onClick={() => setSelectedWeek(week.week)} className={`w-full rounded-2xl border p-3 text-left ${selectedWeek === week.week ? 'bg-zinc-100 border-zinc-900' : 'bg-white'}`}>
-                  <div className="flex items-center justify-between gap-2">
-                    <div>
-                      <div className="font-medium">Week {week.week}</div>
-                      <div className="text-xs text-zinc-500">{week.phase.title}</div>
-                    </div>
-                    {weekChecks[`week-${week.week}`] ? <CheckCircle2 className="h-4 w-4" /> : week.week === currentWeek ? <Star className="h-4 w-4" /> : <ChevronRight className="h-4 w-4" />}
-                  </div>
-                </button>
-              ))}
-            </CardContent>
-          </Card>
-
-          <Card className="rounded-3xl shadow-lg">
-            <CardHeader>
-              <div className="flex items-start justify-between gap-3">
-                <div>
-                  <CardTitle>{weekData.title}</CardTitle>
-                  <CardDescription>{weekData.phase.title}</CardDescription>
-                </div>
-                <Badge variant="outline">{weekChecks[`week-${selectedWeek}`] ? 'Completed' : 'In progress'}</Badge>
-              </div>
-            </CardHeader>
-            <CardContent className="space-y-4">
-              <div className="rounded-2xl border p-4 text-sm text-zinc-700">{weekData.objective}</div>
-              <div className="grid gap-3 md:grid-cols-2 xl:grid-cols-3">
-                {weekData.days.map((day, idx) => (
-                  <button key={idx} onClick={() => { setSelectedDay(idx); setTab('today'); }} className="rounded-2xl border p-4 text-left bg-white hover:bg-zinc-50">
-                    <div className="font-medium">{day.dayName}</div>
-                    <div className="text-xs text-zinc-500 mt-1">{day.dayType}</div>
-                    <div className="text-sm text-zinc-700 mt-2">{day.tasks[0]}</div>
-                    <div className="text-xs text-zinc-500 mt-2">Tap to load this day</div>
-                  </button>
-                ))}
-              </div>
-            </CardContent>
-          </Card>
-        </div>
-      </TabsContent>
-
-      <TabsContent value="library" className="space-y-4">
-        <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
-          {modules.map((module) => {
-            const Icon = module.icon;
-            return (
-              <Card key={module.id} className="rounded-3xl shadow-lg">
-                <CardHeader>
-                  <div className="flex items-center gap-2"><Icon className="h-4 w-4" /><CardTitle className="text-lg">{module.title}</CardTitle></div>
-                  <CardDescription>{module.area}</CardDescription>
-                </CardHeader>
-                <CardContent className="space-y-4 text-sm text-zinc-700">
-                  <div>
-                    <div className="font-medium mb-1">Mission</div>
-                    <div>{module.mission}</div>
-                  </div>
-                  <div>
-                    <div className="font-medium mb-1">Looks right when...</div>
-                    <div>{module.looks}</div>
-                  </div>
-                  <div>
-                    <div className="font-medium mb-1">Feels right when...</div>
-                    <div>{module.feels}</div>
-                  </div>
-                  <div>
-                    <div className="font-medium mb-1">Primary cues</div>
-                    {module.cues.map((cue) => <div key={cue}>• {cue}</div>)}
-                  </div>
-                  <div>
-                    <div className="font-medium mb-1">Common mistakes</div>
-                    {module.mistakes.map((m) => <div key={m}>• {m}</div>)}
-                  </div>
-                  <div>
-                    <div className="font-medium mb-1">Pass standard</div>
-                    {module.standards.map((s) => <div key={s}>• {s}</div>)}
-                  </div>
-                  <div className="rounded-2xl border border-dashed p-4 text-zinc-500">
-                    Training media placeholder — this is where your photos, video links, or clip references go.
-                  </div>
-                </CardContent>
-              </Card>
-            );
-          })}
-        </div>
-      </TabsContent>
-
-      <TabsContent value="progress" className="space-y-4">
-        <div className="grid gap-4 lg:grid-cols-[1fr_360px]">
-          <Card className="rounded-3xl shadow-lg">
-            <CardHeader>
-              <CardTitle>Core Progression Targets</CardTitle>
-              <CardDescription>These scale automatically across the year</CardDescription>
-            </CardHeader>
-            <CardContent className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
-              {Object.entries(getProgression(selectedWeek)).map(([key, value]) => (
-                <div key={key} className="rounded-2xl border p-4">
-                  <div className="text-xs uppercase text-zinc-500">{key}</div>
-                  <div className="text-2xl font-semibold mt-1">{value}</div>
-                </div>
-              ))}
-            </CardContent>
-          </Card>
-
-          <Card className="rounded-3xl shadow-lg">
-            <CardHeader>
-              <CardTitle>Reflection Checklist</CardTitle>
-              <CardDescription>Use after training</CardDescription>
-            </CardHeader>
-            <CardContent className="space-y-3 text-sm text-zinc-700">
-              {focusPrompts.map((prompt) => <div key={prompt} className="rounded-2xl border p-3">{prompt}</div>)}
-            </CardContent>
-          </Card>
-        </div>
-      </TabsContent>
-
-      <TabsContent value="journal" className="space-y-4">
-        <div className="grid gap-4 lg:grid-cols-[1fr_360px]">
-          <Card className="rounded-3xl shadow-lg">
-            <CardHeader>
-              <CardTitle>Training Journal</CardTitle>
-              <CardDescription>Write what really happened</CardDescription>
-            </CardHeader>
-            <CardContent>
-              <Textarea value={notes[`week-${selectedWeek}-day-${selectedDay}`] || ''} onChange={(e) => setNotes((prev) => ({ ...prev, [`week-${selectedWeek}-day-${selectedDay}`]: e.target.value }))} className="min-h-[260px] rounded-2xl" placeholder="How did the session feel? Did you stay calm? What looked strong? What broke down?" />
-            </CardContent>
-          </Card>
-          <Card className="rounded-3xl shadow-lg">
-            <CardHeader>
-              <CardTitle>Evidence Log</CardTitle>
-              <CardDescription>Track clip location or notes</CardDescription>
-            </CardHeader>
-            <CardContent className="space-y-3">
-              <Input value={evidence[`week-${selectedWeek}-day-${selectedDay}`] || ''} onChange={(e) => setEvidence((prev) => ({ ...prev, [`week-${selectedWeek}-day-${selectedDay}`]: e.target.value }))} placeholder="Example: Recorded on phone / Google Photos album / clip filename" />
-              <div className="rounded-2xl border border-dashed p-4 text-sm text-zinc-500">Later this can become true upload and review. For the free version, use it as a clip and photo tracker.</div>
-            </CardContent>
-          </Card>
-        </div>
-      </TabsContent>
-
-      <TabsContent value="howto" className="space-y-4">
-        <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
-          <Card className="rounded-3xl shadow-lg"><CardHeader><div className="flex items-center gap-2"><Home className="h-4 w-4" /><CardTitle className="text-lg">1. Open the app each morning</CardTitle></div></CardHeader><CardContent className="text-sm text-zinc-700">Use the Today tab first. It shows the exact mission for the selected week and day. Tick each block as you finish it.</CardContent></Card>
-          <Card className="rounded-3xl shadow-lg"><CardHeader><div className="flex items-center gap-2"><CalendarDays className="h-4 w-4" /><CardTitle className="text-lg">2. Follow the week roadmap</CardTitle></div></CardHeader><CardContent className="text-sm text-zinc-700">The Year Plan tab holds the full 52-week system. Tap any week, then tap any day to load it into Today.</CardContent></Card>
-          <Card className="rounded-3xl shadow-lg"><CardHeader><div className="flex items-center gap-2"><BookOpen className="h-4 w-4" /><CardTitle className="text-lg">3. Use the library</CardTitle></div></CardHeader><CardContent className="text-sm text-zinc-700">The Library tab explains each core skill: what it should look like, feel like, common mistakes, and what counts as a pass.</CardContent></Card>
-          <Card className="rounded-3xl shadow-lg"><CardHeader><div className="flex items-center gap-2"><BarChart3 className="h-4 w-4" /><CardTitle className="text-lg">4. Review your progress</CardTitle></div></CardHeader><CardContent className="text-sm text-zinc-700">The Progress tab shows the physical targets for the current week and gives you reflection prompts to stay honest.</CardContent></Card>
-          <Card className="rounded-3xl shadow-lg"><CardHeader><div className="flex items-center gap-2"><Upload className="h-4 w-4" /><CardTitle className="text-lg">5. Log evidence and notes</CardTitle></div></CardHeader><CardContent className="text-sm text-zinc-700">After training, use Journal to note how the session felt and where your clip or photo evidence is stored.</CardContent></Card>
-          <Card className="rounded-3xl shadow-lg"><CardHeader><div className="flex items-center gap-2"><Compass className="h-4 w-4" /><CardTitle className="text-lg">6. Install on your phone</CardTitle></div></CardHeader><CardContent className="text-sm text-zinc-700">Open it in Chrome on Android, tap the browser menu, then choose Add to Home Screen so it behaves like an app.</CardContent></Card>
-        </div>
-
-        <Card className="rounded-3xl shadow-lg">
-          <CardHeader>
-            <CardTitle>Phone-first testing workflow</CardTitle>
-            <CardDescription>Best way to start testing this immediately</CardDescription>
-          </CardHeader>
-          <CardContent className="grid gap-3 md:grid-cols-2 text-sm text-zinc-700">
-            <div className="rounded-2xl border p-3">Start on Week 1, Monday.</div>
-            <div className="rounded-2xl border p-3">Use Today every morning after the dog walk.</div>
-            <div className="rounded-2xl border p-3">Only tick items you genuinely completed properly.</div>
-            <div className="rounded-2xl border p-3">Use Journal every day for 1–2 lines of honest feedback.</div>
-            <div className="rounded-2xl border p-3">Store a short clip on your phone for any movement you want to review later.</div>
-            <div className="rounded-2xl border p-3">At the end of each week, mark it complete only if all days were done.</div>
-          </CardContent>
-        </Card>
-      </TabsContent>
-    </Tabs>
-  </div>
+      </div>
+      <div class="stats-grid">
+        <div class="card dark"><div class="card-body"><div class="mini muted">Year progress</div><div id="yearProgressNum" class="big">0%</div><div class="track"><span id="yearProgressBar"></span></div></div></div>
+        <div class="card dark"><div class="card-body"><div class="mini muted">Day progress</div><div id="dayProgressNum" class="big">0%</div><div class="track"><span id="dayProgressBar"></span></div></div></div>
+        <div class="card dark"><div class="card-body"><div class="mini muted">Completed weeks</div><div id="completedWeeksNum" class="big">0/52</div></div></div>
+        <div class="card dark"><div class="card-body"><div class="mini muted">Streak</div><div id="streakNum" class="big">0</div></div></div>
+        <div class="card dark"><div class="card-body"><div class="mini muted">Mantra</div><div id="mantraText" style="font-weight:800;margin-top:8px;"></div></div></div>
+      </div>
+    </div><div class="tabs">
+  <button class="tab-btn active" data-tab="today">Today</button>
+  <button class="tab-btn" data-tab="year">Year Plan</button>
+  <button class="tab-btn" data-tab="library">Library</button>
+  <button class="tab-btn" data-tab="progress">Progress</button>
+  <button class="tab-btn" data-tab="journal">Journal</button>
+  <button class="tab-btn" data-tab="howto">How To Use</button>
 </div>
 
-); }
+<section id="tab-today">
+  <div class="main-grid">
+    <div class="list">
+      <div class="card">
+        <div class="card-head split">
+          <div>
+            <div class="section-title">Today’s Mission</div>
+            <div id="todaySubtitle" class="muted"></div>
+          </div>
+          <div class="badge" id="todayPhaseBadge"></div>
+        </div>
+        <div class="card-body">
+          <div id="missionList" class="list"></div>
+          <div class="btn-row" style="margin-top:12px;">
+            <button id="weekCompleteBtn" class="btn success">Check if week is complete</button>
+            <button id="prevDayBtn" class="btn">Previous day</button>
+            <button id="nextDayBtn" class="btn">Next day</button>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-head">
+          <div class="section-title">Week Objective</div>
+          <div id="weekObjective" class="muted"></div>
+        </div>
+        <div class="card-body">
+          <div id="weekFocusList" class="grid2"></div>
+        </div>
+      </div>
+    </div>
+    <div class="list">
+      <div class="card">
+        <div class="card-head">
+          <div class="section-title">Dog Walk Mind Script</div>
+          <div class="muted">Use while walking at 4:30 AM</div>
+        </div>
+        <div class="card-body"><div id="walkPromptList" class="list"></div></div>
+      </div>
+      <div class="card">
+        <div class="card-head">
+          <div class="section-title">Today’s State Check</div>
+          <div class="muted">Score yourself honestly</div>
+        </div>
+        <div class="card-body" id="scoreSliders"></div>
+      </div>
+      <div class="card">
+        <div class="card-head"><div class="section-title">Quick Tools</div></div>
+        <div class="card-body btn-row">
+          <button id="exportBtn" class="btn">Export</button>
+          <button id="importBtn" class="btn">Import</button>
+          <input id="importFile" type="file" accept="application/json" class="hidden" />
+          <button id="resetBtn" class="btn warn">Reset</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="tab-year" class="hidden">
+  <div class="year-grid">
+    <div class="card">
+      <div class="card-head">
+        <div class="section-title">52-Week Roadmap</div>
+        <div class="muted">Phone-friendly full-year system</div>
+      </div>
+      <div class="card-body week-list" id="weekList"></div>
+    </div>
+    <div class="card">
+      <div class="card-head split">
+        <div>
+          <div id="yearWeekTitle" class="section-title"></div>
+          <div id="yearWeekPhase" class="muted"></div>
+        </div>
+        <div id="yearWeekStatus" class="badge"></div>
+      </div>
+      <div class="card-body">
+        <div id="yearWeekObjective" class="note"></div>
+        <div style="height:12px"></div>
+        <div id="dayCards" class="grid2"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="tab-library" class="hidden">
+  <div id="libraryGrid" class="library-grid"></div>
+</section>
+
+<section id="tab-progress" class="hidden">
+  <div class="progress-grid">
+    <div class="card">
+      <div class="card-head">
+        <div class="section-title">Core Progression Targets</div>
+        <div class="muted">These scale automatically across the year</div>
+      </div>
+      <div class="card-body">
+        <div id="progressGrid" class="kpi-grid"></div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-head">
+        <div class="section-title">Reflection Checklist</div>
+        <div class="muted">Use after training</div>
+      </div>
+      <div class="card-body" id="focusPromptList"></div>
+    </div>
+  </div>
+</section>
+
+<section id="tab-journal" class="hidden">
+  <div class="progress-grid">
+    <div class="card">
+      <div class="card-head">
+        <div class="section-title">Training Journal</div>
+        <div class="muted">Write what really happened</div>
+      </div>
+      <div class="card-body">
+        <textarea id="journalBox" placeholder="How did the session feel? Did you stay calm? What looked strong? What broke down?"></textarea>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-head">
+        <div class="section-title">Evidence Log</div>
+        <div class="muted">Track clip location or notes</div>
+      </div>
+      <div class="card-body">
+        <input id="evidenceBox" type="text" placeholder="Example: Recorded on phone / Google Photos album / clip filename" />
+        <div style="height:12px"></div>
+        <div class="note">Later this can become true upload and review. For the free version, use it as a clip and photo tracker.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="tab-howto" class="hidden">
+  <div class="how-grid" id="howGrid"></div>
+  <div style="height:14px"></div>
+  <div class="card">
+    <div class="card-head">
+      <div class="section-title">Phone-first testing workflow</div>
+      <div class="muted">Best way to start testing this immediately</div>
+    </div>
+    <div class="card-body">
+      <div id="testFlowGrid" class="grid2"></div>
+    </div>
+  </div>
+</section>
+
+<div class="foot-space"></div>
+
+  </div>  <script>
+    const STORAGE_KEY = 'shaolin-path-static-v1';
+    const dayNames = ['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday'];
+    const affirmations = [
+      'Observe. Do not react.',
+      'Discipline beats mood.',
+      'Control first, power second.',
+      'A calm mind is a strong mind.',
+      'Stay rooted. Stay honest. Stay consistent.'
+    ];
+    const focusPrompts = [
+      'Did I stay calm during discomfort?',
+      'Did I control my breath under effort?',
+      'Did my movement stay clean when I got tired?',
+      'Was I honest when ticking completion?',
+      'Did I train with intent rather than just going through the motions?'
+    ];
+    const dailyWalkPrompts = [
+      'Inhale for 4 seconds through the nose.',
+      'Exhale for 6 seconds through the nose.',
+      'Shift awareness to sounds around you.',
+      'Shift awareness to your feet touching the ground.',
+      'Observe thoughts without following them.'
+    ];
+    const phases = [
+      { id:'phase-1', title:'Phase 1 — Foundation', weeks:[1,8], summary:'Build breathing control, posture, discipline, and daily consistency.', focus:['Walking meditation','Qigong basics','Horse stance','Bow stance','Push-ups','Standing meditation'] },
+      { id:'phase-2', title:'Phase 2 — Structure', weeks:[9,16], summary:'Deepen the stances, add kick foundations, core work, and balance.', focus:['Cat stance','Front kick','Stance transitions','Core work','Longer holds'] },
+      { id:'phase-3', title:'Phase 3 — Power', weeks:[17,26], summary:'Generate controlled power through stepping, striking, and explosive bodyweight drills.', focus:['Step and strike','Explosive push-ups','Punch volume','Kick combinations','Mobility under speed'] },
+      { id:'phase-4', title:'Phase 4 — Warrior Discipline', weeks:[27,39], summary:'Train emotional control, fatigue resistance, and calm under pressure.', focus:['Long stance holds','Breath under load','Fatigue rounds','Discipline challenges'] },
+      { id:'phase-5', title:'Phase 5 — Flow and Integration', weeks:[40,52], summary:'Blend movement, discipline, strength, and Qigong into one continuous system.', focus:['Sequences','Flow drills','Longer sessions','Refined technique','Mastery review'] }
+    ];
+    const modules = [
+      { title:'Walking Mind Discipline', area:'Mindset', mission:'Turn the 4:30 AM dog walk into moving meditation and emotional control training.', looks:'Breath stays steady, shoulders stay relaxed, and attention returns calmly when thoughts drift.', feels:'Calm, present, less mentally noisy.', cues:['Calm mind','Calm breath','Calm body'], mistakes:['Rushing','Mind wandering without reset','Mouth breathing without control'], standards:['Nasal breathing where practical','4 in / 6 out breath rhythm for at least 10 minutes','Attention rotation completed','Finish the walk mentally calmer than the start'] },
+      { title:'Qigong Activation', area:'Breath & Energy', mission:'Wake the body without agitation and prepare for hard training.', looks:'Smooth movement, low shoulders, controlled breathing, no rush.', feels:'Warm, open, awake, centered.', cues:['Smooth body','Low shoulders','Breath follows movement'], mistakes:['Shrugging','Rushing reps','Moving without breathing in sync'], standards:['Raise Hands to the Sky × 10','Drawing the Bow × 8 each side','Heaven and Earth Stretch × 10','No rushed reps'] },
+      { title:'Horse Stance — Ma Bu', area:'Structure', mission:'Build the legs, posture, and willpower that underpin the entire system.', looks:'Knees out, chest lifted, spine tall, weight even, face calm.', feels:'Leg burn without panic; stable, rooted, and mentally still.', cues:['Root the feet','Lift the chest','Observe, do not react'], mistakes:['Knees collapsing in','Leaning forward','Holding breath','Escaping the discomfort'], standards:['3 rounds completed','Depth held honestly','Breathing stayed under control','Posture did not collapse'] },
+      { title:'Bow Stance + Straight Punch', area:'Power', mission:'Build calm striking power from proper structure.', looks:'Stable base, clean fist path, hips involved, no wild motion.', feels:'Whole body works as one chain rather than arm-only effort.', cues:['Set the base','Turn the hips','Strike with calm intent'], mistakes:['Arm punching','Elbows flaring','Wrist collapse','Power without control'], standards:['Bow stance holds done','Punch volume completed','Exhale on strikes','Technique stayed clean'] },
+      { title:'Front Kick Control', area:'Balance & Power', mission:'Develop balance, hip control, and disciplined kicking mechanics.', looks:'Tall torso, stable support leg, clean lift and controlled return.', feels:'Strong and balanced, not wild.', cues:['Lift with control','Return with control','Stay tall'], mistakes:['Throwing the leg','Leaning back too much','Dropping guard carelessly'], standards:['Reps completed each side','Controlled return','No excessive leaning','Balance mostly maintained'] },
+      { title:'Standing Meditation', area:'Recovery & Control', mission:'Finish with command over mind, breath, and posture.', looks:'Still body, low breath, relaxed jaw, shoulders down.', feels:'Grounded and in charge of yourself.', cues:['Stand tall','Breathe low','Finish with command'], mistakes:['Fidgeting','Chest-only breathing','Rushing to finish'], standards:['Time completed','Breath pattern followed','Stillness maintained','Journal reflection done'] }
+    ];
+    const howSteps = [
+      ['1. Open the app each morning','Use the Today tab first. It shows the exact mission for the selected week and day. Tick each block as you finish it.'],
+      ['2. Follow the week roadmap','The Year Plan tab holds the full 52-week system. Tap any week, then tap any day to load it into Today.'],
+      ['3. Use the library','The Library tab explains each core skill: what it should look like, feel like, common mistakes, and what counts as a pass.'],
+      ['4. Review your progress','The Progress tab shows the physical targets for the current week and gives you reflection prompts to stay honest.'],
+      ['5. Log evidence and notes','After training, use Journal to note how the session felt and where your clip or photo evidence is stored.'],
+      ['6. Install on your phone','In Chrome on Android, use the browser menu and choose Add to Home Screen.']
+    ];
+    const testFlow = [
+      'Start on Week 1, Monday.',
+      'Use Today every morning after the dog walk.',
+      'Only tick items you genuinely completed properly.',
+      'Use Journal every day for 1–2 lines of honest feedback.',
+      'Store a short clip on your phone for any movement you want to review later.',
+      'At the end of each week, mark it complete only if all days were done.'
+    ];
+
+    const state = {
+      selectedWeek: 1,
+      selectedDay: 0,
+      missionChecks: {},
+      weekChecks: {},
+      notes: {},
+      evidence: {},
+      scores: { discipline:8, calm:7, effort:8, control:7 },
+      streak: 0,
+      activeTab: 'today'
+    };
+
+    function saveState() { localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); }
+    function loadState() {
+      const raw = localStorage.getItem(STORAGE_KEY);
+      if (!raw) return;
+      try { Object.assign(state, JSON.parse(raw)); } catch (e) { console.error(e); }
+    }
+    function getPhaseByWeek(week) { return phases.find(p => week >= p.weeks[0] && week <= p.weeks[1]) || phases[0]; }
+    function getProgression(week) {
+      return {
+        horseHold: Math.min(30 + (week - 1) * 5, 300),
+        bowHold: Math.min(20 + Math.floor((week - 1) * 2.5), 120),
+        catHold: week >= 9 ? Math.min(15 + (week - 9) * 2, 90) : 0,
+        pushups: Math.min(8 + Math.floor((week - 1) * 1.3), 45),
+        punches: Math.min(20 + (week - 1) * 5, 200),
+        kicks: week >= 9 ? Math.min(6 + Math.floor((week - 9) * 1.2), 30) : 0,
+        plank: Math.min(20 + (week - 1) * 4, 180),
+        standingMeditation: Math.min(3 + Math.floor((week - 1) / 3), 10)
+      };
+    }
+    function getDayType(index) { return ['Foundation','Power','Structure','Recovery','Discipline','Flow','Reflection'][index % 7]; }
+    function buildMissionForWeek(week, dayIndex) {
+      const p = getProgression(week);
+      const phase = getPhaseByWeek(week);
+      const dayType = getDayType(dayIndex);
+      const dayTemplates = {
+        Foundation: [
+          `Horse stance ${p.horseHold}s × 3`,
+          `Bow stance ${p.bowHold}s each side × 3`,
+          `Straight punches ${p.punches} total`,
+          `Push-ups ${p.pushups} × 3 sets`,
+          `Plank ${p.plank}s × 2`
+        ],
+        Power: [
+          `Horse stance ${Math.max(p.horseHold - 10, 30)}s × 2`,
+          `Straight punches ${p.punches + 10} total`,
+          week >= 9 ? `Front kicks ${p.kicks} each leg × 3` : 'Front-kick prep drill 8 each leg × 2',
+          `Explosive push-ups ${Math.max(Math.floor(p.pushups * 0.6), 6)} × 3`,
+          `Plank ${p.plank}s × 2`
+        ],
+        Structure: [
+          `Horse stance ${p.horseHold}s × 3`,
+          `Bow stance ${p.bowHold}s each side × 3`,
+          week >= 9 ? `Cat stance ${p.catHold}s each side × 3` : 'Balance hold 20s each side × 3',
+          'Stance transition drill × 10 rounds',
+          'Slow punch technique drill × 20 reps'
+        ],
+        Recovery: [
+          'Extended Qigong 8–10 min',
+          `Horse stance ${Math.max(p.horseHold - 20, 20)}s × 2`,
+          'Mobility flow 5 min',
+          `Light push-ups ${Math.max(Math.floor(p.pushups * 0.5), 5)} × 2`,
+          `${Math.max(p.standingMeditation, 5)} min standing meditation`
+        ],
+        Discipline: [
+          `Horse stance ${p.horseHold + 10}s × 3`,
+          `Bow stance ${p.bowHold}s each side × 2`,
+          `Push-ups ${p.pushups} × 3`,
+          `Plank ${p.plank + 10}s × 2`,
+          'Use “observe, do not react” through all discomfort'
+        ],
+        Flow: [
+          'Qigong to stance flow 6 min',
+          'Step + punch drill × 20 reps × 3',
+          week >= 9 ? `Front kicks ${p.kicks} each leg × 2` : 'Knee lift balance drill × 10 each side',
+          `Push-ups ${Math.max(p.pushups - 2, 6)} × 3`,
+          `${p.standingMeditation} min standing meditation`
+        ],
+        Reflection: [
+          'Long easy dog walk focus session',
+          'Qigong 10 min',
+          'Technique review of 2 key movements',
+          'Short bodyweight maintenance circuit',
+          'Longer journal and reflection review'
+        ]
+      };
+      return {
+        week,
+        dayIndex,
+        dayName: dayNames[dayIndex],
+        phase,
+        dayType,
+        objective: phase.summary,
+        focus: phase.focus,
+        tasks: dayTemplates[dayType],
+        progression: p
+      };
+    }
+    function getMissionCards(week, dayIndex) {
+      const m = buildMissionForWeek(week, dayIndex);
+      return [
+        { id: `${week}-${dayIndex}-walk`, title:'Dog Walk Mind Training', detail:'20–25 min dog walk + walking meditation' },
+        { id: `${week}-${dayIndex}-qigong`, title:'Qigong Activation', detail:'5 min Qigong activation' },
+        { id: `${week}-${dayIndex}-stance`, title:'Structure Block', detail:`${m.tasks[0]} • ${m.tasks[1]}` },
+        { id: `${week}-${dayIndex}-power`, title:'Martial Block', detail:m.tasks[2] },
+        { id: `${week}-${dayIndex}-strength`, title:'Strength Block', detail:m.tasks[3] },
+        { id: `${week}-${dayIndex}-meditation`, title:'Finish', detail:m.tasks[4] || `${m.progression.standingMeditation} min standing meditation` }
+      ];
+    }
+    function getCurrentWeek() {
+      for (let i = 1; i <= 52; i++) if (!state.weekChecks[`week-${i}`]) return i;
+      return 52;
+    }
+    function percent(a, b) { return b ? Math.round((a / b) * 100) : 0; }
+    function setBar(id, val) { document.getElementById(id).style.width = `${val}%`; }
+    function journalKey() { return `week-${state.selectedWeek}-day-${state.selectedDay}`; }
+
+    function renderTop() {
+      const mission = buildMissionForWeek(state.selectedWeek, state.selectedDay);
+      const cards = getMissionCards(state.selectedWeek, state.selectedDay);
+      const dayDone = cards.filter(c => state.missionChecks[c.id]).length;
+      const dayProgress = percent(dayDone, cards.length);
+      const completedWeeks = Object.values(state.weekChecks).filter(Boolean).length;
+      const yearProgress = percent(completedWeeks, 52);
+      document.getElementById('currentTrack').textContent = `Week ${state.selectedWeek} • ${mission.dayName}`;
+      document.getElementById('currentPhaseLabel').textContent = mission.phase.title;
+      document.getElementById('yearProgressNum').textContent = `${yearProgress}%`;
+      document.getElementById('dayProgressNum').textContent = `${dayProgress}%`;
+      document.getElementById('completedWeeksNum').textContent = `${completedWeeks}/52`;
+      document.getElementById('streakNum').textContent = state.streak;
+      document.getElementById('mantraText').textContent = affirmations[(state.selectedWeek + state.selectedDay) % affirmations.length];
+      setBar('yearProgressBar', yearProgress);
+      setBar('dayProgressBar', dayProgress);
+    }
+
+    function renderToday() {
+      const m = buildMissionForWeek(state.selectedWeek, state.selectedDay);
+      document.getElementById('todaySubtitle').textContent = `${m.dayName} • ${m.dayType} day • Week ${state.selectedWeek}`;
+      document.getElementById('todayPhaseBadge').textContent = m.phase.title;
+      document.getElementById('weekObjective').textContent = m.objective;
+
+      const focusWrap = document.getElementById('weekFocusList');
+      focusWrap.innerHTML = '';
+      m.focus.forEach(item => {
+        const div = document.createElement('div');
+        div.className = 'note';
+        div.textContent = item;
+        focusWrap.appendChild(div);
+      });
+
+      const missionWrap = document.getElementById('missionList');
+      missionWrap.innerHTML = '';
+      getMissionCards(state.selectedWeek, state.selectedDay).forEach(card => {
+        const row = document.createElement('label');
+        row.className = 'check-item';
+        row.innerHTML = `<input type="checkbox" ${state.missionChecks[card.id] ? 'checked' : ''}><div><div style="font-weight:700;">${card.title}</div><div class="muted" style="margin-top:4px;">${card.detail}</div></div>`;
+        row.querySelector('input').addEventListener('change', (e) => {
+          state.missionChecks[card.id] = e.target.checked;
+          saveState();
+          render();
+        });
+        missionWrap.appendChild(row);
+      });
+
+      const walkWrap = document.getElementById('walkPromptList');
+      walkWrap.innerHTML = '';
+      dailyWalkPrompts.forEach(p => {
+        const div = document.createElement('div');
+        div.className = 'note';
+        div.textContent = p;
+        walkWrap.appendChild(div);
+      });
+
+      const scoreWrap = document.getElementById('scoreSliders');
+      scoreWrap.innerHTML = '';
+      Object.entries(state.scores).forEach(([key, value]) => {
+        const row = document.createElement('div');
+        row.className = 'slider-row';
+        row.innerHTML = `<div class="split"><div style="text-transform:capitalize;font-weight:700;">${key}</div><div>${value}/10</div></div><input type="range" min="1" max="10" value="${value}">`;
+        row.querySelector('input').addEventListener('input', (e) => {
+          state.scores[key] = Number(e.target.value);
+          saveState();
+          renderToday();
+        });
+        scoreWrap.appendChild(row);
+      });
+    }
+
+    function renderYear() {
+      const weekList = document.getElementById('weekList');
+      weekList.innerHTML = '';
+      for (let week = 1; week <= 52; week++) {
+        const p = getPhaseByWeek(week);
+        const btn = document.createElement('button');
+        btn.className = 'week-btn' + (week === state.selectedWeek ? ' active' : '');
+        btn.innerHTML = `<div class="split"><div><div style="font-weight:700;">Week ${week}</div><div class="mini muted">${p.title}</div></div><div>${state.weekChecks[`week-${week}`] ? '✓' : (week === getCurrentWeek() ? '★' : '›')}</div></div>`;
+        btn.addEventListener('click', () => { state.selectedWeek = week; saveState(); render(); });
+        weekList.appendChild(btn);
+      }
+      const current = buildMissionForWeek(state.selectedWeek, state.selectedDay);
+      document.getElementById('yearWeekTitle').textContent = `Week ${state.selectedWeek}`;
+      document.getElementById('yearWeekPhase').textContent = current.phase.title;
+      document.getElementById('yearWeekStatus').textContent = state.weekChecks[`week-${state.selectedWeek}`] ? 'Completed' : 'In progress';
+      document.getElementById('yearWeekObjective').textContent = current.objective;
+      const dayCards = document.getElementById('dayCards');
+      dayCards.innerHTML = '';
+      for (let d = 0; d < 7; d++) {
+        const day = buildMissionForWeek(state.selectedWeek, d);
+        const btn = document.createElement('button');
+        btn.className = 'day-btn' + (d === state.selectedDay ? ' active' : '');
+        btn.innerHTML = `<div style="font-weight:700;">${day.dayName}</div><div class="mini muted" style="margin-top:4px;">${day.dayType}</div><div style="margin-top:8px;">${day.tasks[0]}</div><div class="mini muted" style="margin-top:8px;">Tap to load this day</div>`;
+        btn.addEventListener('click', () => { state.selectedDay = d; state.activeTab = 'today'; saveState(); render(); });
+        dayCards.appendChild(btn);
+      }
+    }
+
+    function renderLibrary() {
+      const wrap = document.getElementById('libraryGrid');
+      wrap.innerHTML = '';
+      modules.forEach(m => {
+        const card = document.createElement('div');
+        card.className = 'card';
+        card.innerHTML = `
+          <div class="card-head"><div class="section-title">${m.title}</div><div class="muted">${m.area}</div></div>
+          <div class="card-body">
+            <div><strong>Mission</strong><div class="muted" style="margin-top:4px;">${m.mission}</div></div>
+            <div style="height:10px"></div>
+            <div><strong>Looks right when...</strong><div class="muted" style="margin-top:4px;">${m.looks}</div></div>
+            <div style="height:10px"></div>
+            <div><strong>Feels right when...</strong><div class="muted" style="margin-top:4px;">${m.feels}</div></div>
+            <div style="height:10px"></div>
+            <div><strong>Primary cues</strong><div class="muted" style="margin-top:4px;">${m.cues.map(x => '• ' + x).join('<br>')}</div></div>
+            <div style="height:10px"></div>
+            <div><strong>Common mistakes</strong><div class="muted" style="margin-top:4px;">${m.mistakes.map(x => '• ' + x).join('<br>')}</div></div>
+            <div style="height:10px"></div>
+            <div><strong>Pass standard</strong><div class="muted" style="margin-top:4px;">${m.standards.map(x => '• ' + x).join('<br>')}</div></div>
+            <div style="height:10px"></div>
+            <div class="note">Training media placeholder — this is where your photos, video links, or clip references go.</div>
+          </div>`;
+        wrap.appendChild(card);
+      });
+    }
+
+    function renderProgress() {
+      const p = getProgression(state.selectedWeek);
+      const wrap = document.getElementById('progressGrid');
+      wrap.innerHTML = '';
+      Object.entries(p).forEach(([k,v]) => {
+        const div = document.createElement('div');
+        div.className = 'note';
+        div.innerHTML = `<div class="mini muted" style="text-transform:uppercase;">${k}</div><div class="big" style="font-size:24px;">${v}</div>`;
+        wrap.appendChild(div);
+      });
+      const focus = document.getElementById('focusPromptList');
+      focus.innerHTML = '';
+      focusPrompts.forEach(f => {
+        const div = document.createElement('div');
+        div.className = 'note';
+        div.style.marginBottom = '10px';
+        div.textContent = f;
+        focus.appendChild(div);
+      });
+    }
+
+    function renderJournal() {
+      document.getElementById('journalBox').value = state.notes[journalKey()] || '';
+      document.getElementById('evidenceBox').value = state.evidence[journalKey()] || '';
+    }
+
+    function renderHowTo() {
+      const how = document.getElementById('howGrid');
+      how.innerHTML = '';
+      howSteps.forEach(([title, text]) => {
+        const card = document.createElement('div');
+        card.className = 'card';
+        card.innerHTML = `<div class="card-head"><div class="section-title" style="font-size:18px;">${title}</div></div><div class="card-body muted">${text}</div>`;
+        how.appendChild(card);
+      });
+      const tf = document.getElementById('testFlowGrid');
+      tf.innerHTML = '';
+      testFlow.forEach(t => {
+        const div = document.createElement('div');
+        div.className = 'note';
+        div.textContent = t;
+        tf.appendChild(div);
+      });
+    }
+
+    function renderTabs() {
+      document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.toggle('active', btn.dataset.tab === state.activeTab));
+      ['today','year','library','progress','journal','howto'].forEach(id => {
+        document.getElementById('tab-' + id).classList.toggle('hidden', state.activeTab !== id);
+      });
+    }
+
+    function render() {
+      renderTop();
+      renderTabs();
+      renderToday();
+      renderYear();
+      renderLibrary();
+      renderProgress();
+      renderJournal();
+      renderHowTo();
+      saveState();
+    }
+
+    function initEvents() {
+      document.querySelectorAll('.tab-btn').forEach(btn => {
+        btn.addEventListener('click', () => { state.activeTab = btn.dataset.tab; render(); });
+      });
+      document.getElementById('prevDayBtn').addEventListener('click', () => { state.selectedDay = Math.max(0, state.selectedDay - 1); render(); });
+      document.getElementById('nextDayBtn').addEventListener('click', () => { state.selectedDay = Math.min(6, state.selectedDay + 1); render(); });
+      document.getElementById('weekCompleteBtn').addEventListener('click', () => {
+        let allDone = true;
+        for (let d = 0; d < 7; d++) {
+          for (const card of getMissionCards(state.selectedWeek, d)) {
+            if (!state.missionChecks[card.id]) { allDone = false; break; }
+          }
+          if (!allDone) break;
+        }
+        if (allDone) {
+          state.weekChecks[`week-${state.selectedWeek}`] = true;
+          state.streak += 1;
+          if (state.selectedWeek < 52) state.selectedWeek += 1;
+          state.selectedDay = 0;
+          alert('Week marked complete. Good work.');
+        } else {
+          alert('This week is not complete yet. Finish all seven days first.');
+        }
+        render();
+      });
+      document.getElementById('journalBox').addEventListener('input', e => { state.notes[journalKey()] = e.target.value; saveState(); });
+      document.getElementById('evidenceBox').addEventListener('input', e => { state.evidence[journalKey()] = e.target.value; saveState(); });
+      document.getElementById('resetBtn').addEventListener('click', () => {
+        if (!confirm('Reset all saved progress?')) return;
+        localStorage.removeItem(STORAGE_KEY);
+        location.reload();
+      });
+      document.getElementById('exportBtn').addEventListener('click', () => {
+        const blob = new Blob([JSON.stringify(state, null, 2)], { type: 'application/json' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url; a.download = 'shaolin-path-backup.json'; a.click(); URL.revokeObjectURL(url);
+      });
+      document.getElementById('importBtn').addEventListener('click', () => document.getElementById('importFile').click());
+      document.getElementById('importFile').addEventListener('change', async (e) => {
+        const file = e.target.files[0];
+        if (!file) return;
+        try {
+          const text = await file.text();
+          const parsed = JSON.parse(text);
+          Object.assign(state, parsed);
+          saveState();
+          render();
+          alert('Backup imported.');
+        } catch {
+          alert('Import failed. Invalid backup file.');
+        }
+      });
+    }
+
+    loadState();
+    initEvents();
+    render();
+  </script></body>
+</html>
