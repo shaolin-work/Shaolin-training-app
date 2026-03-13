@@ -5,163 +5,314 @@
   <title>Shaolin Path V2</title>
   <style>
     :root {
-      --bg: #f3f6fb;
-      --surface: #ffffff;
-      --surface-2: #f8fafc;
-      --text: #16202f;
-      --muted: #627085;
-      --line: #d8e0ea;
-      --brand: #2563eb;
-      --brand-2: #1d4ed8;
-      --success: #15803d;
-      --warn: #b45309;
-      --dark: #0f172a;
-      --dark-2: #111827;
-      --shadow: 0 10px 30px rgba(15, 23, 42, 0.08);
+      --bg: #0b0f14;
+      --panel: #121821;
+      --panel-2: #18212d;
+      --border: rgba(255,255,255,0.08);
+      --text: #f4f7fb;
+      --muted: #9ca8b8;
+      --gold: #c9a34a;
+      --green: #2ea86b;
+      --red: #c05b5b;
+      --shadow: 0 14px 40px rgba(0,0,0,0.28);
       --radius: 18px;
-    }
-    * { box-sizing: border-box; }
-    html, body { margin: 0; padding: 0; }
-    body {
-      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-      color: var(--text);
-      background: linear-gradient(180deg, #eef3f8 0%, #f8fafc 100%);
-    }
-    .wrap { max-width: 1280px; margin: 0 auto; padding: 14px; }
-    .hero {
-      background: linear-gradient(135deg, var(--dark) 0%, var(--dark-2) 100%);
-      color: #fff;
-      border-radius: 26px;
-      padding: 18px;
-      box-shadow: var(--shadow);
-    }
-    .grid { display: grid; gap: 14px; }
-    .hero-grid { grid-template-columns: 1.3fr 0.7fr; }
-    .stats-grid { grid-template-columns: repeat(5, 1fr); margin-top: 14px; }
-    .two-col { grid-template-columns: 1fr 340px; }
-    .year-grid { grid-template-columns: 320px 1fr; }
-    .triple { grid-template-columns: repeat(3, 1fr); }
-    .double { grid-template-columns: repeat(2, 1fr); }
-    .quad { grid-template-columns: repeat(4, 1fr); }
-    @media (max-width: 960px) {
-      .hero-grid, .stats-grid, .two-col, .year-grid, .triple, .double, .quad { grid-template-columns: 1fr; }
-    }
-    .card {
-      background: var(--surface);
-      border: 1px solid var(--line);
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
-      overflow: hidden;
-    }
-    .card.dark {
-      background: rgba(255,255,255,0.06);
-      border-color: rgba(255,255,255,0.12);
-      color: #fff;
-      box-shadow: none;
-    }
-    .head, .body { padding: 14px; }
-    h1, h2, h3, h4, p { margin: 0; }
-    .muted { color: var(--muted); }
-    .hero .muted { color: #c7d2e0; }
-    .eyebrow { font-size: 12px; letter-spacing: .08em; text-transform: uppercase; }
-    .hero-title { font-size: 32px; font-weight: 800; margin-top: 8px; }
-    .section-title { font-size: 20px; font-weight: 800; }
-    .subtle { font-size: 13px; }
-    .big { font-size: 28px; font-weight: 800; }
-    .pill {
-      display: inline-flex; align-items: center; gap: 8px;
-      border: 1px solid var(--line); background: #fff; color: var(--text);
-      border-radius: 999px; padding: 6px 10px; font-size: 12px; font-weight: 700;
-    }
-    .pill.dark { background: rgba(255,255,255,0.08); color: #fff; border-color: rgba(255,255,255,0.12); }
-    .badge {
-      display: inline-block; padding: 5px 10px; border-radius: 999px;
-      background: #eff6ff; color: #1d4ed8; font-size: 12px; font-weight: 700;
-    }
-    .track { width: 100%; height: 10px; background: #e5e7eb; border-radius: 999px; overflow: hidden; }
-    .bar { display: block; height: 100%; width: 0%; background: linear-gradient(90deg, var(--brand) 0%, #60a5fa 100%); }
-    .split { display: flex; align-items: start; justify-content: space-between; gap: 10px; }
-    .btn, .tab-btn, .week-btn, .day-btn, .path-btn, .module-btn {
-      appearance: none; border: 1px solid var(--line); background: #fff; color: var(--text);
-      border-radius: 14px; padding: 10px 12px; font-weight: 700; cursor: pointer;
-      font: inherit;
-    }
-    .btn.primary { background: var(--brand); border-color: var(--brand); color: #fff; }
-    .btn.success { background: var(--success); border-color: var(--success); color: #fff; }
-    .btn.warn { background: #fff7ed; border-color: #fdba74; color: var(--warn); }
-    .btn-row { display: flex; flex-wrap: wrap; gap: 8px; }
-    .tabs { display: grid; grid-template-columns: repeat(7, 1fr); gap: 8px; margin: 14px 0; }
-    @media (max-width: 960px) { .tabs { grid-template-columns: repeat(3, 1fr); } }
-    .tab-btn.active, .week-btn.active, .day-btn.active, .path-btn.active, .module-btn.active { background: #e8f0fe; border-color: #8ab4f8; }
-    .hidden { display: none !important; }
-    .check-item, .note, .mini-card {
-      border: 1px solid var(--line); background: var(--surface); border-radius: 16px;
-      padding: 12px;
-    }
-    .check-item { display: grid; grid-template-columns: 24px 1fr; gap: 10px; align-items: start; }
-    .check-item input { width: 18px; height: 18px; margin-top: 2px; }
-    .note { background: var(--surface-2); }
-    .mini-card { background: #fff; }
-    .list { display: grid; gap: 10px; }
-    .scroll { max-height: 72vh; overflow: auto; }
-    .week-btn, .day-btn, .path-btn, .module-btn { text-align: left; width: 100%; }
-    textarea, input[type="text"] {
-      width: 100%; border: 1px solid var(--line); border-radius: 14px; padding: 12px; font: inherit;
-      background: #fff;
-    }
-    textarea { min-height: 240px; resize: vertical; }
-    input[type="range"] { width: 100%; }
-    .movement-img {
-      aspect-ratio: 16 / 10;
-      border: 1px dashed #94a3b8;
-      border-radius: 16px;
-      display: grid; place-items: center;
-      background: linear-gradient(180deg, #f8fafc 0%, #eef2f7 100%);
-      color: var(--muted);
-      font-size: 13px;
-      text-align: center;
-      padding: 10px;
-    }
-    .video-box {
-      border: 1px dashed #93c5fd; background: #eff6ff; color: #1d4ed8;
-      border-radius: 16px; padding: 12px;
-    }
-    .stat-grid { display: grid; gap: 12px; grid-template-columns: repeat(4, 1fr); }
-    @media (max-width: 960px) { .stat-grid { grid-template-columns: repeat(2, 1fr); } }
-    .path-grid { display: grid; gap: 10px; grid-template-columns: repeat(2, 1fr); }
-    @media (max-width: 960px) { .path-grid { grid-template-columns: 1fr; } }
-    .library-grid { display: grid; gap: 14px; grid-template-columns: repeat(2, 1fr); }
-    @media (max-width: 960px) { .library-grid { grid-template-columns: 1fr; } }
-    .library-detail-grid { display: grid; gap: 14px; grid-template-columns: 360px 1fr; }
-    @media (max-width: 960px) { .library-detail-grid { grid-template-columns: 1fr; } }
-    .foot-space { height: 36px; }
+    }* { box-sizing: border-box; }
+body {
+  margin: 0;
+  font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  background: linear-gradient(180deg, #0a0d12 0%, #0d1218 100%);
+  color: var(--text);
+}
+
+.app {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 16px 16px 80px;
+}
+
+.hero {
+  background: linear-gradient(135deg, rgba(201,163,74,0.16), rgba(255,255,255,0.02));
+  border: 1px solid var(--border);
+  border-radius: 24px;
+  padding: 18px;
+  box-shadow: var(--shadow);
+  margin-bottom: 14px;
+}
+
+.eyebrow {
+  font-size: 12px;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+h1 {
+  margin: 6px 0 6px;
+  font-size: 30px;
+  line-height: 1.05;
+}
+
+.muted { color: var(--muted); }
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+  margin-top: 14px;
+}
+
+.mini-card, .card, .note, .path-item, .week-item {
+  background: rgba(255,255,255,0.03);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+}
+
+.mini-card {
+  padding: 12px;
+}
+
+.mini-big {
+  font-size: 22px;
+  font-weight: 800;
+  margin-top: 4px;
+}
+
+.tabs {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0,1fr));
+  gap: 8px;
+  margin: 14px 0;
+  position: sticky;
+  top: 0;
+  z-index: 5;
+  background: rgba(11,15,20,0.88);
+  backdrop-filter: blur(10px);
+  padding: 10px 0;
+}
+
+.tab-btn, .btn, .media-remove-btn {
+  border: 1px solid var(--border);
+  background: rgba(255,255,255,0.04);
+  color: var(--text);
+  border-radius: 14px;
+  padding: 12px 12px;
+  cursor: pointer;
+  font-weight: 700;
+}
+
+.tab-btn.active {
+  background: rgba(201,163,74,0.18);
+  border-color: rgba(201,163,74,0.4);
+}
+
+.btn.success { background: rgba(46,168,107,0.15); }
+.btn.warn, .media-remove-btn { background: rgba(192,91,91,0.14); }
+
+.grid { display: grid; gap: 12px; }
+.two-col { grid-template-columns: 1.15fr .85fr; }
+.triple { grid-template-columns: repeat(3, minmax(0,1fr)); }
+.double { grid-template-columns: repeat(2, minmax(0,1fr)); }
+.year-grid { grid-template-columns: .9fr 1.1fr; }
+.library-detail-grid { grid-template-columns: .8fr 1.2fr; }
+
+.card { overflow: hidden; }
+.head {
+  padding: 14px 16px 0;
+}
+.head.split {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 10px;
+}
+.body {
+  padding: 14px 16px 16px;
+}
+
+.section-title {
+  font-size: 20px;
+  font-weight: 800;
+}
+
+.badge {
+  border: 1px solid rgba(201,163,74,0.35);
+  background: rgba(201,163,74,0.14);
+  color: #f5dd9b;
+  padding: 7px 10px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 800;
+  white-space: nowrap;
+}
+
+.list { display: grid; gap: 8px; }
+.list-item, .path-item, .week-item, .module-item {
+  padding: 12px;
+  background: rgba(255,255,255,0.025);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+}
+
+.list-item strong, .module-item strong { display: block; margin-bottom: 4px; }
+
+.btn-row {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.hidden { display: none !important; }
+.scroll { max-height: 72vh; overflow: auto; }
+
+.stat-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0,1fr));
+  gap: 10px;
+}
+
+.path-grid, #weekList, #moduleList, #dayCards, #todayQuickHelp, #missionList, #homeTodayList, #walkPromptList, #focusPromptList, #scoreSliders, #weekFocusList, #quickStartList, #howToList {
+  display: grid;
+  gap: 10px;
+}
+
+.path-item.active, .week-item.active, .module-item.active {
+  outline: 2px solid rgba(201,163,74,0.35);
+  background: rgba(201,163,74,0.08);
+}
+
+.note {
+  padding: 12px;
+  color: #d8dfeb;
+}
+
+textarea, input[type="text"], input[type="number"], input[type="file"] {
+  width: 100%;
+  padding: 12px 14px;
+  border-radius: 14px;
+  border: 1px solid var(--border);
+  background: rgba(255,255,255,0.035);
+  color: var(--text);
+  font: inherit;
+}
+
+textarea {
+  min-height: 210px;
+  resize: vertical;
+}
+
+.check-row {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: 10px;
+  align-items: center;
+  padding: 12px;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  background: rgba(255,255,255,0.025);
+}
+
+.check-row.done {
+  background: rgba(46,168,107,0.08);
+  border-color: rgba(46,168,107,0.24);
+}
+
+.media-stack {
+  display: grid;
+  gap: 12px;
+}
+
+.media-section {
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 16px;
+  padding: 12px;
+}
+
+.media-title {
+  font-size: 13px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  opacity: 0.85;
+  margin-bottom: 10px;
+}
+
+.media-editor {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.media-thumb {
+  border-radius: 14px;
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,0.08);
+  background: rgba(255,255,255,0.03);
+}
+
+.media-thumb img {
+  width: 100%;
+  height: 140px;
+  object-fit: cover;
+  display: block;
+}
+
+.caption {
+  padding: 8px 10px 10px;
+  font-size: 12px;
+  color: #cfcfcf;
+}
+
+.video-list {
+  display: grid;
+  gap: 10px;
+}
+
+.video-card, .link-card {
+  display: grid;
+  gap: 8px;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 14px;
+  padding: 12px;
+}
+
+.media-actions {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.media-empty { opacity: 0.7; }
+
+.slider-row {
+  display: grid;
+  gap: 6px;
+  padding: 10px 0;
+}
+
+.foot-space { height: 30px; }
+
+@media (max-width: 920px) {
+  .stats, .two-col, .year-grid, .library-detail-grid, .double, .triple, .stat-grid { grid-template-columns: 1fr; }
+  .tabs { grid-template-columns: repeat(3, minmax(0,1fr)); }
+  .media-editor { grid-template-columns: 1fr; }
+}
+
   </style>
 </head>
 <body>
-  <div class="wrap">
+  <div class="app">
     <div class="hero">
-      <div class="grid hero-grid">
-        <div>
-          <div class="eyebrow muted">V2 • year-long local-first training app</div>
-          <div class="hero-title">Shaolin Path</div>
-          <p class="muted" style="margin-top:10px; max-width:760px;">A phone-first Shaolin training platform built for body, mind, discipline, fitness, muscle gain, and long-term progression. V2 adds a training path, movement guidance, image panels, video reference slots, and unlock structure.</p>
-        </div>
-        <div class="card dark">
-          <div class="body">
-            <div class="eyebrow muted">Current track</div>
-            <div id="currentTrack" style="font-size:20px;font-weight:800;margin-top:6px;"></div>
-            <div id="currentPhaseLabel" class="muted" style="margin-top:4px;"></div>
-            <div style="height:12px"></div>
-            <div class="pill dark" id="currentLevelPill">Level 1</div>
-          </div>
-        </div>
-      </div>
-      <div class="grid stats-grid">
-        <div class="card dark"><div class="body"><div class="eyebrow muted">Year progress</div><div id="yearProgressNum" class="big">0%</div><div class="track"><span id="yearProgressBar" class="bar"></span></div></div></div>
-        <div class="card dark"><div class="body"><div class="eyebrow muted">Day progress</div><div id="dayProgressNum" class="big">0%</div><div class="track"><span id="dayProgressBar" class="bar"></span></div></div></div>
-        <div class="card dark"><div class="body"><div class="eyebrow muted">Completed weeks</div><div id="completedWeeksNum" class="big">0/52</div></div></div>
-        <div class="card dark"><div class="body"><div class="eyebrow muted">Streak</div><div id="streakNum" class="big">0</div></div></div>
-        <div class="card dark"><div class="body"><div class="eyebrow muted">Mantra</div><div id="mantraText" style="font-weight:800;margin-top:8px;"></div></div></div>
+      <div class="eyebrow">V2 • year-long local-first training app</div>
+      <h1>Shaolin Path</h1>
+      <div class="muted">A phone-first Shaolin training platform built for body, mind, discipline, fitness, muscle gain, and long-term progression. V2 adds a training path, movement guidance, image panels, editable media links, and unlock structure.</div>
+      <div class="stats">
+        <div class="mini-card"><div class="eyebrow">Current track</div><div class="mini-big" id="heroTrack">Level 1</div></div>
+        <div class="mini-card"><div class="eyebrow">Year progress</div><div class="mini-big" id="heroYearProgress">0%</div></div>
+        <div class="mini-card"><div class="eyebrow">Completed weeks</div><div class="mini-big" id="heroCompletedWeeks">0/52</div></div>
+        <div class="mini-card"><div class="eyebrow">Streak</div><div class="mini-big" id="heroStreak">0</div></div>
       </div>
     </div><div class="tabs">
   <button class="tab-btn active" data-tab="home">Home</button>
@@ -186,13 +337,14 @@
         </div>
         <div class="body">
           <div class="stat-grid">
-            <div class="mini-card"><div class="eyebrow muted">Next unlock</div><div id="nextUnlockText" style="font-size:18px;font-weight:800;margin-top:6px;"></div></div>
-            <div class="mini-card"><div class="eyebrow muted">Mind score</div><div id="mindScoreText" style="font-size:18px;font-weight:800;margin-top:6px;"></div></div>
-            <div class="mini-card"><div class="eyebrow muted">Body score</div><div id="bodyScoreText" style="font-size:18px;font-weight:800;margin-top:6px;"></div></div>
-            <div class="mini-card"><div class="eyebrow muted">Discipline</div><div id="disciplineScoreText" style="font-size:18px;font-weight:800;margin-top:6px;"></div></div>
+            <div class="mini-card"><div class="eyebrow muted">Next unlock</div><div id="nextUnlockText" style="font-size:18px;font-weight:800;margin-top:6px;">Week 5 branch</div></div>
+            <div class="mini-card"><div class="eyebrow muted">Mind score</div><div id="mindScoreText" style="font-size:18px;font-weight:800;margin-top:6px;">0</div></div>
+            <div class="mini-card"><div class="eyebrow muted">Body score</div><div id="bodyScoreText" style="font-size:18px;font-weight:800;margin-top:6px;">0</div></div>
+            <div class="mini-card"><div class="eyebrow muted">Discipline</div><div id="disciplineScoreText" style="font-size:18px;font-weight:800;margin-top:6px;">0</div></div>
           </div>
         </div>
       </div>
+
       <div class="card">
         <div class="head">
           <div class="section-title">Quick Start</div>
@@ -201,11 +353,13 @@
         <div class="body list" id="quickStartList"></div>
       </div>
     </div>
+
     <div class="grid">
       <div class="card">
         <div class="head"><div class="section-title">Today at a glance</div></div>
         <div class="body list" id="homeTodayList"></div>
       </div>
+
       <div class="card">
         <div class="head"><div class="section-title">Quick Tools</div></div>
         <div class="body btn-row">
@@ -240,22 +394,24 @@
           </div>
         </div>
       </div>
+
       <div class="card">
         <div class="head"><div class="section-title">Week Objective</div><div id="weekObjective" class="muted"></div></div>
         <div class="body"><div id="weekFocusList" class="grid double"></div></div>
       </div>
     </div>
+
     <div class="grid">
       <div class="card">
         <div class="head"><div class="section-title">Quick Help</div><div class="muted">Tap a movement in the Library for full detail</div></div>
-        <div class="body">
-          <div id="todayQuickHelp" class="list"></div>
-        </div>
+        <div class="body"><div id="todayQuickHelp" class="list"></div></div>
       </div>
+
       <div class="card">
-        <div class="head"><div class="section-title">Dog Walk Mind Script</div><div class="muted">Use during the 4:30 AM walk</div></div>
+        <div class="head"><div class="section-title">Dog Walk Mind Script</div><div class="muted">Use during the walk</div></div>
         <div class="body"><div id="walkPromptList" class="list"></div></div>
       </div>
+
       <div class="card">
         <div class="head"><div class="section-title">State Check</div><div class="muted">Score yourself honestly</div></div>
         <div class="body" id="scoreSliders"></div>
@@ -270,6 +426,7 @@
       <div class="head"><div class="section-title">Training Path</div><div class="muted">Foundations unlock later branches</div></div>
       <div class="body"><div id="pathGrid" class="path-grid"></div></div>
     </div>
+
     <div class="card">
       <div class="head split"><div><div id="pathTitle" class="section-title"></div><div id="pathSubtitle" class="muted"></div></div><div id="pathStatus" class="badge"></div></div>
       <div class="body list">
@@ -293,6 +450,7 @@
       <div class="head"><div class="section-title">52-Week Roadmap</div><div class="muted">Full-year curriculum flow</div></div>
       <div class="body scroll" id="weekList"></div>
     </div>
+
     <div class="card">
       <div class="head split"><div><div id="yearWeekTitle" class="section-title"></div><div id="yearWeekPhase" class="muted"></div></div><div id="yearWeekStatus" class="badge"></div></div>
       <div class="body">
@@ -310,13 +468,40 @@
       <div class="head"><div class="section-title">Movement Library</div><div class="muted">Guided movement, qigong, conditioning, and mind practice cards</div></div>
       <div class="body scroll" id="moduleList"></div>
     </div>
+
     <div class="grid">
       <div class="card">
         <div class="head split"><div><div id="moduleTitle" class="section-title"></div><div id="moduleArea" class="muted"></div></div><div id="moduleLevelBadge" class="badge"></div></div>
         <div class="body">
-          <div class="grid triple" id="moduleImages"></div>
-          <div style="height:12px"></div>
-          <div class="video-box" id="moduleVideo"></div>
+          <div class="media-stack">
+            <div class="media-section">
+              <div class="media-title">Image References</div>
+              <div class="media-editor">
+                <input id="mediaImageInput" type="text" placeholder="Paste image URL" />
+                <button id="addImageBtn" class="btn">Add Image</button>
+              </div>
+              <div class="grid triple" id="moduleImages"></div>
+            </div>
+
+            <div class="media-section">
+              <div class="media-title">Video References</div>
+              <div class="media-editor">
+                <input id="mediaVideoInput" type="text" placeholder="Paste YouTube or video URL" />
+                <button id="addVideoBtn" class="btn">Add Video</button>
+              </div>
+              <div id="moduleVideoList" class="video-list"></div>
+            </div>
+
+            <div class="media-section">
+              <div class="media-title">Helpful Links</div>
+              <div class="media-editor">
+                <input id="mediaLinkInput" type="text" placeholder="Paste helpful link" />
+                <button id="addLinkBtn" class="btn">Add Link</button>
+              </div>
+              <div id="moduleLinkList" class="list"></div>
+            </div>
+          </div>
+
           <div style="height:12px"></div>
           <div class="grid double">
             <div class="note"><strong>Mission</strong><div id="moduleMission" class="muted" style="margin-top:6px;"></div></div>
@@ -385,900 +570,693 @@
 <div class="foot-space"></div>
 
   </div>  <script>
-    const STORAGE_KEY = 'shaolin-path-v2-static';
-    const dayNames = ['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday'];
-    const affirmations = [
-      'Observe. Do not react.',
-      'Discipline beats mood.',
-      'Control first, power second.',
-      'A calm mind is a strong mind.',
-      'Stay rooted. Stay honest. Stay consistent.'
-    ];
-    const focusPrompts = [
-      'Did I stay calm during discomfort?',
-      'Did I control my breath under effort?',
-      'Did my movement stay clean when I got tired?',
-      'Was I honest when ticking completion?',
-      'Did I train with intent rather than just going through the motions?'
-    ];
-    const dailyWalkPrompts = [
-      'Inhale for 4 seconds through the nose.',
-      'Exhale for 6 seconds through the nose.',
-      'Shift awareness to sounds around you.',
-      'Shift awareness to your feet touching the ground.',
-      'Observe thoughts without following them.'
-    ];
-    const quickStart = [
-      'Open Home first and check your current week, day, and next unlock.',
-      'Use Today during the morning routine after your dog walk.',
-      'Tap the Library anytime you need movement guidance, cues, images, or standards.',
-      'Use the Journal after training for honest reflection and evidence logging.',
-      'Complete a full week before marking the week done and progressing.'
-    ];
-    const howToUse = [
-      'Home is the dashboard.',
-      'Today is the live mission screen.',
-      'Training Path shows your unlock levels.',
-      'Year Plan shows the 52-week system.',
-      'Library is your movement and guidance reference.',
-      'Progress shows weekly physical targets.',
-      'Journal stores notes and evidence.'
-    ];
-
-    const phases = [
-      { id:'phase-1', title:'Phase 1 — Foundation', weeks:[1,8], summary:'Build breathing control, posture, discipline, and daily consistency.', focus:['Walking meditation','Right breathing','Qigong basics','Horse stance','Bow stance','Push-ups','Standing meditation'] },
-      { id:'phase-2', title:'Phase 2 — Structure', weeks:[9,16], summary:'Deepen the stances, add kick foundations, core work, balance, and basic footwork.', focus:['Cat stance','Front kick','Stance transitions','Core work','Footwork','Longer holds'] },
-      { id:'phase-3', title:'Phase 3 — Power', weeks:[17,26], summary:'Generate controlled power through stepping, striking, explosive bodyweight work, and basic combinations.', focus:['Step and strike','Punch volume','Kick combinations','Power blocks','Mobility under speed'] },
-      { id:'phase-4', title:'Phase 4 — Warrior Discipline', weeks:[27,39], summary:'Train emotional control, fatigue resistance, and calm under pressure.', focus:['Long stance holds','Breath under load','Fatigue rounds','Discipline challenges','Meditation under fatigue'] },
-      { id:'phase-5', title:'Phase 5 — Flow and Integration', weeks:[40,52], summary:'Blend movement, discipline, forms, qigong, and conditioning into one integrated path.', focus:['Forms sections','Flow drills','Longer sessions','Refined technique','Mastery review'] }
-    ];
-
-    const pathLevels = [
+    const MODULES = [
       {
-        id:'level-1', title:'Level 1 — Regulation and Foundations', subtitle:'Mind, breath, and first body structure',
-        summary:'Start with breathing, walking meditation, qigong, horse stance, push-ups, and standing meditation. This level creates the base for everything else.',
-        unlock:'Available immediately.',
-        modules:['Walking Mind Discipline','Right Breathing','Qigong Activation','Horse Stance — Ma Bu','Push-Ups','Standing Meditation']
+        id: 'horse-stance',
+        title: 'Horse Stance',
+        area: 'Stance / Leg strength / Stillness',
+        level: 1,
+        levelLabel: 'Level 1',
+        mission: 'Build rooted legs, upright spine, and calm under discomfort.',
+        looks: 'Feet planted, knees tracking over toes, torso stacked, shoulders soft.',
+        feels: 'Leg burn rises but breath stays calm and face stays relaxed.',
+        unlock: 'Foundation module for lower body endurance and stillness training.',
+        setup: 'Take a wide stance, toes slightly out, sink until thighs begin to work.',
+        cues: 'Lift crown, soften ribs, screw feet into floor, breathe low and steady.',
+        steps: 'Stand wide. Bend knees. Sit down between hips. Keep chest proud. Hold. Recover with control.',
+        coaching: 'Start shorter with perfect posture instead of chasing time with sloppy knees.',
+        mistakes: 'Knees collapsing inward, leaning forward, holding breath, shrugging shoulders.',
+        standards: 'Can hold with steady breath and stable knee tracking.',
+        quickHelp: 'Use for root, leg endurance, and mental steadiness.',
+        defaults: {
+          links: ['https://www.youtube.com/results?search_query=shaolin+horse+stance'],
+          videos: [],
+          images: []
+        }
       },
       {
-        id:'level-2', title:'Level 2 — Structure and Basic Skill', subtitle:'Stances, footwork, and simple striking',
-        summary:'Once the first level is stable, add bow stance, cat stance, stance transitions, hand forms, and straight punch structure.',
-        unlock:'Unlock when Level 1 modules are completed honestly.',
-        modules:['Bow Stance — Gong Bu','Cat Stance — Xu Bu','Stance and Footwork','Basic Hand Forms','Bow Stance + Straight Punch','Plank']
+        id: 'bow-stance',
+        title: 'Bow Stance',
+        area: 'Stance / Structure / Weight transfer',
+        level: 1,
+        levelLabel: 'Level 1',
+        mission: 'Train forward drive, rear leg extension, and structural alignment.',
+        looks: 'Front knee bent, rear leg long, hips square enough to support direction.',
+        feels: 'Front leg loaded, rear leg alive, torso stable and ready to move.',
+        unlock: 'Required before dynamic line drills and stance transitions.',
+        setup: 'Step long, keep feet grounded, bend front knee without collapsing posture.',
+        cues: 'Press floor away with rear foot, stack chest over hips, relax jaw.',
+        steps: 'Start tall. Step long. Bend front knee. Lengthen rear leg. Hold. Change side.',
+        coaching: 'Keep the rear heel connected as long as your mobility allows.',
+        mistakes: 'Front knee drifting too far in, rear leg soft, torso leaning badly.',
+        standards: 'Stable on both sides with strong weight transfer.',
+        quickHelp: 'Great for stance line power and body organisation.',
+        defaults: {
+          links: ['https://www.youtube.com/results?search_query=shaolin+bow+stance'],
+          videos: [],
+          images: []
+        }
       },
       {
-        id:'level-3', title:'Level 3 — Conditioning and Power', subtitle:'Core work, kick control, and power blocks',
-        summary:'This level raises the physical demand. You start controlled kicking, stronger trunk work, and short power blocks.',
-        unlock:'Unlock when Level 2 modules are completed honestly.',
-        modules:['Front Kick Control','Core Development Practice','Power Workout Blocks','Ji Ben Gong']
+        id: 'body-activation',
+        title: 'Body Activation',
+        area: 'Warm-up / Mobility / Readiness',
+        level: 1,
+        levelLabel: 'Level 1',
+        mission: 'Wake the joints, spine, and breath before strength or form work.',
+        looks: 'Smooth rhythm, full-body participation, no jerky compensation.',
+        feels: 'Warmer, looser, more awake, less stiff.',
+        unlock: 'Daily opening sequence before all harder work.',
+        setup: 'Create a clear floor space and stand relaxed with soft knees.',
+        cues: 'Move joint by joint, keep breath flowing, do not rush.',
+        steps: 'Begin with neck and shoulders. Roll arms. Mobilise spine. Open hips. Bounce lightly. Finish calm.',
+        coaching: 'Think wake up, not smash yourself.',
+        mistakes: 'Going too hard, racing, using momentum over control.',
+        standards: 'Finish feeling better than when you began.',
+        quickHelp: 'Use at the start of nearly every session.',
+        defaults: {
+          links: ['https://www.youtube.com/results?search_query=shi+heng+yi+body+activation'],
+          videos: [],
+          images: []
+        }
       },
       {
-        id:'level-4', title:'Level 4 — Mind and Internal Training', subtitle:'Seated practice, regulation, and recovery',
-        summary:'This level expands meditation, regulation, and recovery systems so the body and mind develop together.',
-        unlock:'Unlock when Level 3 modules are completed honestly.',
-        modules:['Seated Meditation','Shu Jing Gong','Meridian Massage Practice']
+        id: 'ba-duan-jin',
+        title: 'Ba Duan Jin',
+        area: 'Qigong / Breath / Internal regulation',
+        level: 1,
+        levelLabel: 'Level 1',
+        mission: 'Coordinate movement and breath while building awareness and internal quality.',
+        looks: 'Soft but deliberate movement, spine long, transitions unforced.',
+        feels: 'Calming, opening, grounded, quietly energising.',
+        unlock: 'Primary Level 1 qigong set.',
+        setup: 'Stand with feet comfortable and posture lifted but relaxed.',
+        cues: 'Slow down, feel the whole path of the movement, breathe naturally.',
+        steps: 'Move through each brocade with intention. Pause briefly. Reset posture between repetitions.',
+        coaching: 'Do not chase performance. Chase sensation, connection, and steadiness.',
+        mistakes: 'Too much tension, rushing the transitions, disconnecting breath.',
+        standards: 'Can perform the full set with calm attention.',
+        quickHelp: 'Use for nervous system regulation and internal quality.',
+        defaults: {
+          links: ['https://www.youtube.com/results?search_query=shaolin+ba+duan+jin'],
+          videos: [],
+          images: []
+        }
       },
       {
-        id:'level-5', title:'Level 5 — Traditional Expansion', subtitle:'Forms, theory, and advanced path branches',
-        summary:'This is where the path broadens into forms, theory and ethics, and later branches like weapons and sparring.',
-        unlock:'Unlock when Level 4 modules are completed honestly.',
-        modules:['Forms Training','Ethics and Theory Modules','Weapons and Sparring Path','Microcosmic Orbit Practice']
+        id: 'breathing-foundation',
+        title: 'Breathing Foundation',
+        area: 'Breath / Mind / Recovery',
+        level: 1,
+        levelLabel: 'Level 1',
+        mission: 'Learn low, quiet breathing that keeps the body calm under effort.',
+        looks: 'Minimal upper chest lifting, relaxed face, full exhale.',
+        feels: 'Lower belly and ribs move, mind steadies, effort becomes cleaner.',
+        unlock: 'Needed for all longer holds and meditative practice.',
+        setup: 'Sit or stand upright, neck long, jaw loose.',
+        cues: 'Inhale quietly, exhale fully, let the breath drop rather than lift.',
+        steps: 'Set posture. Observe breath. Extend exhale slightly. Relax shoulders. Continue without strain.',
+        coaching: 'A smaller real breath beats a fake huge breath.',
+        mistakes: 'Forcing inhale, shrugging shoulders, making noise, chasing dizziness.',
+        standards: 'Can stay consistent and calm for a full practice block.',
+        quickHelp: 'Use between efforts and during emotional reset.',
+        defaults: {
+          links: ['https://www.youtube.com/results?search_query=shi+heng+yi+breathing'],
+          videos: [],
+          images: []
+        }
+      },
+      {
+        id: 'wall-stretch',
+        title: 'Wall Stretch & Line Opening',
+        area: 'Mobility / Lines / Recovery',
+        level: 1,
+        levelLabel: 'Level 1',
+        mission: 'Improve lower-body range while keeping posture honest.',
+        looks: 'Long lines, no collapsed spine, controlled depth.',
+        feels: 'Opening through calves, hips, hamstrings, and groin without panic.',
+        unlock: 'Supports stances, kicks, and safer volume.',
+        setup: 'Use a wall or support and create enough room to step and hinge.',
+        cues: 'Length before depth. Breathe before pushing further.',
+        steps: 'Set support. Enter stretch slowly. Hold. Breathe. Ease out. Repeat other side.',
+        coaching: 'Mobility grows when the nervous system trusts the position.',
+        mistakes: 'Bouncing, forcing range, rounding badly.',
+        standards: 'Range improves without pain spikes or compensation.',
+        quickHelp: 'Useful after stance work or at the end of training.',
+        defaults: {
+          links: ['https://www.youtube.com/results?search_query=shaolin+flexibility+routine'],
+          videos: [],
+          images: []
+        }
       }
     ];
 
-    const modules = [
+    const PATHS = [
       {
-        title:'Walking Mind Discipline', area:'Mindset', level:1,
-        mission:'Turn the 4:30 AM dog walk into moving meditation and emotional control training.',
-        looks:'Breath stays steady, shoulders stay relaxed, and attention returns calmly when thoughts drift.',
-        feels:'Calm, present, less mentally noisy.',
-        unlock:'Level 1',
-        cues:['Calm mind','Calm breath','Calm body'],
-        mistakes:['Rushing','Mind wandering without reset','Mouth breathing without control'],
-        standards:['Nasal breathing where practical','4 in / 6 out breath rhythm for at least 10 minutes','Attention rotation completed','Finish the walk mentally calmer than the start'],
-        setup:['Start at an easy walking pace.','Relax the shoulders and jaw.','Keep the phone away unless checking prompts briefly.'],
-        steps:['Breathe in through the nose for 4 seconds.','Breathe out through the nose for 6 seconds.','Spend about 2 minutes noticing only your breath.','Then shift attention to sounds around you.','Then shift attention to how your feet contact the ground.','Then notice thoughts without chasing them.','Repeat the cycle until the walk is done.'],
-        coaching:['Do not force a huge inhale. Keep it smooth.','The goal is calm attention, not emptying the mind completely.','If you get distracted, simply return to the breath without frustration.'],
-        images:['Start walk relaxed','Breath rhythm during walk','Attention rotation focus'],
-        video:'Add a trusted walking meditation or Shi Heng Yi reference link here.'
+        id: 'foundation',
+        title: 'Foundation Discipline',
+        subtitle: 'Weeks 1-8',
+        status: 'Open',
+        summary: 'Build your root through stance, breathing, and movement basics.',
+        modules: ['Horse Stance', 'Bow Stance', 'Body Activation', 'Breathing Foundation'],
+        unlockRule: 'Open from day one.'
       },
       {
-        title:'Right Breathing', area:'Breath Foundation', level:1,
-        mission:'Build breathing as the first skill.',
-        looks:'Breath is smooth, quiet, nasal, and not forced upward into the shoulders.',
-        feels:'Stable, centered, and less scattered.',
-        unlock:'Level 1',
-        cues:['Nose in','Longer out-breath','No shoulder lifting'],
-        mistakes:['Big noisy inhales','Chest shrugging','Forcing deep breathing'],
-        standards:['5 minutes calm nasal breathing','Exhale longer than inhale','Shoulders stay relaxed'],
-        setup:['Sit or stand upright.','Relax the jaw and shoulders.','Place one hand lightly on the lower ribs or abdomen.'],
-        steps:['Inhale gently through the nose.','Exhale a little longer than the inhale.','Keep the breath smooth rather than huge.','Return attention to the breath whenever the mind drifts.'],
-        coaching:['This is not maximum breathing. It is skillful breathing.','Use this before harder work and during recovery.'],
-        images:['Breathing posture setup','Relaxed rib and shoulder position','Calm seated or standing breathing'],
-        video:'Add a trusted breathing fundamentals reference link here.'
+        id: 'internal',
+        title: 'Internal Regulation',
+        subtitle: 'Weeks 9-20',
+        status: 'Locked',
+        summary: 'Deepen qigong, calm, and repeatable breath-linked practice.',
+        modules: ['Ba Duan Jin', 'Breathing Foundation', 'Wall Stretch & Line Opening'],
+        unlockRule: 'Complete 6 foundation weeks honestly.'
       },
       {
-        title:'Qigong Activation', area:'Breath & Energy', level:1,
-        mission:'Wake the body without agitation and prepare for hard training.',
-        looks:'Smooth movement, low shoulders, controlled breathing, no rush.',
-        feels:'Warm, open, awake, centered.',
-        unlock:'Level 1',
-        cues:['Smooth body','Low shoulders','Breath follows movement'],
-        mistakes:['Shrugging','Rushing reps','Moving without breathing in sync'],
-        standards:['Raise Hands to the Sky × 10','Drawing the Bow × 8 each side','Heaven and Earth Stretch × 10','No rushed reps'],
-        setup:['Stand with feet about shoulder width apart.','Unlock the knees slightly.','Keep the neck long and shoulders relaxed.'],
-        steps:['Raise Hands to the Sky: lift both arms slowly as you inhale, then lower as you exhale for 10 reps.','Drawing the Bow: step wider, imagine pulling a bowstring to one side, then alternate for 8 reps each side.','Heaven and Earth Stretch: one hand presses up while the other presses down, then switch for 10 reps.'],
-        coaching:['Move like you are warming the joints, not chasing intensity.','Breathing should match the speed of the movement.','If balance feels poor, slow down rather than shortening the movement badly.'],
-        images:['Qigong start posture','Mid-position opening movement','End-range stretch position'],
-        video:'Add a trusted qigong or official/public Shaolin reference link here.'
-      },
-      {
-        title:'Horse Stance — Ma Bu', area:'Structure', level:1,
-        mission:'Build the legs, posture, and willpower that underpin the entire system.',
-        looks:'Knees out, chest lifted, spine tall, weight even, face calm.',
-        feels:'Leg burn without panic; stable, rooted, and mentally still.',
-        unlock:'Level 1',
-        cues:['Root the feet','Lift the chest','Observe, do not react'],
-        mistakes:['Knees collapsing in','Leaning forward','Holding breath','Escaping the discomfort'],
-        standards:['3 rounds completed','Depth held honestly','Breathing stayed under control','Posture did not collapse'],
-        setup:['Take a wide stance with toes slightly turned out.','Bend the knees and sit down into the stance.','Keep the chest up and spine tall.'],
-        steps:['Spread the feet wider than shoulder width.','Turn toes slightly out if that feels natural on your knees.','Bend the knees and lower until you feel strong tension in the legs.','Press the knees outward so they track over the feet.','Keep the chest tall and head level.','Hold the position for the target time while breathing steadily.'],
-        coaching:['Go only as low as you can while keeping the back upright.','Leg burn is expected, joint pain is not.','If you start leaning forward, come slightly higher and rebuild the posture.'],
-        images:['Horse stance setup','Correct stance depth','Posture alignment check'],
-        video:'Add a trusted horse stance or official/public Shaolin reference link here.'
-      },
-      {
-        title:'Push-Ups', area:'Strength', level:1,
-        mission:'Build chest, shoulders, arms, core tension, and disciplined effort.',
-        looks:'Straight body line, hands stable, chest lowering under control.',
-        feels:'Strong full-body tension, not a loose sagging movement.',
-        unlock:'Level 1',
-        cues:['Brace the core','Lower with control','Push the floor away'],
-        mistakes:['Sagging hips','Half reps','Flared elbows','Head dropping first'],
-        standards:['Target sets completed','Body stayed braced','Range stayed honest','No rushed sloppy reps'],
-        setup:['Place hands just wider than shoulder width.','Step feet back into a straight plank.','Brace the stomach and squeeze the glutes lightly.'],
-        steps:['Start in a straight line from shoulders to heels.','Lower the chest toward the floor under control.','Keep elbows at a comfortable angle rather than straight out wide.','Press back up until the arms straighten.','Repeat without losing body alignment.'],
-        coaching:['If full push-ups are too hard, elevate the hands on a bench or solid surface.','Quality matters more than chasing big numbers.','Keep the neck neutral rather than craning upward.'],
-        images:['Push-up top position','Lowering phase','Bottom position check'],
-        video:'Add a trusted push-up technique reference link here.'
-      },
-      {
-        title:'Standing Meditation', area:'Recovery & Control', level:1,
-        mission:'Finish with command over mind, breath, and posture.',
-        looks:'Still body, low breath, relaxed jaw, shoulders down.',
-        feels:'Grounded and in charge of yourself.',
-        unlock:'Level 1',
-        cues:['Stand tall','Breathe low','Finish with command'],
-        mistakes:['Fidgeting','Chest-only breathing','Rushing to finish'],
-        standards:['Time completed','Breath pattern followed','Stillness maintained','Journal reflection done'],
-        setup:['Stand with feet under the hips or slightly wider.','Soften the knees slightly.','Rest the hands over the lower abdomen or by the sides.'],
-        steps:['Stand tall with the crown of the head rising upward.','Inhale slowly through the nose.','Let the breath settle lower into the abdomen.','Exhale slowly and relax the shoulders and jaw.','Stay still and return attention to the breath whenever the mind wanders.'],
-        coaching:['Stillness is part of the training.','You are not trying to force thought away. You are practicing non-reaction.','Finish calmer than you started.'],
-        images:['Standing posture setup','Hands and shoulder position','Quiet finishing posture'],
-        video:'Add a trusted standing meditation or qigong posture reference link here.'
-      },
-      {
-        title:'Bow Stance — Gong Bu', area:'Structure', level:2,
-        mission:'Build stability for striking and movement.',
-        looks:'Front knee stable, back leg long, torso controlled, feet grounded.',
-        feels:'Rooted and directional.',
-        unlock:'Level 2',
-        cues:['Front knee stable','Back leg alive','Hips aligned'],
-        mistakes:['Too narrow a stance','Front knee collapsing inward','Back heel floating without control'],
-        standards:['Holds completed each side','Posture remained stable','Breathing stayed calm'],
-        setup:['Step one foot forward and one foot back.','Bend the front knee.','Keep the back leg longer and grounded.'],
-        steps:['Place the front foot forward.','Sink into the front leg.','Keep the rear leg longer and active.','Square the torso as appropriate for the drill.','Hold or strike from the stance without losing structure.'],
-        coaching:['Do not make the stance so long you cannot control it.','Use this as a bridge between stillness and power.'],
-        images:['Bow stance setup','Mid-stance alignment','Front knee and torso check'],
-        video:'Add a trusted bow stance reference link here.'
-      },
-      {
-        title:'Cat Stance — Xu Bu', area:'Balance', level:2,
-        mission:'Develop weight control, readiness, and balance for stepping and kicking.',
-        looks:'Most weight is on the rear leg, front leg light and controlled.',
-        feels:'Springy, alert, and balanced.',
-        unlock:'Level 2',
-        cues:['Load the rear leg','Front foot light','Stay tall'],
-        mistakes:['Too much weight on the front leg','Collapsing the rear hip','Hunched upper body'],
-        standards:['Target holds completed each side','Balance mostly maintained','Front foot stayed light'],
-        setup:['Start from a comfortable upright stance.','Shift most weight to the rear leg.','Keep the front foot light and ready.'],
-        steps:['Load the rear leg.','Place the front foot lightly for balance.','Keep the torso upright.','Hold the position without wobbling excessively.'],
-        coaching:['This stance teaches readiness and control more than brute strength.'],
-        images:['Cat stance setup','Rear-leg loaded position','Front-foot light check'],
-        video:'Add a trusted cat stance reference link here.'
-      },
-      {
-        title:'Stance and Footwork', area:'Basics', level:2,
-        mission:'Build deliberate stepping before advanced skill.',
-        looks:'Stable steps, no crossing into weak positions, feet place deliberately.',
-        feels:'Mobile but rooted.',
-        unlock:'Level 2',
-        cues:['Step with intent','Set the base','Move cleanly'],
-        mistakes:['Rushing','Crossing feet awkwardly','Striking before the base is set'],
-        standards:['Footwork rounds completed','No chaotic stepping','Balance maintained'],
-        setup:['Work in a clear space.','Start slowly.','Use bow stance, horse stance, and cat stance transitions.'],
-        steps:['Practice forward step and set.','Practice backward step and set.','Practice stance-to-stance transitions.','Add a punch only after the base is secure.'],
-        coaching:['Footwork is a basic skill, not an optional extra.'],
-        images:['Forward step setup','Transition between stances','Stable finish position'],
-        video:'Add a trusted basic footwork reference link here.'
-      },
-      {
-        title:'Basic Hand Forms', area:'Basics', level:2,
-        mission:'Build the hand-shape and fist-control layer used in basic skill.',
-        looks:'Hand shapes are deliberate and not floppy.',
-        feels:'Structured and connected.',
-        unlock:'Level 2',
-        cues:['Make the shape clearly','Keep the wrist aligned','Return to guard cleanly'],
-        mistakes:['Loose hand shapes','Wrist collapse','Random arm motion'],
-        standards:['Shapes practiced cleanly','Guard return controlled','No obvious wrist collapse'],
-        setup:['Stand in a basic stance.','Use one movement at a time.','Keep shoulders relaxed.'],
-        steps:['Make the fist or hand shape deliberately.','Extend or present it along a clean line.','Return it under control.'],
-        coaching:['The hand form should look intentional, not approximate.'],
-        images:['Basic fist shape','Guard position','Straight wrist check'],
-        video:'Add a trusted hand-form basics reference link here.'
-      },
-      {
-        title:'Bow Stance + Straight Punch', area:'Power', level:2,
-        mission:'Build calm striking power from proper structure.',
-        looks:'Stable base, clean fist path, hips involved, no wild motion.',
-        feels:'Whole body works as one chain rather than arm-only effort.',
-        unlock:'Level 2',
-        cues:['Set the base','Turn the hips','Strike with calm intent'],
-        mistakes:['Arm punching','Elbows flaring','Wrist collapse','Power without control'],
-        standards:['Bow stance holds done','Punch volume completed','Exhale on strikes','Technique stayed clean'],
-        setup:['Step one foot forward and one foot back.','Front knee bends, back leg stays longer.','Hands come up ready to punch.'],
-        steps:['Set the front foot forward and bend that knee.','Keep the back leg long and grounded.','Turn the hips slightly toward the punch.','Drive the fist straight out from the guard position.','Rotate the fist so the wrist stays straight at the end.','Exhale on each punch and return under control.'],
-        coaching:['The punch should travel straight, not swing in a wide arc.','Power should come from stance and hip turn, not shoulder tension.','Start slowly until the line of the punch feels clean.'],
-        images:['Bow stance guard setup','Punch extension','End-range wrist alignment'],
-        video:'Add a trusted straight punch reference link here.'
-      },
-      {
-        title:'Plank', area:'Core', level:2,
-        mission:'Build core endurance so the body can hold shape under effort.',
-        looks:'Straight body line, ribs controlled, no sagging lower back.',
-        feels:'Strong abdominal tension and steady breathing.',
-        unlock:'Level 2',
-        cues:['Brace hard','Stay long','Breathe under tension'],
-        mistakes:['Hips too high','Hips sagging','Holding breath','Looking too far forward'],
-        standards:['Target time completed','Body line stayed controlled','Breathing remained steady'],
-        setup:['Place forearms on the floor.','Step the feet back into a straight line.','Tighten the stomach and glutes.'],
-        steps:['Set forearms under the shoulders.','Lift the body into a straight plank.','Keep the ribs tucked and lower back neutral.','Hold while breathing calmly through the nose when possible.'],
-        coaching:['Make the plank hard by bracing more, not by surviving badly.','If the lower back pinches, stop and reset the body line.'],
-        images:['Plank setup','Mid-hold body line','Shoulder and rib check'],
-        video:'Add a trusted plank reference link here.'
-      },
-      {
-        title:'Front Kick Control', area:'Balance & Power', level:3,
-        mission:'Develop balance, hip control, and disciplined kicking mechanics.',
-        looks:'Tall torso, stable support leg, clean lift and controlled return.',
-        feels:'Strong and balanced, not wild.',
-        unlock:'Level 3',
-        cues:['Lift with control','Return with control','Stay tall'],
-        mistakes:['Throwing the leg','Leaning back too much','Dropping guard carelessly'],
-        standards:['Reps completed each side','Controlled return','No excessive leaning','Balance mostly maintained'],
-        setup:['Stand tall with hands up.','Shift weight into the standing leg.','Brace the core lightly.'],
-        steps:['Lift one knee up first under control.','Extend the lower leg forward into the kick.','Keep the torso tall instead of falling backward.','Retract the leg before placing the foot back down.','Reset balance fully before the next rep.'],
-        coaching:['Think lift, extend, retract, place.','Do not slap the leg out and let it drop.','Start at waist height or lower until balance improves.'],
-        images:['Front kick setup','Knee-lift phase','Kick and retract phase'],
-        video:'Add a trusted front-kick reference link here.'
-      },
-      {
-        title:'Ji Ben Gong', area:'Foundation Drills', level:3,
-        mission:'Use a dedicated basics-practice block so repetition sharpens the basics.',
-        looks:'Deliberate basics with repeated clean movement.',
-        feels:'Repetitive, foundational, sharpening.',
-        unlock:'Level 3',
-        cues:['Slow enough to learn','Repeat cleanly','Basics first'],
-        mistakes:['Rushing because it feels simple','Skipping basics for harder drills'],
-        standards:['Practice block completed','Technique cleaner at end than start'],
-        setup:['Use this as a basics session.','Choose a few core movements only.'],
-        steps:['Repeat stances, stepping, punch lines, and balance drills.','Keep volume moderate but honest.','Treat quality as the goal.'],
-        coaching:['Ji Ben Gong is not glamorous. That is why it matters.'],
-        images:['Basics drill setup','Repetition block','Clean repetition standard'],
-        video:'Add a trusted basics-practice reference link here.'
-      },
-      {
-        title:'Core Development Practice', area:'Conditioning', level:3,
-        mission:'Use dedicated core-development work to support stance and striking.',
-        looks:'Strong trunk position without collapsing.',
-        feels:'Deep abdominal work rather than random back strain.',
-        unlock:'Level 3',
-        cues:['Brace the trunk','Stay long','Control the ribs'],
-        mistakes:['Overusing the lower back','Rushing reps','Neck tension taking over'],
-        standards:['Core block completed','Trunk position stayed mostly honest'],
-        setup:['Use plank, leg raise prep, dead-bug style work, or controlled floor core drills.'],
-        steps:['Brace before each rep.','Move slowly enough to keep trunk control.','Stop the set when shape is lost.'],
-        coaching:['Core work should support stance and striking, not just burn the abs.'],
-        images:['Core drill setup','Controlled trunk position','Finish position'],
-        video:'Add a trusted core-development reference link here.'
-      },
-      {
-        title:'Power Workout Blocks', area:'Conditioning', level:3,
-        mission:'Build resilience and work capacity through structured hard rounds.',
-        looks:'Hard effort without total chaos.',
-        feels:'Conditioned, challenged, but still under command.',
-        unlock:'Level 3',
-        cues:['Work hard','Keep form','Recover with breath'],
-        mistakes:['Turning the session into frantic sloppy reps','Ignoring recovery'],
-        standards:['Workout completed','Form mostly held','Breath regained after effort'],
-        setup:['Use bodyweight circuits, stance intervals, push-ups, planks, kicks, and explosive bodyweight drills.'],
-        steps:['Warm up first.','Use short hard blocks.','Recover with walking or standing breath control between rounds.'],
-        coaching:['The exact workout can change, but the role stays the same: build resilience and work capacity.'],
-        images:['Circuit setup','Working round example','Recovery breathing phase'],
-        video:'Add a trusted bodyweight conditioning reference link here.'
-      },
-      {
-        title:'Seated Meditation', area:'Mind Training', level:4,
-        mission:'Train stable attention and non-reaction in a formal seated position.',
-        looks:'Stable upright posture, low agitation, regular breath.',
-        feels:'Clearer and quieter, even if thoughts still appear.',
-        unlock:'Level 4',
-        cues:['Sit tall','Return to breath','Do not chase thoughts'],
-        mistakes:['Forcing emptiness','Slumping','Getting frustrated with thinking'],
-        standards:['Time completed','Posture stable','Returned to breath repeatedly'],
-        setup:['Sit upright on a chair or cushion.','Rest hands comfortably.','Keep the face and jaw relaxed.'],
-        steps:['Settle posture first.','Breathe gently through the nose.','Watch the breath or a single point of attention.','When thoughts pull you away, return calmly.'],
-        coaching:['Meditation is repetition of returning, not perfection.'],
-        images:['Seated setup posture','Hand placement and spine','Quiet seated finish'],
-        video:'Add a trusted seated meditation reference link here.'
-      },
-      {
-        title:'Shu Jing Gong', area:'Regulation Qigong', level:4,
-        mission:'Use body regulation to influence breathing, emotional mind, and calmness.',
-        looks:'Calm, methodical regulation instead of random movement.',
-        feels:'Organized, settled, more integrated.',
-        unlock:'Level 4',
-        cues:['Body first','Breath second','Mind follows'],
-        mistakes:['Rushing for intensity','Treating it like normal exercise'],
-        standards:['Completed calmly','Breathing regulated','Mind steadier at the end than the start'],
-        setup:['Use this as a lower-intensity skill block.','Stand in an upright relaxed posture.','Begin only after normal breathing settles.'],
-        steps:['Start by checking posture and alignment.','Regulate the body first.','Then regulate the breath.','Then observe emotional mind and return to calm breathing.'],
-        coaching:['This is a regulation practice, not a power drill.','Use it on recovery and restoration days.'],
-        images:['Regulation posture setup','Breath and posture check','Quiet completion phase'],
-        video:'Add a trusted regulation-qigong reference link here.'
-      },
-      {
-        title:'Meridian Massage Practice', area:'Recovery', level:4,
-        mission:'Use deliberate self-massage and recovery work to support restoration.',
-        looks:'Deliberate self-massage rather than random rubbing.',
-        feels:'Warmer, more open, more recovered.',
-        unlock:'Level 4',
-        cues:['Slow pressure','Follow a sequence','Use after training or on recovery days'],
-        mistakes:['Rushing','Using painful force'],
-        standards:['Recovery block completed','Body feels looser afterward'],
-        setup:['Use relaxed standing or seated posture.','Apply moderate pressure only.'],
-        steps:['Massage key areas in a repeatable order.','Use it after harder sessions or on low-intensity days.'],
-        coaching:['This is for recovery and awareness, not punishment.'],
-        images:['Recovery setup','Self-massage sequence','Post-training recovery'],
-        video:'Add a trusted recovery or self-massage reference link here.'
-      },
-      {
-        title:'Forms Training', area:'Forms', level:5,
-        mission:'Begin the longer path of learning forms in sections with control.',
-        looks:'Sequence is learned in order, stances remain recognizable, rhythm is controlled.',
-        feels:'Integrated, coordinated, demanding.',
-        unlock:'Level 5',
-        cues:['Sequence accuracy','Stance quality','Calm flow'],
-        mistakes:['Memorizing shapes without body structure','Rushing sequence learning'],
-        standards:['Sequence section learned','Can perform slowly with control','Can identify mistakes on review'],
-        setup:['Break the form into sections.','Learn one short section at a time.'],
-        steps:['Learn the opening posture.','Add a few movements only.','Repeat until the sequence is remembered.','Refine posture and transitions before speeding up.'],
-        coaching:['Forms are a long path. Learn small pieces well.'],
-        images:['Form opening posture','Section transition','Controlled sequence flow'],
-        video:'Add a trusted form reference link here.'
-      },
-      {
-        title:'Ethics and Theory Modules', area:'Mind & Character', level:5,
-        mission:'Use theory to shape behaviour and character, not just collect ideas.',
-        looks:'Theory study is used to shape behaviour, not just collect ideas.',
-        feels:'Grounding for discipline and character.',
-        unlock:'Level 5',
-        cues:['Study briefly','Apply practically','Reflect honestly'],
-        mistakes:['Treating theory as separate from behaviour'],
-        standards:['Theory reviewed','Short reflection logged','Practical lesson applied'],
-        setup:['Study one short concept block each week.'],
-        steps:['Read the principle.','Write one practical takeaway.','Try to apply it during training or daily life.'],
-        coaching:['This is part of training, but it does not replace physical practice.'],
-        images:['Study prompt card','Reflection note example','Application to daily conduct'],
-        video:'Add a trusted public talk or theory reference link here.'
-      },
-      {
-        title:'Weapons and Sparring Path', area:'Extended Curriculum', level:5,
-        mission:'Acknowledge the broader traditional curriculum beyond beginner solo basics.',
-        looks:'This is an expansion path, not a beginner block.',
-        feels:'Broader curriculum beyond solo foundations.',
-        unlock:'Level 5',
-        cues:['Unlock later','Do not start here','Foundation first'],
-        mistakes:['Jumping into advanced curriculum too early'],
-        standards:['Only appears after foundation phases are completed'],
-        setup:['Keep this path locked until the basics are honest.'],
-        steps:['Progress from solo basics to partner work or tool work only when the foundation is stable.'],
-        coaching:['This app shows this as an advanced branch, not the starting point.'],
-        images:['Advanced path placeholder','Partner-work concept','Weapons branch placeholder'],
-        video:'Add a trusted advanced branch reference link here.'
-      },
-      {
-        title:'Microcosmic Orbit Practice', area:'Advanced Internal Practice', level:5,
-        mission:'Include an advanced internal-practice placeholder for later-stage work.',
-        looks:'Calm, subtle, internally focused.',
-        feels:'Quiet and inward rather than physically intense.',
-        unlock:'Level 5',
-        cues:['Advanced practice','Do not rush','Treat as later-stage work'],
-        mistakes:['Trying to force sensations','Treating it like ordinary fitness training'],
-        standards:['Only unlocked in advanced phase','Completed calmly and conservatively'],
-        setup:['Reserve for advanced stage after breath and meditation basics are stable.'],
-        steps:['Approach as an advanced internal module with calm breath and still attention.'],
-        coaching:['This remains a high-level placeholder unless you add trusted lineage-specific guidance.'],
-        images:['Advanced internal placeholder','Still practice posture','Quiet focus state'],
-        video:'Add a trusted advanced internal reference link here.'
+        id: 'conditioning',
+        title: 'Conditioning & Form Lines',
+        subtitle: 'Weeks 21-52',
+        status: 'Locked',
+        summary: 'Layer strength, longer work, more difficult structural discipline.',
+        modules: ['Horse Stance', 'Bow Stance', 'Body Activation'],
+        unlockRule: 'Complete 20 weeks and maintain stable scores.'
       }
     ];
 
-    const moduleMap = Object.fromEntries(modules.map(m => [m.title, m]));
+    const WEEK_TEMPLATES = [
+      {
+        phase: 'Foundation',
+        objective: 'Build posture, breath, and repeatable practice rhythm.',
+        focus: ['Stance quality', 'Breathing quality', 'Consistency', 'Mobility'],
+        days: [
+          ['Body Activation', 'Horse Stance', 'Breathing Foundation'],
+          ['Body Activation', 'Bow Stance', 'Wall Stretch & Line Opening'],
+          ['Ba Duan Jin', 'Breathing Foundation'],
+          ['Body Activation', 'Horse Stance', 'Bow Stance'],
+          ['Ba Duan Jin', 'Wall Stretch & Line Opening'],
+          ['Breathing Foundation', 'Horse Stance'],
+          ['Recovery walk', 'Light mobility']
+        ]
+      },
+      {
+        phase: 'Integration',
+        objective: 'Connect stances, mobility, and qigong with more control.',
+        focus: ['Transition quality', 'Calm under discomfort', 'Internal awareness', 'Volume tolerance'],
+        days: [
+          ['Body Activation', 'Horse Stance', 'Ba Duan Jin'],
+          ['Bow Stance', 'Wall Stretch & Line Opening'],
+          ['Breathing Foundation', 'Ba Duan Jin'],
+          ['Horse Stance', 'Bow Stance', 'Body Activation'],
+          ['Ba Duan Jin', 'Wall Stretch & Line Opening'],
+          ['Breathing Foundation', 'Horse Stance'],
+          ['Recovery walk', 'Light mobility']
+        ]
+      }
+    ];
+
+    const HOW_TO = [
+      'Open Today and complete the listed work honestly.',
+      'Use Library for setup, cues, step-by-step, and now your own saved help media.',
+      'Add links, videos, and images directly in the Library for each movement.',
+      'Export your data regularly so your local work is backed up.',
+      'Use Journal after training to record what broke down and what improved.'
+    ];
+
+    const QUICK_START = [
+      'Start with Body Activation and one stance.',
+      'Keep sessions simple while testing the app flow.',
+      'Use the Library to add your own video and image references per movement.',
+      'Export after you make changes so you keep a clean backup.',
+      'Do not mark tasks complete unless you actually did them.'
+    ];
+
+    const FOCUS_PROMPTS = [
+      'Did I keep my breath calm when discomfort rose?',
+      'Did my posture stay honest or did I cheat depth and shape?',
+      'What one cue helped most today?',
+      'What one thing needs work tomorrow?',
+      'Did I train or just tick boxes?'
+    ];
+
+    const WALK_PROMPTS = [
+      'Lengthen the spine and soften the face.',
+      'Breathe low and slow through the nose when possible.',
+      'Notice tension and reduce it without losing structure.',
+      'Walk with quiet confidence instead of mental noise.'
+    ];
+
+    const PROGRESS_TARGETS = [
+      { title: 'Horse stance tolerance', current: 'Build from 30-60 sec holds to stable multi-set work.' },
+      { title: 'Bow stance structure', current: 'Own both sides with clean knee tracking.' },
+      { title: 'Breath control', current: 'Make your exhale calm and repeatable under effort.' },
+      { title: 'Qigong consistency', current: 'Perform sets with attention rather than rushing.' }
+    ];
 
     const state = {
-      selectedWeek: 1,
-      selectedDay: 0,
-      selectedModule: modules[0].title,
-      selectedPath: pathLevels[0].id,
-      missionChecks: {},
-      weekChecks: {},
-      notes: {},
-      evidence: {},
-      scores: { discipline: 8, calm: 7, effort: 8, control: 7 },
-      streak: 0,
-      activeTab: 'home'
+      selectedTab: 'home',
+      selectedPathId: 'foundation',
+      selectedWeekIndex: 0,
+      selectedDayIndex: 0,
+      selectedModuleId: MODULES[0].id,
+      checks: {},
+      scores: { mind: 0, body: 0, discipline: 0 },
+      journal: '',
+      evidence: ''
     };
 
-    function saveState() { localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); }
+    function buildWeeks() {
+      const weeks = [];
+      for (let i = 0; i < 52; i++) {
+        const template = i < 8 ? WEEK_TEMPLATES[0] : WEEK_TEMPLATES[1];
+        weeks.push({
+          week: i + 1,
+          title: `Week ${i + 1}`,
+          phase: template.phase,
+          objective: template.objective,
+          focus: template.focus,
+          days: template.days
+        });
+      }
+      return weeks;
+    }
+
+    const WEEKS = buildWeeks();
+
+    function saveState() {
+      localStorage.setItem('shaolinPathV2State', JSON.stringify(state));
+    }
+
     function loadState() {
-      const raw = localStorage.getItem(STORAGE_KEY);
-      if (!raw) return;
-      try { Object.assign(state, JSON.parse(raw)); } catch (e) { console.error(e); }
+      try {
+        const saved = JSON.parse(localStorage.getItem('shaolinPathV2State') || 'null');
+        if (!saved) return;
+        Object.assign(state, saved);
+      } catch {}
     }
-    function getPhaseByWeek(week) { return phases.find(p => week >= p.weeks[0] && week <= p.weeks[1]) || phases[0]; }
-    function getProgression(week) {
-      return {
-        horseHold: Math.min(30 + (week - 1) * 5, 300),
-        bowHold: Math.min(20 + Math.floor((week - 1) * 2.5), 120),
-        catHold: week >= 9 ? Math.min(15 + (week - 9) * 2, 90) : 0,
-        pushups: Math.min(8 + Math.floor((week - 1) * 1.3), 45),
-        punches: Math.min(20 + (week - 1) * 5, 200),
-        kicks: week >= 9 ? Math.min(6 + Math.floor((week - 9) * 1.2), 30) : 0,
-        plank: Math.min(20 + (week - 1) * 4, 180),
-        meditation: Math.min(3 + Math.floor((week - 1) / 3), 10)
-      };
+
+    function getMediaStore() {
+      try {
+        return JSON.parse(localStorage.getItem('shaolinMediaStore') || '{}');
+      } catch {
+        return {};
+      }
     }
-    function getDayType(index) { return ['Foundation','Power','Structure','Recovery','Discipline','Flow','Reflection'][index % 7]; }
-    function buildMissionForWeek(week, dayIndex) {
-      const p = getProgression(week);
-      const phase = getPhaseByWeek(week);
-      const dayType = getDayType(dayIndex);
-      const dayTemplates = {
-        Foundation: [
-          `Horse stance ${p.horseHold}s × 3`,
-          `Bow stance ${p.bowHold}s each side × 3`,
-          `Straight punches ${p.punches} total`,
-          `Push-ups ${p.pushups} × 3 sets`,
-          `Standing meditation ${p.meditation} min`
-        ],
-        Power: [
-          `Horse stance ${Math.max(p.horseHold - 10, 30)}s × 2`,
-          `Straight punches ${p.punches + 10} total`,
-          week >= 9 ? `Front kicks ${p.kicks} each leg × 3` : 'Front-kick prep drill 8 each leg × 2',
-          `Explosive push-ups ${Math.max(Math.floor(p.pushups * 0.6), 6)} × 3`,
-          `Plank ${p.plank}s × 2`
-        ],
-        Structure: [
-          `Horse stance ${p.horseHold}s × 3`,
-          `Bow stance ${p.bowHold}s each side × 3`,
-          week >= 9 ? `Cat stance ${p.catHold}s each side × 3` : 'Balance hold 20s each side × 3',
-          'Stance transition drill × 10 rounds',
-          'Slow punch technique drill × 20 reps'
-        ],
-        Recovery: [
-          'Extended Qigong 8–10 min',
-          'Right breathing 5 min',
-          'Meridian massage or recovery block 5 min',
-          `Light push-ups ${Math.max(Math.floor(p.pushups * 0.5), 5)} × 2`,
-          `Standing meditation ${Math.max(p.meditation, 5)} min`
-        ],
-        Discipline: [
-          `Horse stance ${p.horseHold + 10}s × 3`,
-          `Bow stance ${p.bowHold}s each side × 2`,
-          `Push-ups ${p.pushups} × 3`,
-          `Plank ${p.plank + 10}s × 2`,
-          'Use “observe, do not react” through all discomfort'
-        ],
-        Flow: [
-          'Qigong to stance flow 6 min',
-          'Step + punch drill × 20 reps × 3',
-          week >= 9 ? `Front kicks ${p.kicks} each leg × 2` : 'Knee lift balance drill × 10 each side',
-          `Push-ups ${Math.max(p.pushups - 2, 6)} × 3`,
-          `Standing meditation ${p.meditation} min`
-        ],
-        Reflection: [
-          'Long easy dog walk focus session',
-          'Qigong 10 min',
-          'Technique review of 2 key movements',
-          'Short bodyweight maintenance circuit',
-          'Longer journal and reflection review'
-        ]
-      };
-      return {
-        week, dayIndex, dayName: dayNames[dayIndex], phase, dayType,
-        objective: phase.summary, focus: phase.focus, tasks: dayTemplates[dayType], progression: p
-      };
+
+    function setMediaStore(store) {
+      localStorage.setItem('shaolinMediaStore', JSON.stringify(store));
     }
-    function getMissionCards(week, dayIndex) {
-      const m = buildMissionForWeek(week, dayIndex);
-      return [
-        { id: `${week}-${dayIndex}-walk`, title:'Dog Walk Mind Training', detail:'20–25 min dog walk + walking meditation', library:'Walking Mind Discipline' },
-        { id: `${week}-${dayIndex}-qigong`, title:'Regulation / Qigong Block', detail: week <= 8 ? 'Right breathing + Qigong activation' : 'Qigong / regulation block', library: week <= 8 ? 'Qigong Activation' : 'Shu Jing Gong' },
-        { id: `${week}-${dayIndex}-stance`, title:'Structure Block', detail:`${m.tasks[0]} • ${m.tasks[1]}`, library: week <= 8 ? 'Horse Stance — Ma Bu' : 'Bow Stance — Gong Bu' },
-        { id: `${week}-${dayIndex}-power`, title:'Martial Block', detail:m.tasks[2], library: week >= 9 ? 'Front Kick Control' : 'Bow Stance + Straight Punch' },
-        { id: `${week}-${dayIndex}-strength`, title:'Strength Block', detail:m.tasks[3], library: week >= 9 ? 'Core Development Practice' : 'Push-Ups' },
-        { id: `${week}-${dayIndex}-meditation`, title:'Finish', detail:m.tasks[4], library:'Standing Meditation' }
-      ];
+
+    function ensureModuleMedia(moduleId) {
+      const store = getMediaStore();
+      if (!store[moduleId]) {
+        const mod = MODULES.find(m => m.id === moduleId);
+        store[moduleId] = {
+          images: [...(mod?.defaults?.images || [])],
+          videos: [...(mod?.defaults?.videos || [])],
+          links: [...(mod?.defaults?.links || [])]
+        };
+        setMediaStore(store);
+      }
+      return store[moduleId];
     }
-    function getCurrentWeek() {
-      for (let i = 1; i <= 52; i++) if (!state.weekChecks[`week-${i}`]) return i;
-      return 52;
-    }
-    function percent(a, b) { return b ? Math.round((a / b) * 100) : 0; }
-    function setBar(id, val) { document.getElementById(id).style.width = `${val}%`; }
-    function journalKey() { return `week-${state.selectedWeek}-day-${state.selectedDay}`; }
-    function getModuleCompleted(moduleTitle) {
-      const idx = modules.findIndex(m => m.title === moduleTitle);
-      return idx >= 0 && state.selectedWeek >= Math.min(52, modules[idx].level * 8);
-    }
-    function getCurrentLevel() {
-      if (state.selectedWeek <= 8) return 1;
-      if (state.selectedWeek <= 16) return 2;
-      if (state.selectedWeek <= 26) return 3;
-      if (state.selectedWeek <= 39) return 4;
-      return 5;
-    }
-    function nextUnlockTitle() {
-      const currentLevel = getCurrentLevel();
-      const next = modules.find(m => m.level > currentLevel);
-      return next ? next.title : 'Mastery review';
+
+    function escapeHtml(value) {
+      return String(value || '')
+        .replaceAll('&', '&amp;')
+        .replaceAll('<', '&lt;')
+        .replaceAll('>', '&gt;')
+        .replaceAll('"', '&quot;')
+        .replaceAll("'", '&#39;');
     }
 
     function renderTabs() {
-      document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.toggle('active', btn.dataset.tab === state.activeTab));
-      ['home','today','path','year','library','progress','journal'].forEach(id => {
-        document.getElementById('tab-' + id).classList.toggle('hidden', state.activeTab !== id);
+      document.querySelectorAll('.tab-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.tab === state.selectedTab);
       });
+      document.querySelectorAll('section[id^="tab-"]').forEach(section => section.classList.add('hidden'));
+      document.getElementById(`tab-${state.selectedTab}`).classList.remove('hidden');
     }
 
-    function renderTop() {
-      const mission = buildMissionForWeek(state.selectedWeek, state.selectedDay);
-      const cards = getMissionCards(state.selectedWeek, state.selectedDay);
-      const dayDone = cards.filter(c => state.missionChecks[c.id]).length;
-      const dayProgress = percent(dayDone, cards.length);
-      const completedWeeks = Object.values(state.weekChecks).filter(Boolean).length;
-      const yearProgress = percent(completedWeeks, 52);
-      const level = getCurrentLevel();
-      document.getElementById('currentTrack').textContent = `Week ${state.selectedWeek} • ${mission.dayName}`;
-      document.getElementById('currentPhaseLabel').textContent = mission.phase.title;
-      document.getElementById('currentLevelPill').textContent = `Level ${level}`;
-      document.getElementById('yearProgressNum').textContent = `${yearProgress}%`;
-      document.getElementById('dayProgressNum').textContent = `${dayProgress}%`;
-      document.getElementById('completedWeeksNum').textContent = `${completedWeeks}/52`;
-      document.getElementById('streakNum').textContent = state.streak;
-      document.getElementById('mantraText').textContent = affirmations[(state.selectedWeek + state.selectedDay) % affirmations.length];
-      setBar('yearProgressBar', yearProgress);
-      setBar('dayProgressBar', dayProgress);
+    function selectTab(tab) {
+      state.selectedTab = tab;
+      saveState();
+      renderTabs();
+    }
+
+    function getTodayWeek() { return WEEKS[state.selectedWeekIndex]; }
+    function getTodayDayTasks() { return getTodayWeek().days[state.selectedDayIndex]; }
+    function getModuleByTitle(title) { return MODULES.find(m => m.title === title); }
+    function getSelectedModule() { return MODULES.find(m => m.id === state.selectedModuleId) || MODULES[0]; }
+
+    function taskKey(weekIndex, dayIndex, taskTitle) {
+      return `${weekIndex}:${dayIndex}:${taskTitle}`;
     }
 
     function renderHome() {
-      const level = getCurrentLevel();
-      document.getElementById('homeCurrentLevel').textContent = `Level ${level}`;
-      document.getElementById('nextUnlockText').textContent = nextUnlockTitle();
-      document.getElementById('mindScoreText').textContent = `${state.scores.calm}/10`;
-      document.getElementById('bodyScoreText').textContent = `${Math.round((state.scores.effort + state.scores.control) / 2)}/10`;
-      document.getElementById('disciplineScoreText').textContent = `${state.scores.discipline}/10`;
+      const completedKeys = Object.values(state.checks).filter(Boolean).length;
+      const completedWeeks = Array.from({ length: 52 }, (_, i) => {
+        const week = WEEKS[i];
+        let allDone = true;
+        week.days.forEach((day, dayIndex) => {
+          day.forEach(task => {
+            if (!state.checks[taskKey(i, dayIndex, task)]) allDone = false;
+          });
+        });
+        return allDone;
+      }).filter(Boolean).length;
 
-      const q = document.getElementById('quickStartList');
-      q.innerHTML = '';
-      quickStart.forEach(item => {
-        const div = document.createElement('div');
-        div.className = 'note';
-        div.textContent = item;
-        q.appendChild(div);
-      });
+      document.getElementById('heroTrack').textContent = `Level ${Math.min(3, 1 + Math.floor(completedWeeks / 10))}`;
+      document.getElementById('homeCurrentLevel').textContent = document.getElementById('heroTrack').textContent;
+      document.getElementById('heroCompletedWeeks').textContent = `${completedWeeks}/52`;
+      document.getElementById('heroYearProgress').textContent = `${Math.round((completedWeeks / 52) * 100)}%`;
+      document.getElementById('heroStreak').textContent = String(Math.min(99, completedKeys));
+      document.getElementById('nextUnlockText').textContent = completedWeeks < 6 ? 'Internal branch at 6 weeks' : 'Conditioning branch later';
+      document.getElementById('mindScoreText').textContent = state.scores.mind;
+      document.getElementById('bodyScoreText').textContent = state.scores.body;
+      document.getElementById('disciplineScoreText').textContent = state.scores.discipline;
 
-      const todayList = document.getElementById('homeTodayList');
-      todayList.innerHTML = '';
-      getMissionCards(state.selectedWeek, state.selectedDay).forEach(card => {
-        const div = document.createElement('div');
-        div.className = 'mini-card';
-        div.innerHTML = `<div style="font-weight:800;">${card.title}</div><div class="muted" style="margin-top:4px;">${card.detail}</div>`;
-        todayList.appendChild(div);
-      });
+      document.getElementById('quickStartList').innerHTML = QUICK_START.map(item => `<div class="list-item">${escapeHtml(item)}</div>`).join('');
+      document.getElementById('homeTodayList').innerHTML = [
+        `<div class="list-item"><strong>${escapeHtml(getTodayWeek().title)} • Day ${state.selectedDayIndex + 1}</strong><div class="muted">${escapeHtml(getTodayWeek().phase)} phase</div></div>`,
+        ...getTodayDayTasks().map(task => `<div class="list-item">${escapeHtml(task)}</div>`)
+      ].join('');
     }
 
     function renderToday() {
-      const m = buildMissionForWeek(state.selectedWeek, state.selectedDay);
-      document.getElementById('todaySubtitle').textContent = `${m.dayName} • ${m.dayType} day • Week ${state.selectedWeek}`;
-      document.getElementById('todayPhaseBadge').textContent = m.phase.title;
-      document.getElementById('weekObjective').textContent = m.objective;
+      const week = getTodayWeek();
+      const tasks = getTodayDayTasks();
+      document.getElementById('todaySubtitle').textContent = `${week.title} • Day ${state.selectedDayIndex + 1}`;
+      document.getElementById('todayPhaseBadge').textContent = week.phase;
+      document.getElementById('weekObjective').textContent = week.objective;
 
-      const focusWrap = document.getElementById('weekFocusList');
-      focusWrap.innerHTML = '';
-      m.focus.forEach(item => {
-        const div = document.createElement('div');
-        div.className = 'note';
-        div.textContent = item;
-        focusWrap.appendChild(div);
-      });
+      document.getElementById('weekFocusList').innerHTML = week.focus.map(item => `<div class="note">${escapeHtml(item)}</div>`).join('');
+      document.getElementById('missionList').innerHTML = tasks.map(task => {
+        const key = taskKey(state.selectedWeekIndex, state.selectedDayIndex, task);
+        const checked = !!state.checks[key];
+        return `
+          <label class="check-row ${checked ? 'done' : ''}">
+            <input type="checkbox" ${checked ? 'checked' : ''} onchange="toggleTask('${escapeHtml(key)}')" />
+            <div>
+              <strong>${escapeHtml(task)}</strong>
+              <div class="muted">${escapeHtml(getModuleByTitle(task)?.quickHelp || 'Support task')}</div>
+            </div>
+            <button class="btn" onclick="jumpToModuleByTitle('${escapeHtml(task)}')">Open</button>
+          </label>
+        `;
+      }).join('');
 
-      const missionWrap = document.getElementById('missionList');
-      missionWrap.innerHTML = '';
-      const cards = getMissionCards(state.selectedWeek, state.selectedDay);
-      cards.forEach(card => {
-        const row = document.createElement('label');
-        row.className = 'check-item';
-        row.innerHTML = `<input type="checkbox" ${state.missionChecks[card.id] ? 'checked' : ''}><div><div style="font-weight:800;">${card.title}</div><div class="muted" style="margin-top:4px;">${card.detail}</div><div class="subtle" style="margin-top:6px;color:#1d4ed8;">Help card: ${card.library}</div></div>`;
-        row.querySelector('input').addEventListener('change', (e) => {
-          state.missionChecks[card.id] = e.target.checked;
-          saveState();
-          render();
-        });
-        missionWrap.appendChild(row);
-      });
+      document.getElementById('todayQuickHelp').innerHTML = tasks.map(task => {
+        const mod = getModuleByTitle(task);
+        return `<div class="list-item"><strong>${escapeHtml(task)}</strong><div class="muted">${escapeHtml(mod?.quickHelp || 'General support task')}</div></div>`;
+      }).join('');
 
-      const help = document.getElementById('todayQuickHelp');
-      help.innerHTML = '';
-      const uniqueHelp = [...new Set(cards.map(c => c.library))].slice(0, 4);
-      uniqueHelp.forEach(title => {
-        const mod = moduleMap[title];
-        if (!mod) return;
-        const div = document.createElement('button');
-        div.className = 'module-btn';
-        div.innerHTML = `<div style="font-weight:800;">${mod.title}</div><div class="muted" style="margin-top:4px;">${mod.cues[0]} • ${mod.cues[1] || ''}</div>`;
-        div.addEventListener('click', () => {
-          state.selectedModule = mod.title;
-          state.activeTab = 'library';
-          saveState();
-          render();
-        });
-        help.appendChild(div);
-      });
+      document.getElementById('walkPromptList').innerHTML = WALK_PROMPTS.map(p => `<div class="list-item">${escapeHtml(p)}</div>`).join('');
 
-      const walkWrap = document.getElementById('walkPromptList');
-      walkWrap.innerHTML = '';
-      dailyWalkPrompts.forEach(p => {
-        const div = document.createElement('div');
-        div.className = 'note';
-        div.textContent = p;
-        walkWrap.appendChild(div);
-      });
-
-      const scoreWrap = document.getElementById('scoreSliders');
-      scoreWrap.innerHTML = '';
-      Object.entries(state.scores).forEach(([key, value]) => {
-        const row = document.createElement('div');
-        row.style.marginBottom = '14px';
-        row.innerHTML = `<div class="split"><div style="text-transform:capitalize;font-weight:800;">${key}</div><div>${value}/10</div></div><input type="range" min="1" max="10" value="${value}">`;
-        row.querySelector('input').addEventListener('input', (e) => {
-          state.scores[key] = Number(e.target.value);
-          saveState();
-          renderHome();
-          renderToday();
-        });
-        scoreWrap.appendChild(row);
-      });
+      document.getElementById('scoreSliders').innerHTML = ['mind','body','discipline'].map(key => `
+        <div class="slider-row">
+          <label for="score-${key}"><strong>${key[0].toUpperCase() + key.slice(1)}</strong> <span class="muted">(${state.scores[key]})</span></label>
+          <input id="score-${key}" type="range" min="0" max="10" value="${state.scores[key]}" oninput="setScore('${key}', this.value)" />
+        </div>
+      `).join('');
     }
 
     function renderPath() {
-      const currentLevel = getCurrentLevel();
-      const grid = document.getElementById('pathGrid');
-      grid.innerHTML = '';
-      pathLevels.forEach(level => {
-        const num = Number(level.id.split('-')[1]);
-        const btn = document.createElement('button');
-        btn.className = 'path-btn' + (state.selectedPath === level.id ? ' active' : '');
-        btn.innerHTML = `<div style="font-weight:800;">${level.title}</div><div class="muted" style="margin-top:4px;">${num <= currentLevel ? 'Unlocked' : 'Locked'}</div>`;
-        btn.addEventListener('click', () => { state.selectedPath = level.id; saveState(); renderPath(); });
-        grid.appendChild(btn);
-      });
-      const chosen = pathLevels.find(p => p.id === state.selectedPath) || pathLevels[0];
-      const chosenNum = Number(chosen.id.split('-')[1]);
-      document.getElementById('pathTitle').textContent = chosen.title;
-      document.getElementById('pathSubtitle').textContent = chosen.subtitle;
-      document.getElementById('pathStatus').textContent = chosenNum <= currentLevel ? 'Unlocked' : 'Locked';
-      document.getElementById('pathSummary').textContent = chosen.summary;
-      document.getElementById('pathUnlockRule').textContent = chosen.unlock;
-      const mods = document.getElementById('pathModules');
-      mods.innerHTML = '';
-      chosen.modules.forEach(title => {
-        const div = document.createElement('button');
-        div.className = 'module-btn';
-        div.innerHTML = `<div style="font-weight:800;">${title}</div><div class="muted" style="margin-top:4px;">Open movement card</div>`;
-        div.addEventListener('click', () => {
-          state.selectedModule = title;
-          state.activeTab = 'library';
-          saveState();
-          render();
-        });
-        mods.appendChild(div);
-      });
+      document.getElementById('pathGrid').innerHTML = PATHS.map(path => `
+        <button class="path-item ${path.id === state.selectedPathId ? 'active' : ''}" onclick="selectPath('${path.id}')">
+          <strong>${escapeHtml(path.title)}</strong>
+          <div class="muted">${escapeHtml(path.subtitle)}</div>
+        </button>
+      `).join('');
+
+      const path = PATHS.find(p => p.id === state.selectedPathId) || PATHS[0];
+      document.getElementById('pathTitle').textContent = path.title;
+      document.getElementById('pathSubtitle').textContent = path.subtitle;
+      document.getElementById('pathStatus').textContent = path.status;
+      document.getElementById('pathSummary').textContent = path.summary;
+      document.getElementById('pathModules').innerHTML = path.modules.map(m => `<div class="list-item">${escapeHtml(m)}</div>`).join('');
+      document.getElementById('pathUnlockRule').textContent = path.unlockRule;
     }
 
     function renderYear() {
-      const weekList = document.getElementById('weekList');
-      weekList.innerHTML = '';
-      for (let week = 1; week <= 52; week++) {
-        const p = getPhaseByWeek(week);
-        const btn = document.createElement('button');
-        btn.className = 'week-btn' + (week === state.selectedWeek ? ' active' : '');
-        btn.innerHTML = `<div class="split"><div><div style="font-weight:800;">Week ${week}</div><div class="subtle muted">${p.title}</div></div><div>${state.weekChecks[`week-${week}`] ? '✓' : (week === getCurrentWeek() ? '★' : '›')}</div></div>`;
-        btn.addEventListener('click', () => { state.selectedWeek = week; saveState(); render(); });
-        weekList.appendChild(btn);
-      }
-      const current = buildMissionForWeek(state.selectedWeek, state.selectedDay);
-      document.getElementById('yearWeekTitle').textContent = `Week ${state.selectedWeek}`;
-      document.getElementById('yearWeekPhase').textContent = current.phase.title;
-      document.getElementById('yearWeekStatus').textContent = state.weekChecks[`week-${state.selectedWeek}`] ? 'Completed' : 'In progress';
-      document.getElementById('yearWeekObjective').textContent = current.objective;
-      const dayCards = document.getElementById('dayCards');
-      dayCards.innerHTML = '';
-      for (let d = 0; d < 7; d++) {
-        const day = buildMissionForWeek(state.selectedWeek, d);
-        const btn = document.createElement('button');
-        btn.className = 'day-btn' + (d === state.selectedDay ? ' active' : '');
-        btn.innerHTML = `<div style="font-weight:800;">${day.dayName}</div><div class="subtle muted" style="margin-top:4px;">${day.dayType}</div><div style="margin-top:8px;">${day.tasks[0]}</div><div class="subtle muted" style="margin-top:8px;">Tap to load this day</div>`;
-        btn.addEventListener('click', () => { state.selectedDay = d; state.activeTab = 'today'; saveState(); render(); });
-        dayCards.appendChild(btn);
-      }
+      document.getElementById('weekList').innerHTML = WEEKS.map((week, i) => `
+        <button class="week-item ${i === state.selectedWeekIndex ? 'active' : ''}" onclick="selectWeek(${i})">
+          <strong>${escapeHtml(week.title)}</strong>
+          <div class="muted">${escapeHtml(week.phase)}</div>
+        </button>
+      `).join('');
+
+      const week = getTodayWeek();
+      document.getElementById('yearWeekTitle').textContent = week.title;
+      document.getElementById('yearWeekPhase').textContent = week.phase;
+      document.getElementById('yearWeekStatus').textContent = `Day ${state.selectedDayIndex + 1}`;
+      document.getElementById('yearWeekObjective').textContent = week.objective;
+      document.getElementById('dayCards').innerHTML = week.days.map((day, i) => `
+        <button class="list-item ${i === state.selectedDayIndex ? 'active' : ''}" onclick="selectDay(${i})">
+          <strong>Day ${i + 1}</strong>
+          <div class="muted">${escapeHtml(day.join(' • '))}</div>
+        </button>
+      `).join('');
     }
 
-    function renderLibrary() {
-      const list = document.getElementById('moduleList');
-      list.innerHTML = '';
-      modules.forEach(mod => {
-        const unlocked = mod.level <= getCurrentLevel();
-        const btn = document.createElement('button');
-        btn.className = 'module-btn' + (state.selectedModule === mod.title ? ' active' : '');
-        btn.innerHTML = `<div class="split"><div><div style="font-weight:800;">${mod.title}</div><div class="subtle muted">${mod.area} • Level ${mod.level}</div></div><div>${unlocked ? '✓' : '🔒'}</div></div>`;
-        btn.addEventListener('click', () => { state.selectedModule = mod.title; saveState(); renderLibrary(); });
-        list.appendChild(btn);
-      });
+    function renderModuleList() {
+      document.getElementById('moduleList').innerHTML = MODULES.map(mod => `
+        <button class="module-item ${mod.id === state.selectedModuleId ? 'active' : ''}" onclick="selectModule('${mod.id}')">
+          <strong>${escapeHtml(mod.title)}</strong>
+          <div class="muted">${escapeHtml(mod.area)}</div>
+        </button>
+      `).join('');
+    }
 
-      const mod = moduleMap[state.selectedModule] || modules[0];
-      document.getElementById('moduleTitle').textContent = mod.title;
-      document.getElementById('moduleArea').textContent = mod.area;
-      document.getElementById('moduleLevelBadge').textContent = `Level ${mod.level}`;
-      document.getElementById('moduleMission').textContent = mod.mission;
-      document.getElementById('moduleLooks').textContent = mod.looks;
-      document.getElementById('moduleFeels').textContent = mod.feels;
-      document.getElementById('moduleUnlock').textContent = `${mod.unlock}. ${mod.level <= getCurrentLevel() ? 'Currently unlocked.' : 'Still locked until you reach that level.'}`;
-      document.getElementById('moduleSetup').innerHTML = mod.setup.map(x => '• ' + x).join('<br>');
-      document.getElementById('moduleCues').innerHTML = mod.cues.map(x => '• ' + x).join('<br>');
-      document.getElementById('moduleSteps').innerHTML = mod.steps.map((x, i) => `${i + 1}. ${x}`).join('<br>');
-      document.getElementById('moduleCoaching').innerHTML = mod.coaching.map(x => '• ' + x).join('<br>');
-      document.getElementById('moduleMistakes').innerHTML = mod.mistakes.map(x => '• ' + x).join('<br>');
-      document.getElementById('moduleStandards').innerHTML = mod.standards.map(x => '• ' + x).join('<br>');
-      document.getElementById('moduleVideo').innerHTML = `<strong>Video reference slot</strong><div style="margin-top:6px;">${mod.video}</div>`;
-      const imgWrap = document.getElementById('moduleImages');
-      imgWrap.innerHTML = '';
-      mod.images.forEach(label => {
-        const div = document.createElement('div');
-        div.className = 'movement-img';
-        div.textContent = label + ' image placeholder';
-        imgWrap.appendChild(div);
-      });
+    function renderModuleMedia(moduleId) {
+      const media = ensureModuleMedia(moduleId);
+      const imageBox = document.getElementById('moduleImages');
+      const videoBox = document.getElementById('moduleVideoList');
+      const linkBox = document.getElementById('moduleLinkList');
+
+      imageBox.innerHTML = media.images.length ? media.images.map((url, index) => `
+        <div class="media-thumb">
+          <img src="${escapeHtml(url)}" alt="Reference image ${index + 1}" loading="lazy" />
+          <div class="caption">
+            Image ${index + 1}
+            <div class="media-actions" style="margin-top:8px;">
+              <a class="btn" href="${escapeHtml(url)}" target="_blank" rel="noopener noreferrer">Open</a>
+              <button class="media-remove-btn" onclick="removeMediaItem('images', ${index})">Remove</button>
+            </div>
+          </div>
+        </div>
+      `).join('') : `<div class="media-empty">No image references added yet.</div>`;
+
+      videoBox.innerHTML = media.videos.length ? media.videos.map((url, index) => `
+        <div class="video-card">
+          <div><strong>Video ${index + 1}</strong></div>
+          <div class="muted">${escapeHtml(url)}</div>
+          <div class="media-actions">
+            <a class="btn" href="${escapeHtml(url)}" target="_blank" rel="noopener noreferrer">Open Video</a>
+            <button class="media-remove-btn" onclick="removeMediaItem('videos', ${index})">Remove</button>
+          </div>
+        </div>
+      `).join('') : `<div class="media-empty">No video references added yet.</div>`;
+
+      linkBox.innerHTML = media.links.length ? media.links.map((url, index) => `
+        <div class="link-card">
+          <div><strong>Link ${index + 1}</strong></div>
+          <div class="muted">${escapeHtml(url)}</div>
+          <div class="media-actions">
+            <a class="btn" href="${escapeHtml(url)}" target="_blank" rel="noopener noreferrer">Open Link</a>
+            <button class="media-remove-btn" onclick="removeMediaItem('links', ${index})">Remove</button>
+          </div>
+        </div>
+      `).join('') : `<div class="media-empty">No helpful links added yet.</div>`;
+    }
+
+    function renderModuleDetail() {
+      const module = getSelectedModule();
+      document.getElementById('moduleTitle').textContent = module.title || '';
+      document.getElementById('moduleArea').textContent = module.area || '';
+      document.getElementById('moduleLevelBadge').textContent = module.levelLabel || 'Level 1';
+      document.getElementById('moduleMission').textContent = module.mission || '';
+      document.getElementById('moduleLooks').textContent = module.looks || '';
+      document.getElementById('moduleFeels').textContent = module.feels || '';
+      document.getElementById('moduleUnlock').textContent = module.unlock || '';
+      document.getElementById('moduleSetup').textContent = module.setup || '';
+      document.getElementById('moduleCues').textContent = module.cues || '';
+      document.getElementById('moduleSteps').textContent = module.steps || '';
+      document.getElementById('moduleCoaching').textContent = module.coaching || '';
+      document.getElementById('moduleMistakes').textContent = module.mistakes || '';
+      document.getElementById('moduleStandards').textContent = module.standards || '';
+      renderModuleMedia(module.id);
     }
 
     function renderProgress() {
-      const p = getProgression(state.selectedWeek);
-      const wrap = document.getElementById('progressGrid');
-      wrap.innerHTML = '';
-      Object.entries(p).forEach(([k, v]) => {
-        const div = document.createElement('div');
-        div.className = 'mini-card';
-        div.innerHTML = `<div class="eyebrow muted">${k}</div><div style="font-size:22px;font-weight:800;margin-top:6px;">${v}</div>`;
-        wrap.appendChild(div);
-      });
-      const focus = document.getElementById('focusPromptList');
-      focus.innerHTML = '';
-      focusPrompts.forEach(item => {
-        const div = document.createElement('div');
-        div.className = 'note';
-        div.style.marginBottom = '10px';
-        div.textContent = item;
-        focus.appendChild(div);
-      });
-      const how = document.getElementById('howToList');
-      how.innerHTML = '';
-      howToUse.forEach(item => {
-        const div = document.createElement('div');
-        div.className = 'note';
-        div.textContent = item;
-        how.appendChild(div);
-      });
+      document.getElementById('progressGrid').innerHTML = PROGRESS_TARGETS.map(item => `<div class="mini-card"><div class="eyebrow">${escapeHtml(item.title)}</div><div style="font-weight:700;margin-top:6px;">${escapeHtml(item.current)}</div></div>`).join('');
+      document.getElementById('focusPromptList').innerHTML = FOCUS_PROMPTS.map(item => `<div class="list-item">${escapeHtml(item)}</div>`).join('');
+      document.getElementById('howToList').innerHTML = HOW_TO.map(item => `<div class="list-item">${escapeHtml(item)}</div>`).join('');
     }
 
     function renderJournal() {
-      document.getElementById('journalBox').value = state.notes[journalKey()] || '';
-      document.getElementById('evidenceBox').value = state.evidence[journalKey()] || '';
+      document.getElementById('journalBox').value = state.journal || '';
+      document.getElementById('evidenceBox').value = state.evidence || '';
     }
 
-    function render() {
+    function renderAll() {
       renderTabs();
-      renderTop();
       renderHome();
       renderToday();
       renderPath();
       renderYear();
-      renderLibrary();
+      renderModuleList();
+      renderModuleDetail();
       renderProgress();
       renderJournal();
-      saveState();
     }
 
-    function initEvents() {
-      document.querySelectorAll('.tab-btn').forEach(btn => {
-        btn.addEventListener('click', () => { state.activeTab = btn.dataset.tab; render(); });
+    function toggleTask(key) {
+      state.checks[key] = !state.checks[key];
+      saveState();
+      renderAll();
+    }
+
+    function setScore(key, value) {
+      state.scores[key] = Number(value);
+      saveState();
+      renderHome();
+      renderToday();
+    }
+
+    function selectPath(id) {
+      state.selectedPathId = id;
+      saveState();
+      renderPath();
+    }
+
+    function selectWeek(index) {
+      state.selectedWeekIndex = index;
+      saveState();
+      renderHome();
+      renderToday();
+      renderYear();
+    }
+
+    function selectDay(index) {
+      state.selectedDayIndex = index;
+      saveState();
+      renderHome();
+      renderToday();
+      renderYear();
+    }
+
+    function selectModule(id) {
+      state.selectedModuleId = id;
+      saveState();
+      renderModuleList();
+      renderModuleDetail();
+    }
+
+    function jumpToModuleByTitle(title) {
+      const mod = getModuleByTitle(title);
+      if (!mod) return;
+      state.selectedModuleId = mod.id;
+      state.selectedTab = 'library';
+      saveState();
+      renderAll();
+    }
+
+    function addMediaItem(type, url) {
+      const cleanUrl = String(url || '').trim();
+      if (!cleanUrl) return;
+      const store = getMediaStore();
+      const modId = state.selectedModuleId;
+      if (!store[modId]) store[modId] = { images: [], videos: [], links: [] };
+      if (!store[modId][type].includes(cleanUrl)) store[modId][type].push(cleanUrl);
+      setMediaStore(store);
+      clearMediaInputs();
+      renderModuleMedia(modId);
+    }
+
+    function removeMediaItem(type, index) {
+      const store = getMediaStore();
+      const modId = state.selectedModuleId;
+      if (!store[modId] || !Array.isArray(store[modId][type])) return;
+      store[modId][type].splice(index, 1);
+      setMediaStore(store);
+      renderModuleMedia(modId);
+    }
+
+    function clearMediaInputs() {
+      ['mediaImageInput', 'mediaVideoInput', 'mediaLinkInput'].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.value = '';
       });
-      document.getElementById('prevDayBtn').addEventListener('click', () => { state.selectedDay = Math.max(0, state.selectedDay - 1); render(); });
-      document.getElementById('nextDayBtn').addEventListener('click', () => { state.selectedDay = Math.min(6, state.selectedDay + 1); render(); });
-      document.getElementById('weekCompleteBtn').addEventListener('click', () => {
-        let allDone = true;
-        for (let d = 0; d < 7; d++) {
-          for (const card of getMissionCards(state.selectedWeek, d)) {
-            if (!state.missionChecks[card.id]) { allDone = false; break; }
-          }
-          if (!allDone) break;
-        }
-        if (allDone) {
-          state.weekChecks[`week-${state.selectedWeek}`] = true;
-          state.streak += 1;
-          if (state.selectedWeek < 52) state.selectedWeek += 1;
-          state.selectedDay = 0;
-          alert('Week marked complete. Good work.');
-        } else {
-          alert('This week is not complete yet. Finish all seven days first.');
-        }
-        render();
-      });
-      document.getElementById('journalBox').addEventListener('input', e => { state.notes[journalKey()] = e.target.value; saveState(); });
-      document.getElementById('evidenceBox').addEventListener('input', e => { state.evidence[journalKey()] = e.target.value; saveState(); });
-      document.getElementById('resetBtn').addEventListener('click', () => {
-        if (!confirm('Reset all saved progress?')) return;
-        localStorage.removeItem(STORAGE_KEY);
-        location.reload();
-      });
-      document.getElementById('exportBtn').addEventListener('click', () => {
-        const blob = new Blob([JSON.stringify(state, null, 2)], { type: 'application/json' });
-        const url = URL.createObjectURL(blob);
-        const a = document.createElement('a');
-        a.href = url;
-        a.download = 'shaolin-path-v2-backup.json';
-        a.click();
-        URL.revokeObjectURL(url);
-      });
-      document.getElementById('importBtn').addEventListener('click', () => document.getElementById('importFile').click());
-      document.getElementById('importFile').addEventListener('change', async (e) => {
-        const file = e.target.files[0];
-        if (!file) return;
+    }
+
+    function exportData() {
+      const payload = {
+        state,
+        mediaStore: getMediaStore(),
+        exportedAt: new Date().toISOString()
+      };
+      const blob = new Blob([JSON.stringify(payload, null, 2)], { type: 'application/json' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'shaolin-path-v2-export.json';
+      a.click();
+      URL.revokeObjectURL(url);
+    }
+
+    function importData(file) {
+      const reader = new FileReader();
+      reader.onload = () => {
         try {
-          const text = await file.text();
-          const parsed = JSON.parse(text);
-          Object.assign(state, parsed);
+          const data = JSON.parse(reader.result);
+          if (data.state) Object.assign(state, data.state);
+          if (data.mediaStore) setMediaStore(data.mediaStore);
           saveState();
-          render();
-          alert('Backup imported.');
+          renderAll();
+          alert('Import complete.');
         } catch {
-          alert('Import failed. Invalid backup file.');
+          alert('Import failed. Use a valid export JSON file.');
         }
+      };
+      reader.readAsText(file);
+    }
+
+    function resetAll() {
+      if (!confirm('Reset app state and media for this browser?')) return;
+      localStorage.removeItem('shaolinPathV2State');
+      localStorage.removeItem('shaolinMediaStore');
+      location.reload();
+    }
+
+    function bindEvents() {
+      document.querySelectorAll('.tab-btn').forEach(btn => btn.addEventListener('click', () => selectTab(btn.dataset.tab)));
+      document.getElementById('prevDayBtn').addEventListener('click', () => selectDay(Math.max(0, state.selectedDayIndex - 1)));
+      document.getElementById('nextDayBtn').addEventListener('click', () => selectDay(Math.min(6, state.selectedDayIndex + 1)));
+      document.getElementById('weekCompleteBtn').addEventListener('click', () => {
+        const week = getTodayWeek();
+        let complete = true;
+        week.days.forEach((day, dayIndex) => day.forEach(task => {
+          if (!state.checks[taskKey(state.selectedWeekIndex, dayIndex, task)]) complete = false;
+        }));
+        alert(complete ? 'This week is complete.' : 'This week is not complete yet.');
       });
+
+      document.getElementById('addImageBtn').addEventListener('click', () => addMediaItem('images', document.getElementById('mediaImageInput').value));
+      document.getElementById('addVideoBtn').addEventListener('click', () => addMediaItem('videos', document.getElementById('mediaVideoInput').value));
+      document.getElementById('addLinkBtn').addEventListener('click', () => addMediaItem('links', document.getElementById('mediaLinkInput').value));
+      document.getElementById('journalBox').addEventListener('input', e => { state.journal = e.target.value; saveState(); });
+      document.getElementById('evidenceBox').addEventListener('input', e => { state.evidence = e.target.value; saveState(); });
+      document.getElementById('exportBtn').addEventListener('click', exportData);
+      document.getElementById('importBtn').addEventListener('click', () => document.getElementById('importFile').click());
+      document.getElementById('importFile').addEventListener('change', e => {
+        const file = e.target.files?.[0];
+        if (file) importData(file);
+      });
+      document.getElementById('resetBtn').addEventListener('click', resetAll);
     }
 
     loadState();
-    initEvents();
-    render();
+    document.addEventListener('DOMContentLoaded', () => {
+      bindEvents();
+      renderAll();
+    });
   </script></body>
 </html>
