@@ -2,7 +2,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Shaolin Path V2</title>
+  <title>Shaolin Path V2 Adaptive</title>
   <style>
     :root {
       --bg: #0b0f14;
@@ -90,7 +90,7 @@ h1 {
   padding: 10px 0;
 }
 
-.tab-btn, .btn, .media-remove-btn {
+.tab-btn, .btn, .media-remove-btn, .chip-btn {
   border: 1px solid var(--border);
   background: rgba(255,255,255,0.04);
   color: var(--text);
@@ -116,18 +116,14 @@ h1 {
 .library-detail-grid { grid-template-columns: .8fr 1.2fr; }
 
 .card { overflow: hidden; }
-.head {
-  padding: 14px 16px 0;
-}
+.head { padding: 14px 16px 0; }
 .head.split {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
   gap: 10px;
 }
-.body {
-  padding: 14px 16px 16px;
-}
+.body { padding: 14px 16px 16px; }
 
 .section-title {
   font-size: 20px;
@@ -170,7 +166,7 @@ h1 {
   gap: 10px;
 }
 
-.path-grid, #weekList, #moduleList, #dayCards, #todayQuickHelp, #missionList, #homeTodayList, #walkPromptList, #focusPromptList, #scoreSliders, #weekFocusList, #quickStartList, #howToList {
+.path-grid, #weekList, #moduleList, #dayCards, #todayQuickHelp, #missionList, #homeTodayList, #walkPromptList, #focusPromptList, #scoreSliders, #weekFocusList, #quickStartList, #howToList, #adjustmentList {
   display: grid;
   gap: 10px;
 }
@@ -185,7 +181,7 @@ h1 {
   color: #d8dfeb;
 }
 
-textarea, input[type="text"], input[type="number"], input[type="file"] {
+textarea, input[type="text"], input[type="number"], input[type="file"], select {
   width: 100%;
   padding: 12px 14px;
   border-radius: 14px;
@@ -214,6 +210,47 @@ textarea {
 .check-row.done {
   background: rgba(46,168,107,0.08);
   border-color: rgba(46,168,107,0.24);
+}
+
+.adjusted-task {
+  border-left: 3px solid rgba(201,163,74,0.55);
+  padding-left: 10px;
+}
+
+.readiness-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0,1fr));
+  gap: 12px;
+}
+
+.slider-row {
+  display: grid;
+  gap: 6px;
+  padding: 10px 0;
+}
+
+.body-map {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0,1fr));
+  gap: 8px;
+}
+
+.chip-btn {
+  text-align: left;
+  padding: 10px 12px;
+  background: rgba(255,255,255,0.03);
+}
+
+.chip-btn.active {
+  background: rgba(201,163,74,0.18);
+  border-color: rgba(201,163,74,0.4);
+}
+
+.mode-banner {
+  padding: 12px;
+  border-radius: 14px;
+  border: 1px solid var(--border);
+  background: rgba(201,163,74,0.08);
 }
 
 .media-stack {
@@ -285,17 +322,12 @@ textarea {
 }
 
 .media-empty { opacity: 0.7; }
-
-.slider-row {
-  display: grid;
-  gap: 6px;
-  padding: 10px 0;
-}
-
 .foot-space { height: 30px; }
 
 @media (max-width: 920px) {
-  .stats, .two-col, .year-grid, .library-detail-grid, .double, .triple, .stat-grid { grid-template-columns: 1fr; }
+  .stats, .two-col, .year-grid, .library-detail-grid, .double, .triple, .stat-grid, .readiness-grid, .body-map {
+    grid-template-columns: 1fr;
+  }
   .tabs { grid-template-columns: repeat(3, minmax(0,1fr)); }
   .media-editor { grid-template-columns: 1fr; }
 }
@@ -305,14 +337,14 @@ textarea {
 <body>
   <div class="app">
     <div class="hero">
-      <div class="eyebrow">V2 • year-long local-first training app</div>
+      <div class="eyebrow">V2 • year-long local-first adaptive training app</div>
       <h1>Shaolin Path</h1>
-      <div class="muted">A phone-first Shaolin training platform built for body, mind, discipline, fitness, muscle gain, and long-term progression. V2 adds a training path, movement guidance, image panels, editable media links, and unlock structure.</div>
+      <div class="muted">A phone-first Shaolin training platform built for body, mind, discipline, fitness, muscle gain, and long-term progression. This version adds adaptive readiness scoring, body-part flags, and automatic daily plan adjustment.</div>
       <div class="stats">
         <div class="mini-card"><div class="eyebrow">Current track</div><div class="mini-big" id="heroTrack">Level 1</div></div>
         <div class="mini-card"><div class="eyebrow">Year progress</div><div class="mini-big" id="heroYearProgress">0%</div></div>
         <div class="mini-card"><div class="eyebrow">Completed weeks</div><div class="mini-big" id="heroCompletedWeeks">0/52</div></div>
-        <div class="mini-card"><div class="eyebrow">Streak</div><div class="mini-big" id="heroStreak">0</div></div>
+        <div class="mini-card"><div class="eyebrow">Mode</div><div class="mini-big" id="heroMode">Standard</div></div>
       </div>
     </div><div class="tabs">
   <button class="tab-btn active" data-tab="home">Home</button>
@@ -385,6 +417,13 @@ textarea {
           <div class="badge" id="todayPhaseBadge"></div>
         </div>
         <div class="body">
+          <div class="mode-banner">
+            <div><strong id="sessionModeText">Standard</strong></div>
+            <div class="muted" id="sessionModeReason">Complete your readiness check to adapt the plan.</div>
+          </div>
+          <div style="height:12px"></div>
+          <div id="adjustmentList" class="list"></div>
+          <div style="height:12px"></div>
           <div id="missionList" class="list"></div>
           <div style="height:12px"></div>
           <div class="btn-row">
@@ -402,6 +441,25 @@ textarea {
     </div>
 
     <div class="grid">
+      <div class="card">
+        <div class="head"><div class="section-title">Readiness Check</div><div class="muted">How do you actually feel today?</div></div>
+        <div class="body">
+          <div class="readiness-grid" id="readinessSliders"></div>
+          <div style="height:12px"></div>
+          <div class="note">
+            <strong>Body areas needing care</strong>
+            <div class="muted" style="margin-top:6px;">Tap any sore, tight, heavy, or irritated areas.</div>
+            <div style="height:10px"></div>
+            <div class="body-map" id="bodyPartGrid"></div>
+          </div>
+          <div style="height:12px"></div>
+          <div>
+            <label for="readinessNotes"><strong>Readiness notes</strong></label>
+            <textarea id="readinessNotes" placeholder="Example: hips tight, poor sleep, upper chest still sore, mentally flat"></textarea>
+          </div>
+        </div>
+      </div>
+
       <div class="card">
         <div class="head"><div class="section-title">Quick Help</div><div class="muted">Tap a movement in the Library for full detail</div></div>
         <div class="body"><div id="todayQuickHelp" class="list"></div></div>
@@ -588,11 +646,7 @@ textarea {
         mistakes: 'Knees collapsing inward, leaning forward, holding breath, shrugging shoulders.',
         standards: 'Can hold with steady breath and stable knee tracking.',
         quickHelp: 'Use for root, leg endurance, and mental steadiness.',
-        defaults: {
-          links: ['https://www.youtube.com/results?search_query=shaolin+horse+stance'],
-          videos: [],
-          images: []
-        }
+        defaults: { links: ['https://www.youtube.com/results?search_query=shaolin+horse+stance'], videos: [], images: [] }
       },
       {
         id: 'bow-stance',
@@ -611,11 +665,7 @@ textarea {
         mistakes: 'Front knee drifting too far in, rear leg soft, torso leaning badly.',
         standards: 'Stable on both sides with strong weight transfer.',
         quickHelp: 'Great for stance line power and body organisation.',
-        defaults: {
-          links: ['https://www.youtube.com/results?search_query=shaolin+bow+stance'],
-          videos: [],
-          images: []
-        }
+        defaults: { links: ['https://www.youtube.com/results?search_query=shaolin+bow+stance'], videos: [], images: [] }
       },
       {
         id: 'body-activation',
@@ -634,11 +684,7 @@ textarea {
         mistakes: 'Going too hard, racing, using momentum over control.',
         standards: 'Finish feeling better than when you began.',
         quickHelp: 'Use at the start of nearly every session.',
-        defaults: {
-          links: ['https://www.youtube.com/results?search_query=shi+heng+yi+body+activation'],
-          videos: [],
-          images: []
-        }
+        defaults: { links: ['https://www.youtube.com/results?search_query=shi+heng+yi+body+activation'], videos: [], images: [] }
       },
       {
         id: 'ba-duan-jin',
@@ -657,11 +703,7 @@ textarea {
         mistakes: 'Too much tension, rushing the transitions, disconnecting breath.',
         standards: 'Can perform the full set with calm attention.',
         quickHelp: 'Use for nervous system regulation and internal quality.',
-        defaults: {
-          links: ['https://www.youtube.com/results?search_query=shaolin+ba+duan+jin'],
-          videos: [],
-          images: []
-        }
+        defaults: { links: ['https://www.youtube.com/results?search_query=shaolin+ba+duan+jin'], videos: [], images: [] }
       },
       {
         id: 'breathing-foundation',
@@ -680,11 +722,7 @@ textarea {
         mistakes: 'Forcing inhale, shrugging shoulders, making noise, chasing dizziness.',
         standards: 'Can stay consistent and calm for a full practice block.',
         quickHelp: 'Use between efforts and during emotional reset.',
-        defaults: {
-          links: ['https://www.youtube.com/results?search_query=shi+heng+yi+breathing'],
-          videos: [],
-          images: []
-        }
+        defaults: { links: ['https://www.youtube.com/results?search_query=shi+heng+yi+breathing'], videos: [], images: [] }
       },
       {
         id: 'wall-stretch',
@@ -703,42 +741,14 @@ textarea {
         mistakes: 'Bouncing, forcing range, rounding badly.',
         standards: 'Range improves without pain spikes or compensation.',
         quickHelp: 'Useful after stance work or at the end of training.',
-        defaults: {
-          links: ['https://www.youtube.com/results?search_query=shaolin+flexibility+routine'],
-          videos: [],
-          images: []
-        }
+        defaults: { links: ['https://www.youtube.com/results?search_query=shaolin+flexibility+routine'], videos: [], images: [] }
       }
     ];
 
     const PATHS = [
-      {
-        id: 'foundation',
-        title: 'Foundation Discipline',
-        subtitle: 'Weeks 1-8',
-        status: 'Open',
-        summary: 'Build your root through stance, breathing, and movement basics.',
-        modules: ['Horse Stance', 'Bow Stance', 'Body Activation', 'Breathing Foundation'],
-        unlockRule: 'Open from day one.'
-      },
-      {
-        id: 'internal',
-        title: 'Internal Regulation',
-        subtitle: 'Weeks 9-20',
-        status: 'Locked',
-        summary: 'Deepen qigong, calm, and repeatable breath-linked practice.',
-        modules: ['Ba Duan Jin', 'Breathing Foundation', 'Wall Stretch & Line Opening'],
-        unlockRule: 'Complete 6 foundation weeks honestly.'
-      },
-      {
-        id: 'conditioning',
-        title: 'Conditioning & Form Lines',
-        subtitle: 'Weeks 21-52',
-        status: 'Locked',
-        summary: 'Layer strength, longer work, more difficult structural discipline.',
-        modules: ['Horse Stance', 'Bow Stance', 'Body Activation'],
-        unlockRule: 'Complete 20 weeks and maintain stable scores.'
-      }
+      { id: 'foundation', title: 'Foundation Discipline', subtitle: 'Weeks 1-8', status: 'Open', summary: 'Build your root through stance, breathing, and movement basics.', modules: ['Horse Stance', 'Bow Stance', 'Body Activation', 'Breathing Foundation'], unlockRule: 'Open from day one.' },
+      { id: 'internal', title: 'Internal Regulation', subtitle: 'Weeks 9-20', status: 'Locked', summary: 'Deepen qigong, calm, and repeatable breath-linked practice.', modules: ['Ba Duan Jin', 'Breathing Foundation', 'Wall Stretch & Line Opening'], unlockRule: 'Complete 6 foundation weeks honestly.' },
+      { id: 'conditioning', title: 'Conditioning & Form Lines', subtitle: 'Weeks 21-52', status: 'Locked', summary: 'Layer strength, longer work, more difficult structural discipline.', modules: ['Horse Stance', 'Bow Stance', 'Body Activation'], unlockRule: 'Complete 20 weeks and maintain stable scores.' }
     ];
 
     const WEEK_TEMPLATES = [
@@ -774,18 +784,18 @@ textarea {
 
     const HOW_TO = [
       'Open Today and complete the listed work honestly.',
-      'Use Library for setup, cues, step-by-step, and now your own saved help media.',
+      'Run the readiness check before training so the plan adapts.',
+      'Use Library for setup, cues, step-by-step, and your saved help media.',
       'Add links, videos, and images directly in the Library for each movement.',
-      'Export your data regularly so your local work is backed up.',
-      'Use Journal after training to record what broke down and what improved.'
+      'Export your data regularly so your local work is backed up.'
     ];
 
     const QUICK_START = [
       'Start with Body Activation and one stance.',
-      'Keep sessions simple while testing the app flow.',
+      'Complete the readiness sliders and body-area flags first.',
+      'Let the app reduce or progress today’s plan based on how you feel.',
       'Use the Library to add your own video and image references per movement.',
-      'Export after you make changes so you keep a clean backup.',
-      'Do not mark tasks complete unless you actually did them.'
+      'Export after you make changes so you keep a clean backup.'
     ];
 
     const FOCUS_PROMPTS = [
@@ -810,6 +820,17 @@ textarea {
       { title: 'Qigong consistency', current: 'Perform sets with attention rather than rushing.' }
     ];
 
+    const READINESS_FIELDS = [
+      { key: 'energy', label: 'Energy', min: 1, max: 10, defaultValue: 5 },
+      { key: 'sleep', label: 'Sleep quality', min: 1, max: 10, defaultValue: 5 },
+      { key: 'stress', label: 'Stress', min: 1, max: 10, defaultValue: 5 },
+      { key: 'soreness', label: 'Overall soreness', min: 1, max: 10, defaultValue: 3 },
+      { key: 'stiffness', label: 'Stiffness', min: 1, max: 10, defaultValue: 3 },
+      { key: 'motivation', label: 'Motivation', min: 1, max: 10, defaultValue: 5 }
+    ];
+
+    const BODY_PARTS = ['neck', 'shoulders', 'chest', 'upper back', 'lower back', 'hips', 'glutes', 'quads', 'hamstrings', 'knees', 'calves', 'ankles'];
+
     const state = {
       selectedTab: 'home',
       selectedPathId: 'foundation',
@@ -818,6 +839,16 @@ textarea {
       selectedModuleId: MODULES[0].id,
       checks: {},
       scores: { mind: 0, body: 0, discipline: 0 },
+      readiness: {
+        energy: 5,
+        sleep: 5,
+        stress: 5,
+        soreness: 3,
+        stiffness: 3,
+        motivation: 5,
+        bodyParts: [],
+        notes: ''
+      },
       journal: '',
       evidence: ''
     };
@@ -826,14 +857,7 @@ textarea {
       const weeks = [];
       for (let i = 0; i < 52; i++) {
         const template = i < 8 ? WEEK_TEMPLATES[0] : WEEK_TEMPLATES[1];
-        weeks.push({
-          week: i + 1,
-          title: `Week ${i + 1}`,
-          phase: template.phase,
-          objective: template.objective,
-          focus: template.focus,
-          days: template.days
-        });
+        weeks.push({ week: i + 1, title: `Week ${i + 1}`, phase: template.phase, objective: template.objective, focus: template.focus, days: template.days });
       }
       return weeks;
     }
@@ -849,6 +873,18 @@ textarea {
         const saved = JSON.parse(localStorage.getItem('shaolinPathV2State') || 'null');
         if (!saved) return;
         Object.assign(state, saved);
+        state.readiness = {
+          energy: 5,
+          sleep: 5,
+          stress: 5,
+          soreness: 3,
+          stiffness: 3,
+          motivation: 5,
+          bodyParts: [],
+          notes: '',
+          ...(saved.readiness || {})
+        };
+        state.scores = { mind: 0, body: 0, discipline: 0, ...(saved.scores || {}) };
       } catch {}
     }
 
@@ -888,9 +924,7 @@ textarea {
     }
 
     function renderTabs() {
-      document.querySelectorAll('.tab-btn').forEach(btn => {
-        btn.classList.toggle('active', btn.dataset.tab === state.selectedTab);
-      });
+      document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.toggle('active', btn.dataset.tab === state.selectedTab));
       document.querySelectorAll('section[id^="tab-"]').forEach(section => section.classList.add('hidden'));
       document.getElementById(`tab-${state.selectedTab}`).classList.remove('hidden');
     }
@@ -910,6 +944,100 @@ textarea {
       return `${weekIndex}:${dayIndex}:${taskTitle}`;
     }
 
+    function getReadinessDecision() {
+      const r = state.readiness;
+      const flagged = new Set(r.bodyParts || []);
+      let mode = 'standard';
+      const reasons = [];
+      const adjustments = [];
+
+      if (r.energy <= 3 || r.sleep <= 3 || r.soreness >= 8) {
+        mode = 'recovery';
+        reasons.push('very low energy, poor sleep, or high soreness');
+        adjustments.push('Reduce overall volume by about 40%.');
+        adjustments.push('Shift emphasis toward breath, qigong, and gentle mobility.');
+      } else if (r.stress >= 8) {
+        mode = 'internal';
+        reasons.push('stress is very high');
+        adjustments.push('Swap hard conditioning for calming internal work.');
+        adjustments.push('Add extra breathing and slower qigong work.');
+      } else if (r.energy >= 8 && r.sleep >= 7 && r.soreness <= 4 && r.stiffness <= 4 && r.motivation >= 7) {
+        mode = 'progress';
+        reasons.push('recovery and motivation look strong');
+        adjustments.push('Add one small progression: longer hold, more reps, or cleaner depth.');
+      } else {
+        reasons.push('normal readiness range');
+      }
+
+      if (r.stiffness >= 7) adjustments.push('Extend warm-up and mobility block before main work.');
+      if (flagged.has('hips') || flagged.has('glutes') || flagged.has('hamstrings') || flagged.has('ankles')) {
+        adjustments.push('Reduce stance depth slightly and add lower-body opening work.');
+      }
+      if (flagged.has('knees')) adjustments.push('Keep stance work shallow and focus on alignment over duration.');
+      if (flagged.has('lower back')) adjustments.push('Keep torso stacked, reduce static strain, and add gentle decompression.');
+      if (flagged.has('chest') || flagged.has('shoulders') || flagged.has('upper back')) adjustments.push('Reduce upper-body tension and keep breathing and posture work cleaner, not harder.');
+      if (flagged.has('calves') || flagged.has('quads')) adjustments.push('Lower intensity for long stance holds and increase recovery time between efforts.');
+      if (!adjustments.length) adjustments.push('Run the base plan as written today.');
+
+      let modeLabel = 'Standard';
+      if (mode === 'recovery') modeLabel = 'Recovery';
+      if (mode === 'internal') modeLabel = 'Internal / Calm';
+      if (mode === 'progress') modeLabel = 'Progress';
+
+      return { mode, modeLabel, reasons, adjustments };
+    }
+
+    function getAdjustedTasks(baseTasks) {
+      const decision = getReadinessDecision();
+      const flagged = new Set(state.readiness.bodyParts || []);
+      const tasks = [...baseTasks];
+      const notes = [];
+
+      if (decision.mode === 'recovery') {
+        return {
+          tasks: [
+            'Body Activation (gentle)',
+            'Breathing Foundation (extended)',
+            'Ba Duan Jin (easy pace)',
+            'Wall Stretch & Line Opening (light)'
+          ],
+          notes: ['Recovery mode replaced harder work today.']
+        };
+      }
+
+      if (decision.mode === 'internal') {
+        return {
+          tasks: [
+            'Body Activation',
+            'Breathing Foundation (extended)',
+            'Ba Duan Jin',
+            'Recovery walk / quiet mobility'
+          ],
+          notes: ['Internal mode reduced intensity due to stress.']
+        };
+      }
+
+      if (flagged.has('hips') || flagged.has('knees') || flagged.has('ankles') || flagged.has('lower back')) {
+        const replaced = tasks.map(task => {
+          if (task === 'Horse Stance') return 'Horse Stance (reduced depth)';
+          if (task === 'Bow Stance') return 'Bow Stance (alignment focus)';
+          return task;
+        });
+        if (!replaced.includes('Wall Stretch & Line Opening')) replaced.push('Wall Stretch & Line Opening');
+        notes.push('Lower-body flags modified stance intensity and added mobility.');
+        tasks.splice(0, tasks.length, ...replaced);
+      }
+
+      if (decision.mode === 'progress') {
+        if (!tasks.some(task => task.includes('extended') || task.includes('plus'))) {
+          tasks.push('Optional progression set / extra hold');
+        }
+        notes.push('Progress mode added a small overload option.');
+      }
+
+      return { tasks, notes };
+    }
+
     function renderHome() {
       const completedKeys = Object.values(state.checks).filter(Boolean).length;
       const completedWeeks = Array.from({ length: 52 }, (_, i) => {
@@ -923,59 +1051,82 @@ textarea {
         return allDone;
       }).filter(Boolean).length;
 
+      const decision = getReadinessDecision();
       document.getElementById('heroTrack').textContent = `Level ${Math.min(3, 1 + Math.floor(completedWeeks / 10))}`;
       document.getElementById('homeCurrentLevel').textContent = document.getElementById('heroTrack').textContent;
       document.getElementById('heroCompletedWeeks').textContent = `${completedWeeks}/52`;
       document.getElementById('heroYearProgress').textContent = `${Math.round((completedWeeks / 52) * 100)}%`;
-      document.getElementById('heroStreak').textContent = String(Math.min(99, completedKeys));
+      document.getElementById('heroMode').textContent = decision.modeLabel;
       document.getElementById('nextUnlockText').textContent = completedWeeks < 6 ? 'Internal branch at 6 weeks' : 'Conditioning branch later';
       document.getElementById('mindScoreText').textContent = state.scores.mind;
       document.getElementById('bodyScoreText').textContent = state.scores.body;
       document.getElementById('disciplineScoreText').textContent = state.scores.discipline;
 
+      const adjusted = getAdjustedTasks(getTodayDayTasks());
       document.getElementById('quickStartList').innerHTML = QUICK_START.map(item => `<div class="list-item">${escapeHtml(item)}</div>`).join('');
       document.getElementById('homeTodayList').innerHTML = [
-        `<div class="list-item"><strong>${escapeHtml(getTodayWeek().title)} • Day ${state.selectedDayIndex + 1}</strong><div class="muted">${escapeHtml(getTodayWeek().phase)} phase</div></div>`,
-        ...getTodayDayTasks().map(task => `<div class="list-item">${escapeHtml(task)}</div>`)
+        `<div class="list-item"><strong>${escapeHtml(getTodayWeek().title)} • Day ${state.selectedDayIndex + 1}</strong><div class="muted">${escapeHtml(getTodayWeek().phase)} phase • ${escapeHtml(decision.modeLabel)}</div></div>`,
+        ...adjusted.tasks.map(task => `<div class="list-item">${escapeHtml(task)}</div>`)
       ].join('');
     }
 
     function renderToday() {
       const week = getTodayWeek();
-      const tasks = getTodayDayTasks();
+      const baseTasks = getTodayDayTasks();
+      const adjusted = getAdjustedTasks(baseTasks);
+      const decision = getReadinessDecision();
+
       document.getElementById('todaySubtitle').textContent = `${week.title} • Day ${state.selectedDayIndex + 1}`;
       document.getElementById('todayPhaseBadge').textContent = week.phase;
       document.getElementById('weekObjective').textContent = week.objective;
+      document.getElementById('sessionModeText').textContent = decision.modeLabel;
+      document.getElementById('sessionModeReason').textContent = `Reason: ${decision.reasons.join(', ')}.`;
+      document.getElementById('adjustmentList').innerHTML = decision.adjustments.map(item => `<div class="list-item">${escapeHtml(item)}</div>`).join('');
 
       document.getElementById('weekFocusList').innerHTML = week.focus.map(item => `<div class="note">${escapeHtml(item)}</div>`).join('');
-      document.getElementById('missionList').innerHTML = tasks.map(task => {
+      document.getElementById('missionList').innerHTML = adjusted.tasks.map(task => {
+        const cleanTitle = task.replace(/\s*.+?/g, '').replace('Optional progression set / extra hold', 'Horse Stance');
         const key = taskKey(state.selectedWeekIndex, state.selectedDayIndex, task);
         const checked = !!state.checks[key];
+        const module = getModuleByTitle(cleanTitle);
         return `
-          <label class="check-row ${checked ? 'done' : ''}">
+          <label class="check-row ${checked ? 'done' : ''} adjusted-task">
             <input type="checkbox" ${checked ? 'checked' : ''} onchange="toggleTask('${escapeHtml(key)}')" />
             <div>
               <strong>${escapeHtml(task)}</strong>
-              <div class="muted">${escapeHtml(getModuleByTitle(task)?.quickHelp || 'Support task')}</div>
+              <div class="muted">${escapeHtml(module?.quickHelp || 'Support task')}</div>
             </div>
-            <button class="btn" onclick="jumpToModuleByTitle('${escapeHtml(task)}')">Open</button>
+            <button class="btn" onclick="jumpToModuleByTitle('${escapeHtml(cleanTitle)}')">Open</button>
           </label>
         `;
       }).join('');
 
-      document.getElementById('todayQuickHelp').innerHTML = tasks.map(task => {
-        const mod = getModuleByTitle(task);
+      document.getElementById('todayQuickHelp').innerHTML = adjusted.tasks.map(task => {
+        const cleanTitle = task.replace(/\s*.+?/g, '').replace('Optional progression set / extra hold', 'Horse Stance');
+        const mod = getModuleByTitle(cleanTitle);
         return `<div class="list-item"><strong>${escapeHtml(task)}</strong><div class="muted">${escapeHtml(mod?.quickHelp || 'General support task')}</div></div>`;
       }).join('');
 
       document.getElementById('walkPromptList').innerHTML = WALK_PROMPTS.map(p => `<div class="list-item">${escapeHtml(p)}</div>`).join('');
-
       document.getElementById('scoreSliders').innerHTML = ['mind','body','discipline'].map(key => `
         <div class="slider-row">
           <label for="score-${key}"><strong>${key[0].toUpperCase() + key.slice(1)}</strong> <span class="muted">(${state.scores[key]})</span></label>
           <input id="score-${key}" type="range" min="0" max="10" value="${state.scores[key]}" oninput="setScore('${key}', this.value)" />
         </div>
       `).join('');
+
+      document.getElementById('readinessSliders').innerHTML = READINESS_FIELDS.map(field => `
+        <div class="slider-row">
+          <label for="readiness-${field.key}"><strong>${field.label}</strong> <span class="muted">(${state.readiness[field.key]})</span></label>
+          <input id="readiness-${field.key}" type="range" min="${field.min}" max="${field.max}" value="${state.readiness[field.key]}" oninput="setReadiness('${field.key}', this.value)" />
+        </div>
+      `).join('');
+
+      document.getElementById('bodyPartGrid').innerHTML = BODY_PARTS.map(part => `
+        <button class="chip-btn ${(state.readiness.bodyParts || []).includes(part) ? 'active' : ''}" onclick="toggleBodyPart('${part}')">${part}</button>
+      `).join('');
+
+      document.getElementById('readinessNotes').value = state.readiness.notes || '';
     }
 
     function renderPath() {
@@ -1121,6 +1272,22 @@ textarea {
       renderToday();
     }
 
+    function setReadiness(key, value) {
+      state.readiness[key] = Number(value);
+      saveState();
+      renderHome();
+      renderToday();
+    }
+
+    function toggleBodyPart(part) {
+      const parts = new Set(state.readiness.bodyParts || []);
+      if (parts.has(part)) parts.delete(part); else parts.add(part);
+      state.readiness.bodyParts = Array.from(parts);
+      saveState();
+      renderHome();
+      renderToday();
+    }
+
     function selectPath(id) {
       state.selectedPathId = id;
       saveState();
@@ -1188,11 +1355,7 @@ textarea {
     }
 
     function exportData() {
-      const payload = {
-        state,
-        mediaStore: getMediaStore(),
-        exportedAt: new Date().toISOString()
-      };
+      const payload = { state, mediaStore: getMediaStore(), exportedAt: new Date().toISOString() };
       const blob = new Blob([JSON.stringify(payload, null, 2)], { type: 'application/json' });
       const url = URL.createObjectURL(blob);
       const a = document.createElement('a');
@@ -1208,6 +1371,17 @@ textarea {
         try {
           const data = JSON.parse(reader.result);
           if (data.state) Object.assign(state, data.state);
+          state.readiness = {
+            energy: 5,
+            sleep: 5,
+            stress: 5,
+            soreness: 3,
+            stiffness: 3,
+            motivation: 5,
+            bodyParts: [],
+            notes: '',
+            ...(data.state?.readiness || state.readiness || {})
+          };
           if (data.mediaStore) setMediaStore(data.mediaStore);
           saveState();
           renderAll();
@@ -1244,6 +1418,11 @@ textarea {
       document.getElementById('addLinkBtn').addEventListener('click', () => addMediaItem('links', document.getElementById('mediaLinkInput').value));
       document.getElementById('journalBox').addEventListener('input', e => { state.journal = e.target.value; saveState(); });
       document.getElementById('evidenceBox').addEventListener('input', e => { state.evidence = e.target.value; saveState(); });
+      document.getElementById('readinessNotes').addEventListener('input', e => {
+        state.readiness.notes = e.target.value;
+        saveState();
+        renderHome();
+      });
       document.getElementById('exportBtn').addEventListener('click', exportData);
       document.getElementById('importBtn').addEventListener('click', () => document.getElementById('importFile').click());
       document.getElementById('importFile').addEventListener('change', e => {
