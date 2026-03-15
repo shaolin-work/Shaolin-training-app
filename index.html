@@ -1,5 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html><html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -19,22 +18,14 @@
       --shadow: 0 14px 40px rgba(0,0,0,0.28);
       --radius: 18px;
     }
-
     * { box-sizing: border-box; }
-
     body {
       margin: 0;
       font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
       background: linear-gradient(180deg, #0a0d12 0%, #0d1218 100%);
       color: var(--text);
     }
-
-    .app {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 16px 16px 80px;
-    }
-
+    .app { max-width: 1200px; margin: 0 auto; padding: 16px 16px 80px; }
     .hero {
       background: linear-gradient(135deg, rgba(201,163,74,0.16), rgba(255,255,255,0.02));
       border: 1px solid var(--border);
@@ -43,43 +34,17 @@
       box-shadow: var(--shadow);
       margin-bottom: 14px;
     }
-
-    .eyebrow {
-      font-size: 12px;
-      letter-spacing: .1em;
-      text-transform: uppercase;
-      color: var(--muted);
-    }
-
-    h1 {
-      margin: 6px 0 6px;
-      font-size: 30px;
-      line-height: 1.05;
-    }
-
+    .eyebrow { font-size: 12px; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); }
+    h1 { margin: 6px 0 6px; font-size: 30px; line-height: 1.05; }
     .muted { color: var(--muted); }
-
-    .stats {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 10px;
-      margin-top: 14px;
-    }
-
+    .stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-top: 14px; }
     .mini-card, .card, .note, .path-item, .week-item {
       background: rgba(255,255,255,0.03);
       border: 1px solid var(--border);
       border-radius: var(--radius);
     }
-
     .mini-card { padding: 12px; }
-
-    .mini-big {
-      font-size: 22px;
-      font-weight: 800;
-      margin-top: 4px;
-    }
-
+    .mini-big { font-size: 22px; font-weight: 800; margin-top: 4px; }
     .tabs {
       display: grid;
       grid-template-columns: repeat(8, minmax(0,1fr));
@@ -92,7 +57,6 @@
       backdrop-filter: blur(10px);
       padding: 10px 0;
     }
-
     .tab-btn, .btn, .media-remove-btn, .chip-btn {
       border: 1px solid var(--border);
       background: rgba(255,255,255,0.04);
@@ -102,24 +66,19 @@
       cursor: pointer;
       font-weight: 700;
     }
-
-    .tab-btn.active,
-    .chip-btn.active {
+    .tab-btn.active, .chip-btn.active {
       background: rgba(201,163,74,0.18);
       border-color: rgba(201,163,74,0.4);
     }
-
     .btn.success { background: rgba(46,168,107,0.15); }
     .btn.warn, .media-remove-btn { background: rgba(192,91,91,0.14); }
     .btn.info { background: rgba(75,123,236,0.14); }
-
     .grid { display: grid; gap: 12px; }
     .two-col { grid-template-columns: 1.15fr .85fr; }
     .triple { grid-template-columns: repeat(3, minmax(0,1fr)); }
     .double { grid-template-columns: repeat(2, minmax(0,1fr)); }
     .year-grid { grid-template-columns: .9fr 1.1fr; }
     .library-detail-grid { grid-template-columns: .8fr 1.2fr; }
-
     .card { overflow: hidden; }
     .head { padding: 14px 16px 0; }
     .head.split {
@@ -129,12 +88,7 @@
       gap: 10px;
     }
     .body { padding: 14px 16px 16px; }
-
-    .section-title {
-      font-size: 20px;
-      font-weight: 800;
-    }
-
+    .section-title { font-size: 20px; font-weight: 800; }
     .badge {
       border: 1px solid rgba(201,163,74,0.35);
       background: rgba(201,163,74,0.14);
@@ -145,216 +99,70 @@
       font-weight: 800;
       white-space: nowrap;
     }
-
     .list { display: grid; gap: 8px; }
-
     .list-item, .path-item, .week-item, .module-item {
       padding: 12px;
       background: rgba(255,255,255,0.025);
       border: 1px solid var(--border);
       border-radius: 14px;
     }
-
     .list-item strong, .module-item strong { display: block; margin-bottom: 4px; }
-
-    .btn-row {
-      display: flex;
-      gap: 8px;
-      flex-wrap: wrap;
-    }
-
+    .btn-row { display: flex; gap: 8px; flex-wrap: wrap; }
     .hidden { display: none !important; }
     .scroll { max-height: 72vh; overflow: auto; }
-
-    .stat-grid {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0,1fr));
-      gap: 10px;
-    }
-
-    .path-grid,
-    #weekList,
-    #moduleList,
-    #dayCards,
-    #todayQuickHelp,
-    #missionList,
-    #homeTodayList,
-    #walkPromptList,
-    #focusPromptList,
-    #scoreSliders,
-    #weekFocusList,
-    #quickStartList,
-    #howToList,
-    #adjustmentList,
-    #sweatPromptList,
-    #sweatDeskResetList,
-    #sweatFlagList,
-    #sweatLogList {
-      display: grid;
-      gap: 10px;
-    }
-
+    .stat-grid { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 10px; }
+    .path-grid, #weekList, #moduleList, #dayCards, #todayQuickHelp, #missionList, #homeTodayList, #walkPromptList, #focusPromptList, #scoreSliders, #weekFocusList, #quickStartList, #howToList, #adjustmentList, #sweatPromptList, #sweatDeskResetList, #sweatFlagList, #sweatLogList { display: grid; gap: 10px; }
     .path-item.active, .week-item.active, .module-item.active, .list-item.active {
       outline: 2px solid rgba(201,163,74,0.35);
       background: rgba(201,163,74,0.08);
     }
-
     .note { padding: 12px; color: #d8dfeb; }
-
     textarea, input[type="text"], input[type="number"], input[type="file"], select {
-      width: 100%;
-      padding: 12px 14px;
-      border-radius: 14px;
-      border: 1px solid var(--border);
-      background: rgba(255,255,255,0.035);
-      color: var(--text);
-      font: inherit;
+      width: 100%; padding: 12px 14px; border-radius: 14px; border: 1px solid var(--border);
+      background: rgba(255,255,255,0.035); color: var(--text); font: inherit;
     }
-
-    textarea {
-      min-height: 130px;
-      resize: vertical;
-    }
-
+    textarea { min-height: 130px; resize: vertical; }
     .check-row {
-      display: grid;
-      grid-template-columns: auto 1fr auto;
-      gap: 10px;
-      align-items: center;
-      padding: 12px;
-      border: 1px solid var(--border);
-      border-radius: 14px;
-      background: rgba(255,255,255,0.025);
+      display: grid; grid-template-columns: auto 1fr auto; gap: 10px; align-items: center;
+      padding: 12px; border: 1px solid var(--border); border-radius: 14px; background: rgba(255,255,255,0.025);
     }
-
-    .check-row.done {
-      background: rgba(46,168,107,0.08);
-      border-color: rgba(46,168,107,0.24);
-    }
-
-    .adjusted-task {
-      border-left: 3px solid rgba(201,163,74,0.55);
-      padding-left: 10px;
-    }
-
-    .readiness-grid,
-    .sweat-grid {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0,1fr));
-      gap: 12px;
-    }
-
-    .slider-row {
-      display: grid;
-      gap: 6px;
-      padding: 10px 0;
-    }
-
-    .body-map {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0,1fr));
-      gap: 8px;
-    }
-
-    .chip-btn {
-      text-align: left;
-      padding: 10px 12px;
-      background: rgba(255,255,255,0.03);
-    }
-
+    .check-row.done { background: rgba(46,168,107,0.08); border-color: rgba(46,168,107,0.24); }
+    .adjusted-task { border-left: 3px solid rgba(201,163,74,0.55); padding-left: 10px; }
+    .readiness-grid, .sweat-grid { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 12px; }
+    .slider-row { display: grid; gap: 6px; padding: 10px 0; }
+    .body-map { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 8px; }
+    .chip-btn { text-align: left; padding: 10px 12px; background: rgba(255,255,255,0.03); }
     .mode-banner {
-      padding: 12px;
-      border-radius: 14px;
-      border: 1px solid var(--border);
-      background: rgba(201,163,74,0.08);
+      padding: 12px; border-radius: 14px; border: 1px solid var(--border); background: rgba(201,163,74,0.08);
     }
-
-    .readiness-priority,
-    .sweat-banner {
-      border: 1px solid rgba(201,163,74,0.28);
-      background: rgba(201,163,74,0.08);
-      border-radius: 14px;
-      padding: 12px;
-      margin-bottom: 12px;
+    .readiness-priority, .sweat-banner {
+      border: 1px solid rgba(201,163,74,0.28); background: rgba(201,163,74,0.08); border-radius: 14px; padding: 12px; margin-bottom: 12px;
     }
-
     .flag-banner {
-      border: 1px solid rgba(192,91,91,0.35);
-      background: rgba(192,91,91,0.10);
-      border-radius: 14px;
-      padding: 12px;
+      border: 1px solid rgba(192,91,91,0.35); background: rgba(192,91,91,0.10); border-radius: 14px; padding: 12px;
     }
-
     .media-stack { display: grid; gap: 12px; }
-
     .media-section {
-      background: rgba(255,255,255,0.03);
-      border: 1px solid rgba(255,255,255,0.08);
-      border-radius: 16px;
-      padding: 12px;
+      background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); border-radius: 16px; padding: 12px;
     }
-
     .media-title {
-      font-size: 13px;
-      font-weight: 800;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      opacity: 0.85;
-      margin-bottom: 10px;
+      font-size: 13px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.08em; opacity: 0.85; margin-bottom: 10px;
     }
-
-    .media-editor {
-      display: grid;
-      grid-template-columns: 1fr auto;
-      gap: 8px;
-      margin-bottom: 12px;
-    }
-
+    .media-editor { display: grid; grid-template-columns: 1fr auto; gap: 8px; margin-bottom: 12px; }
     .media-thumb {
-      border-radius: 14px;
-      overflow: hidden;
-      border: 1px solid rgba(255,255,255,0.08);
-      background: rgba(255,255,255,0.03);
+      border-radius: 14px; overflow: hidden; border: 1px solid rgba(255,255,255,0.08); background: rgba(255,255,255,0.03);
     }
-
-    .media-thumb img {
-      width: 100%;
-      height: 140px;
-      object-fit: cover;
-      display: block;
-    }
-
-    .caption {
-      padding: 8px 10px 10px;
-      font-size: 12px;
-      color: #cfcfcf;
-    }
-
+    .media-thumb img { width: 100%; height: 140px; object-fit: cover; display: block; }
+    .caption { padding: 8px 10px 10px; font-size: 12px; color: #cfcfcf; }
     .video-list { display: grid; gap: 10px; }
-
     .video-card, .link-card {
-      display: grid;
-      gap: 8px;
-      background: rgba(255,255,255,0.03);
-      border: 1px solid rgba(255,255,255,0.08);
-      border-radius: 14px;
-      padding: 12px;
+      display: grid; gap: 8px; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); border-radius: 14px; padding: 12px;
     }
-
-    .media-actions {
-      display: flex;
-      gap: 8px;
-      flex-wrap: wrap;
-    }
-
+    .media-actions { display: flex; gap: 8px; flex-wrap: wrap; }
     .media-empty { opacity: 0.7; }
     .foot-space { height: 30px; }
-
     @media (max-width: 920px) {
-      .stats, .two-col, .year-grid, .library-detail-grid, .double, .triple, .stat-grid, .readiness-grid, .body-map, .sweat-grid {
-        grid-template-columns: 1fr;
-      }
-
+      .stats, .two-col, .year-grid, .library-detail-grid, .double, .triple, .stat-grid, .readiness-grid, .body-map, .sweat-grid { grid-template-columns: 1fr; }
       .tabs { grid-template-columns: repeat(3, minmax(0,1fr)); }
       .media-editor { grid-template-columns: 1fr; }
     }
@@ -372,232 +180,1002 @@
         <div class="mini-card"><div class="eyebrow">Completed weeks</div><div class="mini-big" id="heroCompletedWeeks">0/52</div></div>
         <div class="mini-card"><div class="eyebrow">Mode</div><div class="mini-big" id="heroMode">Standard</div></div>
       </div>
-    </div>
+    </div><div class="tabs">
+  <button class="tab-btn active" data-tab="home">Home</button>
+  <button class="tab-btn" data-tab="today">Today</button>
+  <button class="tab-btn" data-tab="sweat">Sweat</button>
+  <button class="tab-btn" data-tab="path">Training Path</button>
+  <button class="tab-btn" data-tab="year">Year Plan</button>
+  <button class="tab-btn" data-tab="library">Library</button>
+  <button class="tab-btn" data-tab="progress">Progress</button>
+  <button class="tab-btn" data-tab="journal">Journal</button>
+</div>
 
-    <div class="tabs">
-      <button class="tab-btn active" data-tab="home">Home</button>
-      <button class="tab-btn" data-tab="today">Today</button>
-      <button class="tab-btn" data-tab="sweat">Sweat</button>
-      <button class="tab-btn" data-tab="path">Training Path</button>
-      <button class="tab-btn" data-tab="year">Year Plan</button>
-      <button class="tab-btn" data-tab="library">Library</button>
-      <button class="tab-btn" data-tab="progress">Progress</button>
-      <button class="tab-btn" data-tab="journal">Journal</button>
-    </div>
-
-    <section id="tab-home">
-      <div class="grid two-col">
-        <div class="grid">
-          <div class="card">
-            <div class="head split">
-              <div>
-                <div class="section-title">Home</div>
-                <div class="muted">Your daily Shaolin control panel</div>
-              </div>
-              <div class="badge" id="homeCurrentLevel">Level 1</div>
-            </div>
-            <div class="body">
-              <div class="stat-grid">
-                <div class="mini-card"><div class="eyebrow muted">Next unlock</div><div id="nextUnlockText" style="font-size:18px;font-weight:800;margin-top:6px;">Strength integration</div></div>
-                <div class="mini-card"><div class="eyebrow muted">Mind score</div><div id="mindScoreText" style="font-size:18px;font-weight:800;margin-top:6px;">0</div></div>
-                <div class="mini-card"><div class="eyebrow muted">Body score</div><div id="bodyScoreText" style="font-size:18px;font-weight:800;margin-top:6px;">0</div></div>
-                <div class="mini-card"><div class="eyebrow muted">Discipline</div><div id="disciplineScoreText" style="font-size:18px;font-weight:800;margin-top:6px;">0</div></div>
-              </div>
-            </div>
+<section id="tab-home">
+  <div class="grid two-col">
+    <div class="grid">
+      <div class="card">
+        <div class="head split">
+          <div>
+            <div class="section-title">Home</div>
+            <div class="muted">Your daily Shaolin control panel</div>
           </div>
-
-          <div class="card">
-            <div class="head">
-              <div class="section-title">Quick Start</div>
-              <div class="muted">Best testing workflow on your phone</div>
-            </div>
-            <div class="body list" id="quickStartList"></div>
-          </div>
+          <div class="badge" id="homeCurrentLevel">Level 1</div>
         </div>
-
-        <div class="grid">
-          <div class="card">
-            <div class="head"><div class="section-title">Today at a glance</div></div>
-            <div class="body list" id="homeTodayList"></div>
-          </div>
-
-          <div class="card">
-            <div class="head"><div class="section-title">Sweat summary</div></div>
-            <div class="body list" id="homeSweatSummary"></div>
-          </div>
-
-          <div class="card">
-            <div class="head"><div class="section-title">Quick Tools</div></div>
-            <div class="body btn-row">
-              <button id="goCurrentBtn" class="btn info">Go to current day</button>
-              <button id="exportBtn" class="btn">Export</button>
-              <button id="importBtn" class="btn">Import</button>
-              <input id="importFile" type="file" accept="application/json" class="hidden" />
-              <button id="resetBtn" class="btn warn">Reset</button>
-            </div>
+        <div class="body">
+          <div class="stat-grid">
+            <div class="mini-card"><div class="eyebrow muted">Next unlock</div><div id="nextUnlockText" style="font-size:18px;font-weight:800;margin-top:6px;">Strength integration</div></div>
+            <div class="mini-card"><div class="eyebrow muted">Mind score</div><div id="mindScoreText" style="font-size:18px;font-weight:800;margin-top:6px;">0</div></div>
+            <div class="mini-card"><div class="eyebrow muted">Body score</div><div id="bodyScoreText" style="font-size:18px;font-weight:800;margin-top:6px;">0</div></div>
+            <div class="mini-card"><div class="eyebrow muted">Discipline</div><div id="disciplineScoreText" style="font-size:18px;font-weight:800;margin-top:6px;">0</div></div>
           </div>
         </div>
       </div>
-    </section>
 
-    <section id="tab-today" class="hidden">
+      <div class="card">
+        <div class="head">
+          <div class="section-title">Quick Start</div>
+          <div class="muted">Best testing workflow on your phone</div>
+        </div>
+        <div class="body list" id="quickStartList"></div>
+      </div>
+    </div>
+
+    <div class="grid">
+      <div class="card">
+        <div class="head"><div class="section-title">Today at a glance</div></div>
+        <div class="body list" id="homeTodayList"></div>
+      </div>
+
+      <div class="card">
+        <div class="head"><div class="section-title">Sweat summary</div></div>
+        <div class="body list" id="homeSweatSummary"></div>
+      </div>
+
+      <div class="card">
+        <div class="head"><div class="section-title">Quick Tools</div></div>
+        <div class="body btn-row">
+          <button id="goCurrentBtn" class="btn info">Go to current day</button>
+          <button id="exportBtn" class="btn">Export</button>
+          <button id="importBtn" class="btn">Import</button>
+          <input id="importFile" type="file" accept="application/json" class="hidden" />
+          <button id="resetBtn" class="btn warn">Reset</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="tab-today" class="hidden">
+  <div class="grid">
+    <div class="card">
+      <div class="head">
+        <div class="section-title">Start Day Here</div>
+        <div class="muted">Readiness should be completed first</div>
+      </div>
+      <div class="body">
+        <div class="readiness-priority">
+          <strong>Why this comes first</strong>
+          <div class="muted" style="margin-top:6px;">Your plan should adapt to your actual condition before you begin. That is how this course should run.</div>
+          <div class="muted" style="margin-top:8px;" id="readinessDateText"></div>
+        </div>
+        <div class="readiness-grid" id="readinessSliders"></div>
+        <div style="height:12px"></div>
+        <div class="note">
+          <strong>Body areas needing care</strong>
+          <div class="muted" style="margin-top:6px;">Tap any sore, tight, heavy, or irritated areas.</div>
+          <div style="height:10px"></div>
+          <div class="body-map" id="bodyPartGrid"></div>
+        </div>
+        <div style="height:12px"></div>
+        <div>
+          <label for="readinessNotes"><strong>Readiness notes</strong></label>
+          <textarea id="readinessNotes" placeholder="Example: hips tight, poor sleep, upper chest still sore, mentally flat"></textarea>
+        </div>
+      </div>
+    </div>
+
+    <div class="grid two-col">
       <div class="grid">
         <div class="card">
-          <div class="head">
-            <div class="section-title">Start Day Here</div>
-            <div class="muted">Readiness should be completed first</div>
+          <div class="head split">
+            <div>
+              <div class="section-title">Today’s Training</div>
+              <div id="todaySubtitle" class="muted"></div>
+            </div>
+            <div class="badge" id="todayPhaseBadge"></div>
           </div>
           <div class="body">
-            <div class="readiness-priority">
-              <strong>Why this comes first</strong>
-              <div class="muted" style="margin-top:6px;">Your plan should adapt to your actual condition before you begin. That is how this course should run.</div>
-              <div class="muted" style="margin-top:8px;" id="readinessDateText"></div>
+            <div class="mode-banner">
+              <div><strong id="sessionModeText">Standard</strong></div>
+              <div class="muted" id="sessionModeReason">Complete your readiness check to adapt the plan.</div>
             </div>
-
-            <div class="readiness-grid" id="readinessSliders"></div>
-
             <div style="height:12px"></div>
-
-            <div class="note">
-              <strong>Body areas needing care</strong>
-              <div class="muted" style="margin-top:6px;">Tap any sore, tight, heavy, or irritated areas.</div>
-              <div style="height:10px"></div>
-              <div class="body-map" id="bodyPartGrid"></div>
-            </div>
-
+            <div id="adjustmentList" class="list"></div>
             <div style="height:12px"></div>
-
-            <div>
-              <label for="readinessNotes"><strong>Readiness notes</strong></label>
-              <textarea id="readinessNotes" placeholder="Example: hips tight, poor sleep, upper chest still sore, mentally flat"></textarea>
+            <div id="missionList" class="list"></div>
+            <div style="height:12px"></div>
+            <div class="btn-row">
+              <button id="weekCompleteBtn" class="btn success">Check if week is complete</button>
+              <button id="prevDayBtn" class="btn">Previous day</button>
+              <button id="nextDayBtn" class="btn">Next day</button>
             </div>
           </div>
         </div>
 
-        <div class="grid two-col">
-          <div class="grid">
-            <div class="card">
-              <div class="head split">
-                <div>
-                  <div class="section-title">Today’s Training</div>
-                  <div id="todaySubtitle" class="muted"></div>
-                </div>
-                <div class="badge" id="todayPhaseBadge"></div>
-              </div>
-              <div class="body">
-                <div class="mode-banner">
-                  <div><strong id="sessionModeText">Standard</strong></div>
-                  <div class="muted" id="sessionModeReason">Complete your readiness check to adapt the plan.</div>
-                </div>
+        <div class="card">
+          <div class="head"><div class="section-title">Week Objective</div><div id="weekObjective" class="muted"></div></div>
+          <div class="body"><div id="weekFocusList" class="grid double"></div></div>
+        </div>
+      </div>
 
-                <div style="height:12px"></div>
-                <div id="adjustmentList" class="list"></div>
+      <div class="grid">
+        <div class="card">
+          <div class="head"><div class="section-title">Quick Help</div><div class="muted">Tap a movement in the Library for full detail</div></div>
+          <div class="body"><div id="todayQuickHelp" class="list"></div></div>
+        </div>
 
-                <div style="height:12px"></div>
-                <div id="missionList" class="list"></div>
+        <div class="card">
+          <div class="head"><div class="section-title">Dog Walk Mind Script</div><div class="muted">Use during the walk</div></div>
+          <div class="body"><div id="walkPromptList" class="list"></div></div>
+        </div>
 
-                <div style="height:12px"></div>
-                <div class="btn-row">
-                  <button id="weekCompleteBtn" class="btn success">Check if week is complete</button>
-                  <button id="prevDayBtn" class="btn">Previous day</button>
-                  <button id="nextDayBtn" class="btn">Next day</button>
-                </div>
-              </div>
+        <div class="card">
+          <div class="head"><div class="section-title">State Check</div><div class="muted">Score yourself honestly</div></div>
+          <div class="body" id="scoreSliders"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="tab-sweat" class="hidden">
+  <div class="grid two-col">
+    <div class="grid">
+      <div class="card">
+        <div class="head">
+          <div class="section-title">Sweat Regulation</div>
+          <div class="muted">Track patterns and use calming drills when sweating ramps up</div>
+        </div>
+        <div class="body">
+          <div class="sweat-banner">
+            <strong>How to use this</strong>
+            <div class="muted" style="margin-top:6px;">Use this tab to spot triggers, log when sweating happens at rest, and run a calm-state reset when it starts unexpectedly.</div>
+            <div class="muted" style="margin-top:8px;" id="sweatDateText"></div>
+          </div>
+          <div class="sweat-grid" id="sweatSliders"></div>
+          <div style="height:12px"></div>
+          <div class="grid double">
+            <div class="note">
+              <strong>At-rest sweating</strong>
+              <div class="muted" style="margin-top:6px;">Sweating while sitting still or in a cool room matters. Log it honestly.</div>
+              <div style="height:10px"></div>
+              <button type="button" class="chip-btn" id="restSweatBtn">Sweating at rest</button>
             </div>
-
-            <div class="card">
-              <div class="head"><div class="section-title">Week Objective</div><div id="weekObjective" class="muted"></div></div>
-              <div class="body"><div id="weekFocusList" class="grid double"></div></div>
+            <div class="note">
+              <strong>Feels hot or not hot</strong>
+              <div class="muted" style="margin-top:6px;">This helps separate heat load from overactive sweating.</div>
+              <div style="height:10px"></div>
+              <button type="button" class="chip-btn" id="notHotBtn">Not hot but sweating</button>
+            </div>
+            <div class="note">
+              <strong>Night sweats</strong>
+              <div class="muted" style="margin-top:6px;">Use this if sweating is happening during sleep.</div>
+              <div style="height:10px"></div>
+              <button type="button" class="chip-btn" id="nightSweatsBtn">Night sweats</button>
+            </div>
+            <div class="note">
+              <strong>Palpitations / dizziness</strong>
+              <div class="muted" style="margin-top:6px;">Flag if sweating comes with pounding heart, shakiness, or dizziness.</div>
+              <div style="height:10px"></div>
+              <button type="button" class="chip-btn" id="palpitationsBtn">Palpitations / dizziness</button>
             </div>
           </div>
-
-          <div class="grid">
-            <div class="card">
-              <div class="head"><div class="section-title">Quick Help</div><div class="muted">Tap a movement in the Library for full detail</div></div>
-              <div class="body"><div id="todayQuickHelp" class="list"></div></div>
-            </div>
-
-            <div class="card">
-              <div class="head"><div class="section-title">Dog Walk Mind Script</div><div class="muted">Use during the walk</div></div>
-              <div class="body"><div id="walkPromptList" class="list"></div></div>
-            </div>
-
-            <div class="card">
-              <div class="head"><div class="section-title">State Check</div><div class="muted">Score yourself honestly</div></div>
-              <div class="body" id="scoreSliders"></div>
-            </div>
+          <div style="height:12px"></div>
+          <div>
+            <label for="sweatNotes"><strong>Sweat notes</strong></label>
+            <textarea id="sweatNotes" placeholder="Example: soaking underarms at desk, fan on, not hot, had coffee, felt a bit tense"></textarea>
+          </div>
+          <div style="height:12px"></div>
+          <div class="btn-row">
+            <button type="button" class="btn success" id="saveSweatLogBtn">Save sweat log</button>
+            <button type="button" class="btn warn" id="clearSweatTodayBtn">Clear today</button>
           </div>
         </div>
       </div>
-    </section>
 
-    <section id="tab-sweat" class="hidden">
-      <div class="grid two-col">
-        <div class="grid">
-          <div class="card">
-            <div class="head">
-              <div class="section-title">Sweat Regulation</div>
-              <div class="muted">Track patterns and use calming drills when sweating ramps up</div>
+      <div class="card">
+        <div class="head"><div class="section-title">Medical flags</div><div class="muted">Use as a prompt for review, not as a diagnosis</div></div>
+        <div class="body">
+          <div id="sweatFlagsBanner"></div>
+          <div style="height:12px"></div>
+          <div id="sweatFlagList"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="grid">
+      <div class="card">
+        <div class="head"><div class="section-title">3-minute calm drill</div><div class="muted">Use when sweating starts rising</div></div>
+        <div class="body"><div id="sweatPromptList" class="list"></div></div>
+      </div>
+
+      <div class="card">
+        <div class="head"><div class="section-title">Desk reset</div><div class="muted">Use at your computer when sweating spikes</div></div>
+        <div class="body"><div id="sweatDeskResetList" class="list"></div></div>
+      </div>
+
+      <div class="card">
+        <div class="head"><div class="section-title">Saved sweat log</div><div class="muted">Recent locally-saved entries</div></div>
+        <div class="body"><div id="sweatLogList" class="list"></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="tab-path" class="hidden">
+  <div class="grid two-col">
+    <div class="card">
+      <div class="head"><div class="section-title">Training Path</div><div class="muted">Foundations unlock later branches</div></div>
+      <div class="body"><div id="pathGrid" class="path-grid"></div></div>
+    </div>
+    <div class="card">
+      <div class="head split">
+        <div>
+          <div id="pathTitle" class="section-title"></div>
+          <div id="pathSubtitle" class="muted"></div>
+        </div>
+        <div id="pathStatus" class="badge"></div>
+      </div>
+      <div class="body list">
+        <div class="note" id="pathSummary"></div>
+        <div><strong>Includes</strong><div id="pathModules" class="list" style="margin-top:8px;"></div></div>
+        <div><strong>Unlock rule</strong><div id="pathUnlockRule" class="note" style="margin-top:8px;"></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="tab-year" class="hidden">
+  <div class="grid year-grid">
+    <div class="card">
+      <div class="head"><div class="section-title">52-Week Roadmap</div><div class="muted">Full-year curriculum flow</div></div>
+      <div class="body scroll" id="weekList"></div>
+    </div>
+    <div class="card">
+      <div class="head split">
+        <div>
+          <div id="yearWeekTitle" class="section-title"></div>
+          <div id="yearWeekPhase" class="muted"></div>
+        </div>
+        <div id="yearWeekStatus" class="badge"></div>
+      </div>
+      <div class="body">
+        <div id="yearWeekObjective" class="note"></div>
+        <div style="height:12px"></div>
+        <div id="dayCards" class="grid double"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="tab-library" class="hidden">
+  <div class="grid library-detail-grid">
+    <div class="card">
+      <div class="head"><div class="section-title">Movement Library</div><div class="muted">Guided movement, qigong, conditioning, strength, and power cards</div></div>
+      <div class="body scroll" id="moduleList"></div>
+    </div>
+    <div class="grid">
+      <div class="card">
+        <div class="head split">
+          <div>
+            <div id="moduleTitle" class="section-title"></div>
+            <div id="moduleArea" class="muted"></div>
+          </div>
+          <div id="moduleLevelBadge" class="badge"></div>
+        </div>
+        <div class="body">
+          <div class="media-stack">
+            <div class="media-section">
+              <div class="media-title">Image References</div>
+              <div class="media-editor">
+                <input id="mediaImageInput" type="text" placeholder="Paste image URL" />
+                <button id="addImageBtn" class="btn">Add Image</button>
+              </div>
+              <div class="grid triple" id="moduleImages"></div>
             </div>
-            <div class="body">
-              <div class="sweat-banner">
-                <strong>How to use this</strong>
-                <div class="muted" style="margin-top:6px;">Use this tab to spot triggers, log when sweating happens at rest, and run a calm-state reset when it starts unexpectedly.</div>
-                <div class="muted" style="margin-top:8px;" id="sweatDateText"></div>
+            <div class="media-section">
+              <div class="media-title">Video References</div>
+              <div class="media-editor">
+                <input id="mediaVideoInput" type="text" placeholder="Paste YouTube or video URL" />
+                <button id="addVideoBtn" class="btn">Add Video</button>
               </div>
-
-              <div class="sweat-grid" id="sweatSliders"></div>
-
-              <div style="height:12px"></div>
-
-              <div class="grid double">
-                <div class="note">
-                  <strong>At-rest sweating</strong>
-                  <div class="muted" style="margin-top:6px;">Sweating while sitting still or in a cool room matters. Log it honestly.</div>
-                  <div style="height:10px"></div>
-                  <button type="button" class="chip-btn" id="restSweatBtn" onclick="toggleSweatFlag('restSweat')">Sweating at rest</button>
-                </div>
-
-                <div class="note">
-                  <strong>Feels hot or not hot</strong>
-                  <div class="muted" style="margin-top:6px;">This helps separate heat load from overactive sweating.</div>
-                  <div style="height:10px"></div>
-                  <button type="button" class="chip-btn" id="notHotBtn" onclick="toggleSweatFlag('notHot')">Not hot but sweating</button>
-                </div>
-
-                <div class="note">
-                  <strong>Night sweats</strong>
-                  <div class="muted" style="margin-top:6px;">Use this if sweating is happening during sleep.</div>
-                  <div style="height:10px"></div>
-                  <button type="button" class="chip-btn" id="nightSweatsBtn" onclick="toggleSweatFlag('nightSweats')">Night sweats</button>
-                </div>
-
-                <div class="note">
-                  <strong>Palpitations / dizziness</strong>
-                  <div class="muted" style="margin-top:6px;">Flag if sweating comes with pounding heart, shakiness, or dizziness.</div>
-                  <div style="height:10px"></div>
-                  <button type="button" class="chip-btn" id="palpitationsBtn" onclick="toggleSweatFlag('palpitations')">Palpitations / dizziness</button>
-                </div>
+              <div id="moduleVideoList" class="video-list"></div>
+            </div>
+            <div class="media-section">
+              <div class="media-title">Helpful Links</div>
+              <div class="media-editor">
+                <input id="mediaLinkInput" type="text" placeholder="Paste helpful link" />
+                <button id="addLinkBtn" class="btn">Add Link</button>
               </div>
-
-              <div style="height:12px"></div>
-
-              <div>
-                <label for="sweatNotes"><strong>Sweat notes</strong></label>
-                <textarea id="sweatNotes" placeholder="Example: soaking underarms at desk, fan on, not hot, had coffee, felt a bit tense"></textarea>
-              </div>
-
-              <div style="height:12px"></div>
-
-              <div class="btn-row">
-                <button type="button" class="btn success" id="saveSweatLogBtn">Save sweat log</button>
-                <button type="button" class="btn warn" id="clearSweatTodayBtn">Clear today</button>
-              </div>
+              <div id="moduleLinkList" class="list"></div>
             </div>
           </div>
+          <div style="height:12px"></div>
+          <div class="grid double">
+            <div class="note"><strong>Mission</strong><div id="moduleMission" class="muted" style="margin-top:6px;"></div></div>
+            <div class="note"><strong>Looks right when...</strong><div id="moduleLooks" class="muted" style="margin-top:6px;"></div></div>
+            <div class="note"><strong>Feels right when...</strong><div id="moduleFeels" class="muted" style="margin-top:6px;"></div></div>
+            <div class="note"><strong>Unlock / level</strong><div id="moduleUnlock" class="muted" style="margin-top:6px;"></div></div>
+          </div>
+          <div style="height:12px"></div>
+          <div class="grid double">
+            <div class="note"><strong>How to set up</strong><div id="moduleSetup" class="muted" style="margin-top:6px;"></div></div>
+            <div class="note"><strong>Primary cues</strong><div id="moduleCues" class="muted" style="margin-top:6px;"></div></div>
+          </div>
+          <div style="height:12px"></div>
+          <div class="note"><strong>Step-by-step</strong><div id="moduleSteps" class="muted" style="margin-top:6px;"></div></div>
+          <div style="height:12px"></div>
+          <div class="grid double">
+            <div class="note"><strong>Coaching help</strong><div id="moduleCoaching" class="muted" style="margin-top:6px;"></div></div>
+            <div class="note"><strong>Common mistakes</strong><div id="moduleMistakes" class="muted" style="margin-top:6px;"></div></div>
+          </div>
+          <div style="height:12px"></div>
+          <div class="note"><strong>Pass standard</strong><div id="moduleStandards" class="muted" style="margin-top:6px;"></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
-          <div class="card">
-            <div class="head"><div class="section-title">Medical flags</div><div class="muted">Use as a prompt for review, not as a diagnosis</div></div>
-            <div class="body">
-              <div id="sweatFlagsBanner"></div>
-              <div style="height:12px"
+<section id="tab-progress" class="hidden">
+  <div class="grid two-col">
+    <div class="card">
+      <div class="head"><div class="section-title">Core Progression Targets</div><div class="muted">Targets scale through the year</div></div>
+      <div class="body"><div id="progressGrid" class="stat-grid"></div></div>
+    </div>
+    <div class="grid">
+      <div class="card">
+        <div class="head"><div class="section-title">Reflection Checklist</div><div class="muted">Use after training</div></div>
+        <div class="body" id="focusPromptList"></div>
+      </div>
+      <div class="card">
+        <div class="head"><div class="section-title">How To Use V3</div><div class="muted">Simple phone workflow</div></div>
+        <div class="body list" id="howToList"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="tab-journal" class="hidden">
+  <div class="grid two-col">
+    <div class="card">
+      <div class="head"><div class="section-title">Training Journal</div><div class="muted">Write what really happened</div></div>
+      <div class="body"><textarea id="journalBox" placeholder="How did the session feel? Did you stay calm? What looked strong? What broke down?"></textarea></div>
+    </div>
+    <div class="grid">
+      <div class="card">
+        <div class="head"><div class="section-title">Evidence Log</div><div class="muted">Track video, photo, or notes</div></div>
+        <div class="body"><input id="evidenceBox" type="text" placeholder="Example: Recorded on phone / clip filename / album link" /></div>
+      </div>
+      <div class="card">
+        <div class="head"><div class="section-title">Reminder</div></div>
+        <div class="body"><div class="note">Only mark tasks complete when you performed them honestly. This app is strongest when you treat it as training, not a streak game.</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="foot-space"></div>
+
+  </div>  <script>
+    const STORAGE_KEY = 'shaolinPathV3State';
+    const MEDIA_KEY = 'shaolinPathV3MediaStore';
+
+    const MODULES = [
+      { id: 'horse-stance', title: 'Horse Stance', area: 'Stance / Leg strength / Stillness', level: 1, levelLabel: 'Level 1', mission: 'Build rooted legs, upright spine, and calm under discomfort.', looks: 'Feet planted, knees tracking over toes, torso stacked, shoulders soft.', feels: 'Leg burn rises but breath stays calm and face stays relaxed.', unlock: 'Foundation module for lower body endurance and stillness training.', setup: 'Take a wide stance, toes slightly out, sink until thighs begin to work.', cues: 'Lift crown, soften ribs, screw feet into floor, breathe low and steady.', steps: 'Stand wide. Bend knees. Sit down between hips. Keep chest proud. Hold. Recover with control.', coaching: 'Start shorter with perfect posture instead of chasing time with sloppy knees.', mistakes: 'Knees collapsing inward, leaning forward, holding breath, shrugging shoulders.', standards: 'Can hold with steady breath and stable knee tracking.', quickHelp: 'Use for root, leg endurance, and mental steadiness.', defaults: { links: ['https://www.youtube.com/results?search_query=shaolin+horse+stance'], videos: [], images: [] } },
+      { id: 'bow-stance', title: 'Bow Stance', area: 'Stance / Structure / Weight transfer', level: 1, levelLabel: 'Level 1', mission: 'Train forward drive, rear leg extension, and structural alignment.', looks: 'Front knee bent, rear leg long, hips square enough to support direction.', feels: 'Front leg loaded, rear leg alive, torso stable and ready to move.', unlock: 'Required before dynamic line drills and stance transitions.', setup: 'Step long, keep feet grounded, bend front knee without collapsing posture.', cues: 'Press floor away with rear foot, stack chest over hips, relax jaw.', steps: 'Start tall. Step long. Bend front knee. Lengthen rear leg. Hold. Change side.', coaching: 'Keep the rear heel connected as long as your mobility allows.', mistakes: 'Front knee drifting too far in, rear leg soft, torso leaning badly.', standards: 'Stable on both sides with strong weight transfer.', quickHelp: 'Great for stance line power and body organisation.', defaults: { links: ['https://www.youtube.com/results?search_query=shaolin+bow+stance'], videos: [], images: [] } },
+      { id: 'body-activation', title: 'Body Activation', area: 'Warm-up / Mobility / Readiness', level: 1, levelLabel: 'Level 1', mission: 'Wake the joints, spine, and breath before strength or form work.', looks: 'Smooth rhythm, full-body participation, no jerky compensation.', feels: 'Warmer, looser, more awake, less stiff.', unlock: 'Daily opening sequence before all harder work.', setup: 'Create a clear floor space and stand relaxed with soft knees.', cues: 'Move joint by joint, keep breath flowing, do not rush.', steps: 'Begin with neck and shoulders. Roll arms. Mobilise spine. Open hips. Bounce lightly. Finish calm.', coaching: 'Think wake up, not smash yourself.', mistakes: 'Going too hard, racing, using momentum over control.', standards: 'Finish feeling better than when you began.', quickHelp: 'Use at the start of nearly every session.', defaults: { links: ['https://www.youtube.com/results?search_query=shi+heng+yi+body+activation'], videos: [], images: [] } },
+      { id: 'ba-duan-jin', title: 'Ba Duan Jin', area: 'Qigong / Breath / Internal regulation', level: 1, levelLabel: 'Level 1', mission: 'Coordinate movement and breath while building awareness and internal quality.', looks: 'Soft but deliberate movement, spine long, transitions unforced.', feels: 'Calming, opening, grounded, quietly energising.', unlock: 'Primary Level 1 qigong set.', setup: 'Stand with feet comfortable and posture lifted but relaxed.', cues: 'Slow down, feel the whole path of the movement, breathe naturally.', steps: 'Move through each brocade with intention. Pause briefly. Reset posture between repetitions.', coaching: 'Do not chase performance. Chase sensation, connection, and steadiness.', mistakes: 'Too much tension, rushing the transitions, disconnecting breath.', standards: 'Can perform the full set with calm attention.', quickHelp: 'Use for nervous system regulation and internal quality.', defaults: { links: ['https://www.youtube.com/results?search_query=shaolin+ba+duan+jin'], videos: [], images: [] } },
+      { id: 'breathing-foundation', title: 'Breathing Foundation', area: 'Breath / Mind / Recovery', level: 1, levelLabel: 'Level 1', mission: 'Learn low, quiet breathing that keeps the body calm under effort.', looks: 'Minimal upper chest lifting, relaxed face, full exhale.', feels: 'Lower belly and ribs move, mind steadies, effort becomes cleaner.', unlock: 'Needed for all longer holds and meditative practice.', setup: 'Sit or stand upright, neck long, jaw loose.', cues: 'Inhale quietly, exhale fully, let the breath drop rather than lift.', steps: 'Set posture. Observe breath. Extend exhale slightly. Relax shoulders. Continue without strain.', coaching: 'A smaller real breath beats a fake huge breath.', mistakes: 'Forcing inhale, shrugging shoulders, making noise, chasing dizziness.', standards: 'Can stay consistent and calm for a full practice block.', quickHelp: 'Use between efforts and during emotional reset.', defaults: { links: ['https://www.youtube.com/results?search_query=shi+heng+yi+breathing'], videos: [], images: [] } },
+      { id: 'wall-stretch', title: 'Wall Stretch & Line Opening', area: 'Mobility / Lines / Recovery', level: 1, levelLabel: 'Level 1', mission: 'Improve lower-body range while keeping posture honest.', looks: 'Long lines, no collapsed spine, controlled depth.', feels: 'Opening through calves, hips, hamstrings, and groin without panic.', unlock: 'Supports stances, kicks, and safer volume.', setup: 'Use a wall or support and create enough room to step and hinge.', cues: 'Length before depth. Breathe before pushing further.', steps: 'Set support. Enter stretch slowly. Hold. Breathe. Ease out. Repeat other side.', coaching: 'Mobility grows when the nervous system trusts the position.', mistakes: 'Bouncing, forcing range, rounding badly.', standards: 'Range improves without pain spikes or compensation.', quickHelp: 'Useful after stance work or at the end of training.', defaults: { links: ['https://www.youtube.com/results?search_query=shaolin+flexibility+routine'], videos: [], images: [] } },
+      { id: 'shaolin-push-strength', title: 'Shaolin Push Strength', area: 'Strength / Chest / Shoulders / Triceps', level: 1, levelLabel: 'Level 1', mission: 'Build pushing strength, trunk tension, and upper-body endurance.', looks: 'Body stays long and organised, shoulders stable, reps controlled.', feels: 'Chest, shoulders, triceps, and core work together without collapse.', unlock: 'Primary upper-body strength builder.', setup: 'Use floor, bench, incline, push-up bars, or a bench height that matches your level.', cues: 'Brace core, screw hands into floor, keep neck neutral, press strongly.', steps: 'Set hands. Brace body. Lower under control. Press back up. Repeat cleanly.', coaching: 'Use incline or bench height if full floor reps break down.', mistakes: 'Sagging hips, flared elbows, neck craning, half reps.', standards: 'Clean reps with stable trunk and even tempo.', quickHelp: 'Use for chest, shoulder, triceps, and total-body push strength.', defaults: { links: [], videos: [], images: [] } },
+      { id: 'shaolin-leg-strength', title: 'Shaolin Leg Strength', area: 'Strength / Legs / Root', level: 1, levelLabel: 'Level 1', mission: 'Build stronger legs for stances, root, and full-body power.', looks: 'Knees track well, torso organised, depth honest for mobility.', feels: 'Quads, glutes, and trunk work together strongly.', unlock: 'Primary lower-body strength builder.', setup: 'Use goblet squat, split squat, step-up, or bodyweight squat depending on level.', cues: 'Root feet, brace trunk, drive knees over toes, stand with control.', steps: 'Set stance. Brace. Lower with control. Drive up strongly. Repeat.', coaching: 'Use kettlebell goblet loading if form stays strong.', mistakes: 'Knee collapse, rounded torso, rushed reps, shallow cheating depth.', standards: 'Controlled reps with stable knees and even balance.', quickHelp: 'Use for leg strength, stance support, and root development.', defaults: { links: [], videos: [], images: [] } },
+      { id: 'shaolin-pull-strength', title: 'Shaolin Pull Strength', area: 'Strength / Upper Back / Arms / Posture', level: 1, levelLabel: 'Level 1', mission: 'Build pulling strength, posture support, and upper-back structure.', looks: 'Chest open, shoulders controlled, elbows travel with purpose.', feels: 'Upper back, lats, rear shoulders, and arms work together.', unlock: 'Primary pull and posture builder.', setup: 'Use resistance band rows, bent-over rows, or supported row variations.', cues: 'Lead with elbows, keep ribs stacked, squeeze upper back, control return.', steps: 'Set anchor or band. Brace. Row strongly. Pause briefly. Return slowly.', coaching: 'Think posture strength, not just arm pulling.', mistakes: 'Shrugging shoulders, jerking, leaning too much, no control on return.', standards: 'Balanced reps with good shoulder position.', quickHelp: 'Use for posture, upper-back strength, and pulling balance.', defaults: { links: [], videos: [], images: [] } },
+      { id: 'shaolin-hip-power', title: 'Shaolin Hip Power', area: 'Power / Hinge / Athleticism', level: 1, levelLabel: 'Level 1', mission: 'Build explosive hip drive and athletic power.', looks: 'Fast hips, stable trunk, crisp powerful movement.', feels: 'Glutes, hamstrings, trunk, and grip connect through the movement.', unlock: 'Primary power module.', setup: 'Use kettlebell swings or similar hinge-based power work.', cues: 'Snap hips, keep spine long, let arms connect, do not squat the hinge.', steps: 'Hinge back. Load hips. Drive forward hard. Float weight. Reset rhythm.', coaching: 'Power comes from hips, not yanking with arms.', mistakes: 'Squatting the swing, rounded back, lifting with shoulders, overextending.', standards: 'Clean hinge pattern and repeatable hip snap.', quickHelp: 'Use for power, posterior chain, and athletic drive.', defaults: { links: [], videos: [], images: [] } },
+      { id: 'shaolin-core-training', title: 'Shaolin Core Training', area: 'Strength / Core / Trunk control', level: 1, levelLabel: 'Level 1', mission: 'Build trunk stiffness, control, and transfer of force.', looks: 'Ribs controlled, pelvis organised, no unnecessary movement.', feels: 'Deep trunk work without lower-back strain.', unlock: 'Supports all stance, strength, and power work.', setup: 'Use ab roller, planks, dead bugs, hollow body, or anti-extension drills.', cues: 'Brace before moving, keep ribs down, move from shoulders and hips with control.', steps: 'Set brace. Begin rep slowly. Maintain trunk shape. Finish without collapse.', coaching: 'Train anti-collapse, not just burn.', mistakes: 'Lower-back sag, flared ribs, rushing, losing brace.', standards: 'Stable trunk throughout the set.', quickHelp: 'Use for ab strength, posture, and force transfer.', defaults: { links: [], videos: [], images: [] } }
+    ];
+
+    const PATHS = [
+      { id: 'foundation', title: 'Foundation Discipline', subtitle: 'Weeks 1-8', status: 'Open', summary: 'Build root, mobility, breath, and honest strength foundations.', modules: ['Horse Stance', 'Body Activation', 'Breathing Foundation', 'Shaolin Leg Strength', 'Shaolin Push Strength', 'Shaolin Core Training'], unlockRule: 'Open from day one.' },
+      { id: 'integration', title: 'Integration & Power', subtitle: 'Weeks 9-20', status: 'Open', summary: 'Combine stance, qigong, strength, and power with better control.', modules: ['Bow Stance', 'Ba Duan Jin', 'Shaolin Pull Strength', 'Shaolin Hip Power', 'Wall Stretch & Line Opening'], unlockRule: 'Continue once week rhythm is stable.' },
+      { id: 'conditioning', title: 'Conditioning & Form Lines', subtitle: 'Weeks 21-52', status: 'Locked', summary: 'Layer harder structure, stronger engines, and longer tolerance.', modules: ['Horse Stance', 'Bow Stance', 'Shaolin Leg Strength', 'Shaolin Push Strength', 'Shaolin Pull Strength', 'Shaolin Hip Power'], unlockRule: 'Complete 20 weeks and maintain stable scores.' }
+    ];
+
+    const WEEK_TEMPLATES = [
+      { phase: 'Foundation Strength', objective: 'Build structure, root, and base strength while keeping breath and mobility.', focus: ['Root', 'Strength', 'Breathing', 'Mobility'], days: [ ['Body Activation', 'Shaolin Leg Strength', 'Horse Stance', 'Breathing Foundation'], ['Body Activation', 'Shaolin Push Strength', 'Shaolin Pull Strength', 'Wall Stretch & Line Opening'], ['Ba Duan Jin', 'Breathing Foundation', 'Wall Stretch & Line Opening'], ['Body Activation', 'Shaolin Leg Strength', 'Bow Stance', 'Shaolin Core Training'], ['Body Activation', 'Shaolin Hip Power', 'Shaolin Push Strength', 'Breathing Foundation'], ['Ba Duan Jin', 'Horse Stance', 'Shaolin Core Training'], ['Recovery walk', 'Light mobility'] ] },
+      { phase: 'Integration & Power', objective: 'Combine Shaolin structure with increasing strength, power, and control.', focus: ['Power', 'Structure', 'Conditioning', 'Internal balance'], days: [ ['Body Activation', 'Shaolin Leg Strength', 'Horse Stance', 'Shaolin Hip Power'], ['Body Activation', 'Shaolin Push Strength', 'Shaolin Pull Strength', 'Breathing Foundation'], ['Ba Duan Jin', 'Wall Stretch & Line Opening', 'Shaolin Core Training'], ['Body Activation', 'Bow Stance', 'Shaolin Leg Strength', 'Shaolin Core Training'], ['Body Activation', 'Shaolin Hip Power', 'Shaolin Push Strength', 'Shaolin Pull Strength'], ['Ba Duan Jin', 'Horse Stance', 'Breathing Foundation'], ['Recovery walk', 'Light mobility'] ] }
+    ];
+
+    const HOW_TO = [
+      'Start on Today and complete readiness first.',
+      'The app then chooses a mode and adjusts the day automatically.',
+      'Use Sweat to log sweating patterns and run calm-state drills.',
+      'Use Library for setup, cues, step-by-step, and saved help media.',
+      'Export your data regularly so your local work is backed up.'
+    ];
+    const QUICK_START = [
+      'Readiness comes first every day.',
+      'If you feel good, the app can push progression slightly.',
+      'If you feel sore, stiff, or underslept, the app can reduce or redirect work.',
+      'Sweat tracking now has its own tab for rest sweating and trigger logging.',
+      'Export after meaningful changes so you keep a clean backup.'
+    ];
+    const FOCUS_PROMPTS = [
+      'Did I keep my breath calm when discomfort rose?',
+      'Did my posture stay honest or did I cheat shape?',
+      'Was my power crisp or sloppy?',
+      'Did my strength work stay clean under fatigue?',
+      'Did I train or just tick boxes?'
+    ];
+    const WALK_PROMPTS = [
+      'Lengthen the spine and soften the face.',
+      'Breathe low and slow through the nose when possible.',
+      'Notice tension and reduce it without losing structure.',
+      'Walk with quiet confidence instead of mental noise.'
+    ];
+    const SWEAT_CALM_DRILL = [
+      'Unclench jaw and let your tongue rest.',
+      'Drop shoulders away from ears.',
+      'Sit tall but not rigid.',
+      'Inhale quietly through the nose for 4.',
+      'Exhale softly for 6 to 8.',
+      'Keep the face loose and eyes soft.',
+      'Place attention lower in the abdomen, not up in the chest.',
+      'Repeat for 10 slow breaths.'
+    ];
+    const SWEAT_DESK_RESET = [
+      'Stop typing for one minute.',
+      'Open both hands and relax forearms.',
+      'Check if shoulders are creeping upward and drop them.',
+      'Breathe out fully before the next inhale.',
+      'Run 5 to 10 low, quiet breaths.',
+      'Notice whether caffeine, stress, or anticipation is present.',
+      'Log the event if sweating is happening at rest.'
+    ];
+    const PROGRESS_TARGETS = [
+      { title: 'Horse stance tolerance', current: 'Build from honest holds to stable multi-set work.' },
+      { title: 'Push strength', current: 'Build clean reps with stable trunk and shoulder control.' },
+      { title: 'Leg strength', current: 'Build squat and split-stance strength for stronger root.' },
+      { title: 'Hip power', current: 'Develop repeatable explosive hinge power with clean form.' }
+    ];
+    const READINESS_FIELDS = [
+      { key: 'energy', label: 'Energy', min: 1, max: 10, defaultValue: 5 },
+      { key: 'sleep', label: 'Sleep quality', min: 1, max: 10, defaultValue: 5 },
+      { key: 'stress', label: 'Stress', min: 1, max: 10, defaultValue: 5 },
+      { key: 'soreness', label: 'Overall soreness', min: 1, max: 10, defaultValue: 3 },
+      { key: 'stiffness', label: 'Stiffness', min: 1, max: 10, defaultValue: 3 },
+      { key: 'motivation', label: 'Motivation', min: 1, max: 10, defaultValue: 5 }
+    ];
+    const SWEAT_FIELDS = [
+      { key: 'severity', label: 'Sweat severity', min: 0, max: 10, defaultValue: 0 },
+      { key: 'stressLoad', label: 'Stress load', min: 0, max: 10, defaultValue: 0 },
+      { key: 'caffeineLoad', label: 'Caffeine load', min: 0, max: 10, defaultValue: 0 },
+      { key: 'heatFeeling', label: 'Feeling hot', min: 0, max: 10, defaultValue: 0 }
+    ];
+    const BODY_PARTS = ['neck', 'shoulders', 'chest', 'upper back', 'lower back', 'hips', 'glutes', 'quads', 'hamstrings', 'knees', 'calves', 'ankles'];
+
+    const DEFAULT_STATE = {
+      selectedTab: 'home',
+      selectedPathId: 'foundation',
+      selectedWeekIndex: 0,
+      selectedDayIndex: 0,
+      selectedModuleId: MODULES[0].id,
+      checks: {},
+      scores: { mind: 0, body: 0, discipline: 0 },
+      readiness: { energy: 5, sleep: 5, stress: 5, soreness: 3, stiffness: 3, motivation: 5, bodyParts: [], notes: '', lastUpdatedDate: '' },
+      sweat: { severity: 0, stressLoad: 0, caffeineLoad: 0, heatFeeling: 0, restSweat: false, notHot: false, nightSweats: false, palpitations: false, notes: '', lastUpdatedDate: '', logs: [] },
+      journal: '',
+      evidence: ''
+    };
+
+    const state = JSON.parse(JSON.stringify(DEFAULT_STATE));
+
+    function buildWeeks() {
+      const weeks = [];
+      for (let i = 0; i < 52; i++) {
+        const template = i < 8 ? WEEK_TEMPLATES[0] : WEEK_TEMPLATES[1];
+        weeks.push({ week: i + 1, title: `Week ${i + 1}`, phase: template.phase, objective: template.objective, focus: template.focus, days: template.days });
+      }
+      return weeks;
+    }
+    const WEEKS = buildWeeks();
+
+    function todayKey() {
+      const d = new Date();
+      return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
+    }
+    function nowStamp() { return new Date().toLocaleString(); }
+    function clampNumber(value, min, max, fallback) {
+      const num = Number(value);
+      if (!Number.isFinite(num)) return fallback;
+      return Math.min(max, Math.max(min, num));
+    }
+    function sanitizeReadiness(readiness = {}) {
+      return {
+        energy: clampNumber(readiness.energy, 1, 10, 5),
+        sleep: clampNumber(readiness.sleep, 1, 10, 5),
+        stress: clampNumber(readiness.stress, 1, 10, 5),
+        soreness: clampNumber(readiness.soreness, 1, 10, 3),
+        stiffness: clampNumber(readiness.stiffness, 1, 10, 3),
+        motivation: clampNumber(readiness.motivation, 1, 10, 5),
+        bodyParts: Array.isArray(readiness.bodyParts) ? readiness.bodyParts.filter(part => BODY_PARTS.includes(part)) : [],
+        notes: typeof readiness.notes === 'string' ? readiness.notes : '',
+        lastUpdatedDate: typeof readiness.lastUpdatedDate === 'string' ? readiness.lastUpdatedDate : ''
+      };
+    }
+    function sanitizeSweat(sweat = {}) {
+      const logs = Array.isArray(sweat.logs) ? sweat.logs.slice(0, 20).filter(item => item && typeof item === 'object') : [];
+      return {
+        severity: clampNumber(sweat.severity, 0, 10, 0),
+        stressLoad: clampNumber(sweat.stressLoad, 0, 10, 0),
+        caffeineLoad: clampNumber(sweat.caffeineLoad, 0, 10, 0),
+        heatFeeling: clampNumber(sweat.heatFeeling, 0, 10, 0),
+        restSweat: !!sweat.restSweat,
+        notHot: !!sweat.notHot,
+        nightSweats: !!sweat.nightSweats,
+        palpitations: !!sweat.palpitations,
+        notes: typeof sweat.notes === 'string' ? sweat.notes : '',
+        lastUpdatedDate: typeof sweat.lastUpdatedDate === 'string' ? sweat.lastUpdatedDate : '',
+        logs
+      };
+    }
+    function sanitizeScores(scores = {}) {
+      return {
+        mind: clampNumber(scores.mind, 0, 10, 0),
+        body: clampNumber(scores.body, 0, 10, 0),
+        discipline: clampNumber(scores.discipline, 0, 10, 0)
+      };
+    }
+    function sanitizeChecks(checks = {}) {
+      if (!checks || typeof checks !== 'object') return {};
+      const clean = {};
+      Object.keys(checks).forEach(key => { clean[key] = !!checks[key]; });
+      return clean;
+    }
+    function sanitizeState(saved = {}) {
+      return {
+        selectedTab: ['home', 'today', 'sweat', 'path', 'year', 'library', 'progress', 'journal'].includes(saved.selectedTab) ? saved.selectedTab : 'home',
+        selectedPathId: PATHS.some(p => p.id === saved.selectedPathId) ? saved.selectedPathId : 'foundation',
+        selectedWeekIndex: clampNumber(saved.selectedWeekIndex, 0, WEEKS.length - 1, 0),
+        selectedDayIndex: clampNumber(saved.selectedDayIndex, 0, 6, 0),
+        selectedModuleId: MODULES.some(m => m.id === saved.selectedModuleId) ? saved.selectedModuleId : MODULES[0].id,
+        checks: sanitizeChecks(saved.checks),
+        scores: sanitizeScores(saved.scores),
+        readiness: sanitizeReadiness(saved.readiness),
+        sweat: sanitizeSweat(saved.sweat),
+        journal: typeof saved.journal === 'string' ? saved.journal : '',
+        evidence: typeof saved.evidence === 'string' ? saved.evidence : ''
+      };
+    }
+    function applyState(nextState) {
+      const clean = sanitizeState(nextState);
+      Object.assign(state, JSON.parse(JSON.stringify(clean)));
+    }
+    function saveState() { localStorage.setItem(STORAGE_KEY, JSON.stringify(sanitizeState(state))); }
+    function loadState() {
+      try {
+        const saved = JSON.parse(localStorage.getItem(STORAGE_KEY) || 'null');
+        if (saved) applyState(saved); else applyState(DEFAULT_STATE);
+      } catch {
+        applyState(DEFAULT_STATE);
+      }
+    }
+    function maybeResetReadinessForNewDay() {
+      const today = todayKey();
+      if (sanitizeReadiness(state.readiness).lastUpdatedDate !== today) {
+        state.readiness = sanitizeReadiness({ energy: 5, sleep: 5, stress: 5, soreness: 3, stiffness: 3, motivation: 5, bodyParts: [], notes: '', lastUpdatedDate: today });
+      }
+    }
+    function maybeResetSweatForNewDay() {
+      const today = todayKey();
+      const current = sanitizeSweat(state.sweat);
+      if (current.lastUpdatedDate !== today) {
+        state.sweat = sanitizeSweat({ severity: 0, stressLoad: 0, caffeineLoad: 0, heatFeeling: 0, restSweat: false, notHot: false, nightSweats: false, palpitations: false, notes: '', lastUpdatedDate: today, logs: current.logs || [] });
+      }
+    }
+    function getMediaStore() {
+      try {
+        const store = JSON.parse(localStorage.getItem(MEDIA_KEY) || '{}');
+        return store && typeof store === 'object' ? store : {};
+      } catch {
+        return {};
+      }
+    }
+    function setMediaStore(store) { localStorage.setItem(MEDIA_KEY, JSON.stringify(store)); }
+    function ensureModuleMedia(moduleId) {
+      const store = getMediaStore();
+      if (!store[moduleId]) {
+        const mod = MODULES.find(m => m.id === moduleId);
+        store[moduleId] = { images: [...(mod?.defaults?.images || [])], videos: [...(mod?.defaults?.videos || [])], links: [...(mod?.defaults?.links || [])] };
+        setMediaStore(store);
+      }
+      return store[moduleId];
+    }
+    function escapeHtml(value) {
+      return String(value || '').replaceAll('&', '&amp;').replaceAll('<', '&lt;').replaceAll('>', '&gt;').replaceAll('"', '&quot;').replaceAll("'", '&#39;');
+    }
+    function getModuleByTitle(title) { return MODULES.find(m => m.title === title); }
+    function getSelectedModule() { return MODULES.find(m => m.id === state.selectedModuleId) || MODULES[0]; }
+    function getCanonicalTaskTitle(task) {
+      return String(task).replace(/\s*[^)]*/g, '').replace('Optional progression set / extra hold', 'Horse Stance').replace('Recovery walk / quiet mobility', 'Body Activation').replace('Recovery walk', 'Body Activation').replace('Light mobility', 'Wall Stretch & Line Opening').trim();
+    }
+    function taskKey(weekIndex, dayIndex, taskTitle) { return `${weekIndex}:${dayIndex}:${getCanonicalTaskTitle(taskTitle)}`; }
+    function getTodayWeek() { return WEEKS[state.selectedWeekIndex]; }
+    function getTodayDayTasks() { return getTodayWeek().days[state.selectedDayIndex]; }
+    function isTaskComplete(weekIndex, dayIndex, taskTitle) { return !!state.checks[taskKey(weekIndex, dayIndex, taskTitle)]; }
+    function isDayComplete(weekIndex, dayIndex) { return (WEEKS[weekIndex]?.days?.[dayIndex] || []).every(task => isTaskComplete(weekIndex, dayIndex, task)); }
+    function isWeekComplete(weekIndex) { return !!WEEKS[weekIndex] && WEEKS[weekIndex].days.every((_, dayIndex) => isDayComplete(weekIndex, dayIndex)); }
+    function getCompletedWeeksCount() { let c = 0; for (let i = 0; i < WEEKS.length; i++) if (isWeekComplete(i)) c++; return c; }
+    function findFirstIncompletePosition() {
+      for (let weekIndex = 0; weekIndex < WEEKS.length; weekIndex++) {
+        for (let dayIndex = 0; dayIndex < WEEKS[weekIndex].days.length; dayIndex++) {
+          if (!isDayComplete(weekIndex, dayIndex)) return { weekIndex, dayIndex };
+        }
+      }
+      return { weekIndex: 0, dayIndex: 0 };
+    }
+    function jumpToCurrentDay() {
+      const pos = findFirstIncompletePosition();
+      state.selectedWeekIndex = pos.weekIndex;
+      state.selectedDayIndex = pos.dayIndex;
+      state.selectedTab = 'today';
+      saveState();
+      renderAll();
+    }
+    function getReadinessDecision() {
+      const r = sanitizeReadiness(state.readiness);
+      const flagged = new Set(r.bodyParts || []);
+      let mode = 'standard';
+      const reasons = [];
+      const adjustments = [];
+      if (r.energy <= 2 || r.sleep <= 2 || r.soreness >= 9) {
+        mode = 'recovery'; reasons.push('very low readiness or very high soreness'); adjustments.push('Reduce overall volume heavily.'); adjustments.push('Shift emphasis to breath, qigong, and gentle mobility.');
+      } else if (r.stress >= 9 && r.energy <= 4) {
+        mode = 'internal'; reasons.push('high stress paired with low energy'); adjustments.push('Swap harder work for calmer internal practice.'); adjustments.push('Use slower qigong, breathing, and easier mobility.');
+      } else if (r.energy >= 8 && r.sleep >= 7 && r.soreness <= 4 && r.stiffness <= 4 && r.motivation >= 7) {
+        mode = 'progress'; reasons.push('recovery and motivation look strong'); adjustments.push('Add one small progression: longer hold, more reps, or one extra set.');
+      } else {
+        reasons.push('normal readiness range');
+      }
+      if (r.stiffness >= 7) adjustments.push('Extend warm-up and mobility block before main work.');
+      if (flagged.has('hips') || flagged.has('glutes') || flagged.has('hamstrings') || flagged.has('ankles')) adjustments.push('Reduce stance depth slightly and add lower-body opening work.');
+      if (flagged.has('knees')) adjustments.push('Keep stance and squat work shallower and focus on alignment over loading.');
+      if (flagged.has('lower back')) adjustments.push('Reduce static strain and keep trunk work clean and conservative.');
+      if (flagged.has('chest') || flagged.has('shoulders')) adjustments.push('Reduce pushing volume and prioritise cleaner tempo and posture.');
+      if (flagged.has('upper back')) adjustments.push('Reduce pulling fatigue and keep posture work smoother, not harder.');
+      if (flagged.has('quads') || flagged.has('calves')) adjustments.push('Lower intensity for long stance holds and hard leg volume today.');
+      if (!adjustments.length) adjustments.push('Run the base plan as written today.');
+      return { mode, modeLabel: { standard: 'Standard', recovery: 'Recovery', internal: 'Internal / Calm', progress: 'Progress' }[mode], reasons, adjustments };
+    }
+    function getAdjustedTasks(baseTasks) {
+      const decision = getReadinessDecision();
+      const flagged = new Set(state.readiness.bodyParts || []);
+      let tasks = [...baseTasks];
+      const notes = [];
+      if (decision.mode === 'recovery') return { tasks: ['Body Activation (gentle)', 'Breathing Foundation (extended)', 'Ba Duan Jin (easy pace)', 'Wall Stretch & Line Opening (light)'], notes: ['Recovery mode replaced harder work today.'] };
+      if (decision.mode === 'internal') return { tasks: ['Body Activation', 'Breathing Foundation (extended)', 'Ba Duan Jin', 'Recovery walk / quiet mobility'], notes: ['Internal mode reduced intensity due to stress and low energy.'] };
+      if (flagged.has('hips') || flagged.has('knees') || flagged.has('ankles') || flagged.has('lower back')) {
+        tasks = tasks.map(task => task === 'Horse Stance' ? 'Horse Stance (reduced depth)' : task === 'Bow Stance' ? 'Bow Stance (alignment focus)' : task === 'Shaolin Leg Strength' ? 'Shaolin Leg Strength (lighter control)' : task === 'Shaolin Hip Power' ? 'Shaolin Hip Power (technique focus)' : task);
+        if (!tasks.includes('Wall Stretch & Line Opening')) tasks.push('Wall Stretch & Line Opening');
+        notes.push('Lower-body flags modified stance and leg intensity.');
+      }
+      if (flagged.has('chest') || flagged.has('shoulders')) { tasks = tasks.map(task => task === 'Shaolin Push Strength' ? 'Shaolin Push Strength (reduced volume)' : task); notes.push('Upper-body push work was reduced due to flagged chest or shoulders.'); }
+      if (flagged.has('upper back')) { tasks = tasks.map(task => task === 'Shaolin Pull Strength' ? 'Shaolin Pull Strength (reduced volume)' : task); notes.push('Upper-back pull work was reduced due to soreness flags.'); }
+      if (decision.mode === 'progress') { tasks.push('Optional progression set / extra hold'); notes.push('Progress mode added a small overload option.'); }
+      return { tasks, notes };
+    }
+    function getSweatFlags() {
+      const s = sanitizeSweat(state.sweat);
+      const flags = [];
+      if (s.restSweat && s.notHot) flags.push('You logged sweating at rest while not feeling hot.');
+      if (s.severity >= 7) flags.push('Sweat severity is currently high.');
+      if (s.nightSweats) flags.push('Night sweats were flagged.');
+      if (s.palpitations) flags.push('Palpitations or dizziness were flagged with sweating.');
+      if (s.restSweat && s.severity >= 5) flags.push('Rest sweating with moderate-to-high severity is worth tracking closely.');
+      return flags;
+    }
+    function getSweatSummaryText() {
+      const s = sanitizeSweat(state.sweat);
+      if (s.severity === 0 && !s.restSweat && !s.notHot && !s.nightSweats && !s.palpitations) return 'No major sweat issue logged today.';
+      const parts = [`Severity ${s.severity}/10`];
+      if (s.restSweat) parts.push('at rest');
+      if (s.notHot) parts.push('not hot');
+      if (s.stressLoad >= 5) parts.push('stress elevated');
+      if (s.caffeineLoad >= 5) parts.push('caffeine elevated');
+      return parts.join(' • ');
+    }
+    function renderTabs() {
+      document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.toggle('active', btn.dataset.tab === state.selectedTab));
+      document.querySelectorAll('section[id^="tab-"]').forEach(section => section.classList.add('hidden'));
+      const el = document.getElementById(`tab-${state.selectedTab}`);
+      if (el) el.classList.remove('hidden');
+    }
+    function selectTab(tab) { state.selectedTab = tab; saveState(); renderTabs(); }
+    function renderHome() {
+      const completedWeeks = getCompletedWeeksCount();
+      const decision = getReadinessDecision();
+      const adjusted = getAdjustedTasks(getTodayDayTasks());
+      const currentPos = findFirstIncompletePosition();
+      const sweatFlags = getSweatFlags();
+      document.getElementById('heroTrack').textContent = `Level ${Math.min(5, 1 + Math.floor(completedWeeks / 8))}`;
+      document.getElementById('homeCurrentLevel').textContent = document.getElementById('heroTrack').textContent;
+      document.getElementById('heroCompletedWeeks').textContent = `${completedWeeks}/52`;
+      document.getElementById('heroYearProgress').textContent = `${Math.round((completedWeeks / 52) * 100)}%`;
+      document.getElementById('heroMode').textContent = decision.modeLabel;
+      document.getElementById('nextUnlockText').textContent = completedWeeks < 8 ? 'Integration & power at week 9' : 'Conditioning branch later';
+      document.getElementById('mindScoreText').textContent = state.scores.mind;
+      document.getElementById('bodyScoreText').textContent = state.scores.body;
+      document.getElementById('disciplineScoreText').textContent = state.scores.discipline;
+      document.getElementById('quickStartList').innerHTML = QUICK_START.map(item => `<div class="list-item">${escapeHtml(item)}</div>`).join('');
+      document.getElementById('homeTodayList').innerHTML = [
+        `<div class="list-item"><strong>Current training point</strong><div class="muted">Week ${currentPos.weekIndex + 1} • Day ${currentPos.dayIndex + 1}</div></div>`,
+        `<div class="list-item"><strong>${escapeHtml(getTodayWeek().title)} • Day ${state.selectedDayIndex + 1}</strong><div class="muted">${escapeHtml(getTodayWeek().phase)} phase • ${escapeHtml(decision.modeLabel)}</div></div>`,
+        ...adjusted.tasks.map(task => `<div class="list-item">${escapeHtml(task)}</div>`)
+      ].join('');
+      document.getElementById('homeSweatSummary').innerHTML = [
+        `<div class="list-item"><strong>Today</strong><div class="muted">${escapeHtml(getSweatSummaryText())}</div></div>`,
+        `<div class="list-item"><strong>Flags</strong><div class="muted">${escapeHtml(sweatFlags.length ? sweatFlags.join(' | ') : 'No major flags logged today.')}</div></div>`
+      ].join('');
+    }
+    function renderToday() {
+      const week = getTodayWeek();
+      const adjusted = getAdjustedTasks(getTodayDayTasks());
+      const decision = getReadinessDecision();
+      document.getElementById('todaySubtitle').textContent = `${week.title} • Day ${state.selectedDayIndex + 1}`;
+      document.getElementById('todayPhaseBadge').textContent = week.phase;
+      document.getElementById('weekObjective').textContent = week.objective;
+      document.getElementById('sessionModeText').textContent = decision.modeLabel;
+      document.getElementById('sessionModeReason').textContent = `Reason: ${decision.reasons.join(', ')}.`;
+      document.getElementById('readinessDateText').textContent = `Readiness date: ${state.readiness.lastUpdatedDate || todayKey()}`;
+      document.getElementById('adjustmentList').innerHTML = [...decision.adjustments, ...adjusted.notes].map(item => `<div class="list-item">${escapeHtml(item)}</div>`).join('');
+      document.getElementById('weekFocusList').innerHTML = week.focus.map(item => `<div class="note">${escapeHtml(item)}</div>`).join('');
+      document.getElementById('missionList').innerHTML = adjusted.tasks.map(task => {
+        const cleanTitle = getCanonicalTaskTitle(task);
+        const key = taskKey(state.selectedWeekIndex, state.selectedDayIndex, cleanTitle);
+        const checked = !!state.checks[key];
+        const module = getModuleByTitle(cleanTitle);
+        return `<label class="check-row ${checked ? 'done' : ''} adjusted-task"><input type="checkbox" ${checked ? 'checked' : ''} data-task-key="${escapeHtml(key)}" class="task-checkbox" /><div><strong>${escapeHtml(task)}</strong><div class="muted">${escapeHtml(module?.quickHelp || 'Support task')}</div></div><button type="button" class="btn open-module-btn" data-module-title="${escapeHtml(cleanTitle)}">Open</button></label>`;
+      }).join('');
+      document.getElementById('todayQuickHelp').innerHTML = adjusted.tasks.map(task => {
+        const cleanTitle = getCanonicalTaskTitle(task);
+        const mod = getModuleByTitle(cleanTitle);
+        return `<div class="list-item"><strong>${escapeHtml(task)}</strong><div class="muted">${escapeHtml(mod?.quickHelp || 'General support task')}</div></div>`;
+      }).join('');
+      document.getElementById('walkPromptList').innerHTML = WALK_PROMPTS.map(p => `<div class="list-item">${escapeHtml(p)}</div>`).join('');
+      document.getElementById('scoreSliders').innerHTML = ['mind', 'body', 'discipline'].map(key => `<div class="slider-row"><label for="score-${key}"><strong>${key[0].toUpperCase() + key.slice(1)}</strong> <span class="muted">(${state.scores[key]})</span></label><input id="score-${key}" type="range" min="0" max="10" value="${state.scores[key]}" data-score-key="${key}" class="score-slider" /></div>`).join('');
+      document.getElementById('readinessSliders').innerHTML = READINESS_FIELDS.map(field => `<div class="slider-row"><label for="readiness-${field.key}"><strong>${field.label}</strong> <span class="muted">(${state.readiness[field.key]})</span></label><input id="readiness-${field.key}" type="range" min="${field.min}" max="${field.max}" value="${state.readiness[field.key]}" data-readiness-key="${field.key}" class="readiness-slider" /></div>`).join('');
+      document.getElementById('bodyPartGrid').innerHTML = BODY_PARTS.map(part => `<button type="button" class="chip-btn body-part-btn ${(state.readiness.bodyParts || []).includes(part) ? 'active' : ''}" data-body-part="${part}">${part}</button>`).join('');
+      document.getElementById('readinessNotes').value = state.readiness.notes || '';
+    }
+    function renderSweat() {
+      const sweat = sanitizeSweat(state.sweat);
+      const flags = getSweatFlags();
+      document.getElementById('sweatDateText').textContent = `Sweat tracking date: ${sweat.lastUpdatedDate || todayKey()}`;
+      document.getElementById('sweatSliders').innerHTML = SWEAT_FIELDS.map(field => `<div class="slider-row"><label for="sweat-${field.key}"><strong>${field.label}</strong> <span class="muted">(${sweat[field.key]})</span></label><input id="sweat-${field.key}" type="range" min="${field.min}" max="${field.max}" value="${sweat[field.key]}" data-sweat-key="${field.key}" class="sweat-slider" /></div>`).join('');
+      document.getElementById('restSweatBtn').classList.toggle('active', sweat.restSweat);
+      document.getElementById('notHotBtn').classList.toggle('active', sweat.notHot);
+      document.getElementById('nightSweatsBtn').classList.toggle('active', sweat.nightSweats);
+      document.getElementById('palpitationsBtn').classList.toggle('active', sweat.palpitations);
+      document.getElementById('sweatNotes').value = sweat.notes || '';
+      document.getElementById('sweatPromptList').innerHTML = SWEAT_CALM_DRILL.map(item => `<div class="list-item">${escapeHtml(item)}</div>`).join('');
+      document.getElementById('sweatDeskResetList').innerHTML = SWEAT_DESK_RESET.map(item => `<div class="list-item">${escapeHtml(item)}</div>`).join('');
+      document.getElementById('sweatFlagsBanner').innerHTML = flags.length ? `<div class="flag-banner"><strong>Consider proper review if this pattern keeps happening.</strong><div class="muted" style="margin-top:6px;">This section is a prompt to track and escalate, not a diagnosis.</div></div>` : `<div class="sweat-banner"><strong>No major flags triggered right now.</strong><div class="muted" style="margin-top:6px;">Keep logging honestly so patterns become obvious.</div></div>`;
+      document.getElementById('sweatFlagList').innerHTML = (flags.length ? flags : ['No major warning pattern logged today.']).map(item => `<div class="list-item">${escapeHtml(item)}</div>`).join('');
+      document.getElementById('sweatLogList').innerHTML = sweat.logs.length ? sweat.logs.map(log => `<div class="list-item"><strong>${escapeHtml(log.savedAt || '')}</strong><div class="muted">Severity ${escapeHtml(log.severity)}/10 • Stress ${escapeHtml(log.stressLoad)}/10 • Caffeine ${escapeHtml(log.caffeineLoad)}/10 • Heat ${escapeHtml(log.heatFeeling)}/10</div><div class="muted">${escapeHtml([log.restSweat ? 'at rest' : '', log.notHot ? 'not hot' : '', log.nightSweats ? 'night sweats' : '', log.palpitations ? 'palpitations/dizziness' : ''].filter(Boolean).join(' • ') || 'no extra flags')}</div><div class="muted" style="margin-top:6px;">${escapeHtml(log.notes || '')}</div></div>`).join('') : `<div class="list-item">No saved sweat logs yet.</div>`;
+    }
+    function renderPath() {
+      document.getElementById('pathGrid').innerHTML = PATHS.map(path => `<button type="button" class="path-item ${path.id === state.selectedPathId ? 'active' : ''}" data-path-id="${path.id}"><strong>${escapeHtml(path.title)}</strong><div class="muted">${escapeHtml(path.subtitle)}</div></button>`).join('');
+      const path = PATHS.find(p => p.id === state.selectedPathId) || PATHS[0];
+      document.getElementById('pathTitle').textContent = path.title;
+      document.getElementById('pathSubtitle').textContent = path.subtitle;
+      document.getElementById('pathStatus').textContent = path.status;
+      document.getElementById('pathSummary').textContent = path.summary;
+      document.getElementById('pathModules').innerHTML = path.modules.map(m => `<div class="list-item">${escapeHtml(m)}</div>`).join('');
+      document.getElementById('pathUnlockRule').textContent = path.unlockRule;
+    }
+    function renderYear() {
+      document.getElementById('weekList').innerHTML = WEEKS.map((week, i) => `<button type="button" class="week-item ${i === state.selectedWeekIndex ? 'active' : ''}" data-week-index="${i}"><strong>${escapeHtml(week.title)}</strong><div class="muted">${escapeHtml(week.phase)}</div></button>`).join('');
+      const week = getTodayWeek();
+      document.getElementById('yearWeekTitle').textContent = week.title;
+      document.getElementById('yearWeekPhase').textContent = week.phase;
+      document.getElementById('yearWeekStatus').textContent = isWeekComplete(state.selectedWeekIndex) ? 'Complete' : `Day ${state.selectedDayIndex + 1}`;
+      document.getElementById('yearWeekObjective').textContent = week.objective;
+      document.getElementById('dayCards').innerHTML = week.days.map((day, i) => `<button type="button" class="list-item ${i === state.selectedDayIndex ? 'active' : ''}" data-day-index="${i}"><strong>Day ${i + 1}${isDayComplete(state.selectedWeekIndex, i) ? ' • Complete' : ''}</strong><div class="muted">${escapeHtml(day.join(' • '))}</div></button>`).join('');
+    }
+    function renderModuleList() {
+      document.getElementById('moduleList').innerHTML = MODULES.map(mod => `<button type="button" class="module-item ${mod.id === state.selectedModuleId ? 'active' : ''}" data-module-id="${mod.id}"><strong>${escapeHtml(mod.title)}</strong><div class="muted">${escapeHtml(mod.area)}</div></button>`).join('');
+    }
+    function renderModuleMedia(moduleId) {
+      const media = ensureModuleMedia(moduleId);
+      const imageBox = document.getElementById('moduleImages');
+      const videoBox = document.getElementById('moduleVideoList');
+      const linkBox = document.getElementById('moduleLinkList');
+      imageBox.innerHTML = media.images.length ? media.images.map((url, index) => `<div class="media-thumb"><img src="${escapeHtml(url)}" alt="Reference image ${index + 1}" loading="lazy" /><div class="caption">Image ${index + 1}<div class="media-actions" style="margin-top:8px;"><a class="btn" href="${escapeHtml(url)}" target="_blank" rel="noopener noreferrer">Open</a><button type="button" class="media-remove-btn remove-media-btn" data-media-type="images" data-media-index="${index}">Remove</button></div></div></div>`).join('') : `<div class="media-empty">No image references added yet.</div>`;
+      videoBox.innerHTML = media.videos.length ? media.videos.map((url, index) => `<div class="video-card"><div><strong>Video ${index + 1}</strong></div><div class="muted">${escapeHtml(url)}</div><div class="media-actions"><a class="btn" href="${escapeHtml(url)}" target="_blank" rel="noopener noreferrer">Open Video</a><button type="button" class="media-remove-btn remove-media-btn" data-media-type="videos" data-media-index="${index}">Remove</button></div></div>`).join('') : `<div class="media-empty">No video references added yet.</div>`;
+      linkBox.innerHTML = media.links.length ? media.links.map((url, index) => `<div class="link-card"><div><strong>Link ${index + 1}</strong></div><div class="muted">${escapeHtml(url)}</div><div class="media-actions"><a class="btn" href="${escapeHtml(url)}" target="_blank" rel="noopener noreferrer">Open Link</a><button type="button" class="media-remove-btn remove-media-btn" data-media-type="links" data-media-index="${index}">Remove</button></div></div>`).join('') : `<div class="media-empty">No helpful links added yet.</div>`;
+    }
+    function renderModuleDetail() {
+      const module = getSelectedModule();
+      document.getElementById('moduleTitle').textContent = module.title || '';
+      document.getElementById('moduleArea').textContent = module.area || '';
+      document.getElementById('moduleLevelBadge').textContent = module.levelLabel || 'Level 1';
+      document.getElementById('moduleMission').textContent = module.mission || '';
+      document.getElementById('moduleLooks').textContent = module.looks || '';
+      document.getElementById('moduleFeels').textContent = module.feels || '';
+      document.getElementById('moduleUnlock').textContent = module.unlock || '';
+      document.getElementById('moduleSetup').textContent = module.setup || '';
+      document.getElementById('moduleCues').textContent = module.cues || '';
+      document.getElementById('moduleSteps').textContent = module.steps || '';
+      document.getElementById('moduleCoaching').textContent = module.coaching || '';
+      document.getElementById('moduleMistakes').textContent = module.mistakes || '';
+      document.getElementById('moduleStandards').textContent = module.standards || '';
+      renderModuleMedia(module.id);
+    }
+    function renderProgress() {
+      document.getElementById('progressGrid').innerHTML = PROGRESS_TARGETS.map(item => `<div class="mini-card"><div class="eyebrow">${escapeHtml(item.title)}</div><div style="font-weight:700;margin-top:6px;">${escapeHtml(item.current)}</div></div>`).join('');
+      document.getElementById('focusPromptList').innerHTML = FOCUS_PROMPTS.map(item => `<div class="list-item">${escapeHtml(item)}</div>`).join('');
+      document.getElementById('howToList').innerHTML = HOW_TO.map(item => `<div class="list-item">${escapeHtml(item)}</div>`).join('');
+    }
+    function renderJournal() {
+      document.getElementById('journalBox').value = state.journal || '';
+      document.getElementById('evidenceBox').value = state.evidence || '';
+    }
+    function renderAll() {
+      renderTabs(); renderHome(); renderToday(); renderSweat(); renderPath(); renderYear(); renderModuleList(); renderModuleDetail(); renderProgress(); renderJournal();
+    }
+    function toggleTask(key) { state.checks[key] = !state.checks[key]; saveState(); renderAll(); }
+    function setScore(key, value) { state.scores[key] = clampNumber(value, 0, 10, 0); saveState(); renderHome(); renderToday(); }
+    function setReadiness(key, value) {
+      const field = READINESS_FIELDS.find(f => f.key === key); if (!field) return;
+      state.readiness[key] = clampNumber(value, field.min, field.max, field.defaultValue); state.readiness.lastUpdatedDate = todayKey(); saveState(); renderHome(); renderToday();
+    }
+    function toggleBodyPart(part) {
+      const parts = new Set(state.readiness.bodyParts || []); if (parts.has(part)) parts.delete(part); else parts.add(part);
+      state.readiness.bodyParts = Array.from(parts); state.readiness.lastUpdatedDate = todayKey(); saveState(); renderHome(); renderToday();
+    }
+    function setSweatField(key, value) {
+      const field = SWEAT_FIELDS.find(f => f.key === key); if (!field) return;
+      state.sweat[key] = clampNumber(value, field.min, field.max, field.defaultValue); state.sweat.lastUpdatedDate = todayKey(); saveState(); renderHome(); renderSweat();
+    }
+    function toggleSweatFlag(key) {
+      if (!['restSweat','notHot','nightSweats','palpitations'].includes(key)) return;
+      state.sweat[key] = !state.sweat[key]; state.sweat.lastUpdatedDate = todayKey(); saveState(); renderHome(); renderSweat();
+    }
+    function saveSweatLog() {
+      const s = sanitizeSweat(state.sweat);
+      state.sweat.logs.unshift({ savedAt: nowStamp(), severity: s.severity, stressLoad: s.stressLoad, caffeineLoad: s.caffeineLoad, heatFeeling: s.heatFeeling, restSweat: s.restSweat, notHot: s.notHot, nightSweats: s.nightSweats, palpitations: s.palpitations, notes: s.notes });
+      state.sweat.logs = state.sweat.logs.slice(0, 20); saveState(); renderHome(); renderSweat(); alert('Sweat log saved.');
+    }
+    function clearSweatToday() {
+      const existingLogs = Array.isArray(state.sweat.logs) ? state.sweat.logs : [];
+      state.sweat = sanitizeSweat({ severity: 0, stressLoad: 0, caffeineLoad: 0, heatFeeling: 0, restSweat: false, notHot: false, nightSweats: false, palpitations: false, notes: '', lastUpdatedDate: todayKey(), logs: existingLogs });
+      saveState(); renderHome(); renderSweat();
+    }
+    function selectPath(id) { state.selectedPathId = id; saveState(); renderPath(); }
+    function selectWeek(index) { state.selectedWeekIndex = clampNumber(index, 0, WEEKS.length - 1, 0); saveState(); renderHome(); renderToday(); renderYear(); }
+    function selectDay(index) { state.selectedDayIndex = clampNumber(index, 0, 6, 0); saveState(); renderHome(); renderToday(); renderYear(); }
+    function selectModule(id) { state.selectedModuleId = id; saveState(); renderModuleList(); renderModuleDetail(); }
+    function jumpToModuleByTitle(title) { const mod = getModuleByTitle(title); if (!mod) return; state.selectedModuleId = mod.id; state.selectedTab = 'library'; saveState(); renderAll(); }
+    function addMediaItem(type, url) {
+      const cleanUrl = String(url || '').trim(); if (!cleanUrl) return;
+      const store = getMediaStore(); const modId = state.selectedModuleId;
+      if (!store[modId]) store[modId] = { images: [], videos: [], links: [] };
+      if (!Array.isArray(store[modId][type])) store[modId][type] = [];
+      if (!store[modId][type].includes(cleanUrl)) store[modId][type].push(cleanUrl);
+      setMediaStore(store); clearMediaInputs(); renderModuleMedia(modId);
+    }
+    function removeMediaItem(type, index) {
+      const store = getMediaStore(); const modId = state.selectedModuleId;
+      if (!store[modId] || !Array.isArray(store[modId][type])) return;
+      store[modId][type].splice(index, 1); setMediaStore(store); renderModuleMedia(modId);
+    }
+    function clearMediaInputs() { ['mediaImageInput','mediaVideoInput','mediaLinkInput'].forEach(id => { const el = document.getElementById(id); if (el) el.value = ''; }); }
+    function exportData() {
+      const payload = { state: sanitizeState(state), mediaStore: getMediaStore(), exportedAt: new Date().toISOString() };
+      const blob = new Blob([JSON.stringify(payload, null, 2)], { type: 'application/json' });
+      const url = URL.createObjectURL(blob); const a = document.createElement('a');
+      a.href = url; a.download = 'shaolin-path-v3-export.json'; a.click(); URL.revokeObjectURL(url);
+    }
+    function importData(file) {
+      const reader = new FileReader();
+      reader.onload = () => {
+        try {
+          const data = JSON.parse(reader.result);
+          if (data.state) applyState(data.state); else applyState(DEFAULT_STATE);
+          if (data.mediaStore && typeof data.mediaStore === 'object') setMediaStore(data.mediaStore);
+          maybeResetReadinessForNewDay(); maybeResetSweatForNewDay(); saveState(); renderAll(); alert('Import complete.');
+        } catch {
+          alert('Import failed. Use a valid export JSON file.');
+        }
+      };
+      reader.readAsText(file);
+    }
+    function resetAll() {
+      if (!confirm('Reset app state and media for this browser?')) return;
+      localStorage.removeItem(STORAGE_KEY); localStorage.removeItem(MEDIA_KEY); localStorage.removeItem('shaolinPathV2State'); localStorage.removeItem('shaolinMediaStore'); location.reload();
+    }
+
+    function bindStaticEvents() {
+      document.querySelectorAll('.tab-btn').forEach(btn => btn.addEventListener('click', () => selectTab(btn.dataset.tab)));
+      document.getElementById('prevDayBtn').addEventListener('click', () => selectDay(Math.max(0, state.selectedDayIndex - 1)));
+      document.getElementById('nextDayBtn').addEventListener('click', () => selectDay(Math.min(6, state.selectedDayIndex + 1)));
+      document.getElementById('weekCompleteBtn').addEventListener('click', () => alert(isWeekComplete(state.selectedWeekIndex) ? 'This week is complete.' : 'This week is not complete yet.'));
+      document.getElementById('goCurrentBtn').addEventListener('click', jumpToCurrentDay);
+      document.getElementById('addImageBtn').addEventListener('click', () => addMediaItem('images', document.getElementById('mediaImageInput').value));
+      document.getElementById('addVideoBtn').addEventListener('click', () => addMediaItem('videos', document.getElementById('mediaVideoInput').value));
+      document.getElementById('addLinkBtn').addEventListener('click', () => addMediaItem('links', document.getElementById('mediaLinkInput').value));
+      document.getElementById('journalBox').addEventListener('input', e => { state.journal = e.target.value; saveState(); });
+      document.getElementById('evidenceBox').addEventListener('input', e => { state.evidence = e.target.value; saveState(); });
+      document.getElementById('readinessNotes').addEventListener('input', e => { state.readiness.notes = e.target.value; state.readiness.lastUpdatedDate = todayKey(); saveState(); renderHome(); });
+      document.getElementById('sweatNotes').addEventListener('input', e => { state.sweat.notes = e.target.value; state.sweat.lastUpdatedDate = todayKey(); saveState(); renderHome(); });
+      document.getElementById('saveSweatLogBtn').addEventListener('click', saveSweatLog);
+      document.getElementById('clearSweatTodayBtn').addEventListener('click', clearSweatToday);
+      document.getElementById('restSweatBtn').addEventListener('click', () => toggleSweatFlag('restSweat'));
+      document.getElementById('notHotBtn').addEventListener('click', () => toggleSweatFlag('notHot'));
+      document.getElementById('nightSweatsBtn').addEventListener('click', () => toggleSweatFlag('nightSweats'));
+      document.getElementById('palpitationsBtn').addEventListener('click', () => toggleSweatFlag('palpitations'));
+      document.getElementById('exportBtn').addEventListener('click', exportData);
+      document.getElementById('importBtn').addEventListener('click', () => document.getElementById('importFile').click());
+      document.getElementById('importFile').addEventListener('change', e => { const file = e.target.files?.[0]; if (file) importData(file); e.target.value = ''; });
+      document.getElementById('resetBtn').addEventListener('click', resetAll);
+
+      document.addEventListener('click', e => {
+        const moduleOpen = e.target.closest('.open-module-btn');
+        if (moduleOpen) { jumpToModuleByTitle(moduleOpen.dataset.moduleTitle); return; }
+        const pathBtn = e.target.closest('[data-path-id]');
+        if (pathBtn) { selectPath(pathBtn.dataset.pathId); return; }
+        const weekBtn = e.target.closest('[data-week-index]');
+        if (weekBtn) { selectWeek(Number(weekBtn.dataset.weekIndex)); return; }
+        const dayBtn = e.target.closest('[data-day-index]');
+        if (dayBtn) { selectDay(Number(dayBtn.dataset.dayIndex)); return; }
+        const moduleBtn = e.target.closest('[data-module-id]');
+        if (moduleBtn) { selectModule(moduleBtn.dataset.moduleId); return; }
+        const bodyPartBtn = e.target.closest('.body-part-btn');
+        if (bodyPartBtn) { toggleBodyPart(bodyPartBtn.dataset.bodyPart); return; }
+        const removeBtn = e.target.closest('.remove-media-btn');
+        if (removeBtn) { removeMediaItem(removeBtn.dataset.mediaType, Number(removeBtn.dataset.mediaIndex)); }
+      });
+
+      document.addEventListener('input', e => {
+        if (e.target.classList.contains('score-slider')) { setScore(e.target.dataset.scoreKey, e.target.value); return; }
+        if (e.target.classList.contains('readiness-slider')) { setReadiness(e.target.dataset.readinessKey, e.target.value); return; }
+        if (e.target.classList.contains('sweat-slider')) { setSweatField(e.target.dataset.sweatKey, e.target.value); return; }
+      });
+
+      document.addEventListener('change', e => {
+        if (e.target.classList.contains('task-checkbox')) toggleTask(e.target.dataset.taskKey);
+      });
+    }
+
+    function initApp() {
+      loadState();
+      maybeResetReadinessForNewDay();
+      maybeResetSweatForNewDay();
+      const firstIncomplete = findFirstIncompletePosition();
+      if (!isWeekComplete(state.selectedWeekIndex) && isDayComplete(state.selectedWeekIndex, state.selectedDayIndex)) {
+        state.selectedWeekIndex = firstIncomplete.weekIndex;
+        state.selectedDayIndex = firstIncomplete.dayIndex;
+        saveState();
+      }
+      bindStaticEvents();
+      renderAll();
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initApp, { once: true });
+    } else {
+      initApp();
+    }
+  </script></body>
+</html>
